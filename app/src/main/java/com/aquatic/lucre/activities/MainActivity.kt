@@ -18,11 +18,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             val placemarkTitle = placemarkTitle.text.toString()
             if (placemarkTitle.isNotEmpty()) {
                 info("add Button Pressed: $placemarkTitle")
-            }
-            else {
-                toast ("Please Enter a title")
+            } else {
+                toast("Please Enter a title")
             }
         }
-
     }
 }

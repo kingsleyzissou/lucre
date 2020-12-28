@@ -1,4 +1,4 @@
-package org.wit.lucre.repositories
+package com.aquatic.lucre.repositories
 
 /**
  * CRUDStore interface for

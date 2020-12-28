@@ -1,10 +1,8 @@
-package org.wit.lucre.repositories
+package com.aqautic.lucre.repositories
 
-import javafx.scene.paint.Color
-import org.wit.lucre.models.Category
-import org.wit.lucre.utilities.read
-import tornadofx.jsonArray
-import tornadofx.toModel
+import com.aquatic.lucre.models.Category
+import com.aquatic.lucre.repositories.CRUDStore
+import com.aquatic.lucre.utilities.read
 import javax.json.JsonObject
 
 /**
@@ -24,7 +22,7 @@ class CategoryStore(file: String = "categories.json") : CRUDStore<Category>(file
         return Category(
             "Uncategorized",
             "No category",
-            Color.web("#EEEEEE")
+            "#FFFFFF"
         )
     }
 
@@ -37,8 +35,12 @@ class CategoryStore(file: String = "categories.json") : CRUDStore<Category>(file
         // get the file contents
         val contents: JsonObject = read(filename)!!
         // convert the file contents to a model using `TornadoFX.toModel` helper
-        val arr = contents.jsonArray("list")?.toModel<Category>()
+        val arr = contents.getJsonArray("list")
         // push the item to the CRUDStore list
-        arr?.forEach { list[it.id] = it }
+        arr?.forEach {
+            var model = Category()
+            model.updateModel(it as JsonObject)
+            list[model.id] = model
+        }
     }
 }

@@ -1,9 +1,7 @@
-package org.wit.lucre.repositories
+package com.aquatic.lucre.repositories
 
-import org.wit.lucre.models.Vault
-import org.wit.lucre.utilities.read
-import tornadofx.jsonArray
-import tornadofx.toModel
+import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.utilities.read
 import javax.json.JsonObject
 
 /**
@@ -22,8 +20,12 @@ class VaultStore(file: String = "vaults.json") : CRUDStore<Vault>(file) {
         // get the file contents
         val contents: JsonObject = read(filename)!!
         // convert the file contents to a model using `TornadoFX.toModel` helper
-        val arr = contents.jsonArray("list")?.toModel<Vault>()
+        val arr = contents.getJsonArray("list")
         // push the item to the CRUDStore list
-        arr?.forEach { list[it.id] = it }
+        arr?.forEach {
+            var model = Vault()
+            model.updateModel(it as JsonObject)
+            list[model.id] = model
+        }
     }
 }

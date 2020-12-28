@@ -1,8 +1,7 @@
-package org.wit.lucre.repositories
+package com.aquatic.lucre.repositories
 
-import org.wit.lucre.models.Model
-import org.wit.lucre.utilities.fileExists
-import org.wit.lucre.utilities.write
+import com.aquatic.lucre.models.Model
+import com.aquatic.lucre.utilities.fileExists
 import javax.json.Json
 
 /**
@@ -85,9 +84,9 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
     fun serialize() {
         var jsonObject = Json.createObjectBuilder()
         var jsonArray = Json.createArrayBuilder()
-        all().map { jsonArray.add(it.toJSON()) }
+//        all().map { jsonArray.add(it.toJSON()) }
         jsonObject.add("list", jsonArray)
-        write(filename, jsonObject.build().toString())
+//        write(filename, jsonObject.build().toString())
     }
 
     /**

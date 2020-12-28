@@ -1,12 +1,9 @@
-package org.wit.lucre.utilities
+package com.aquatic.lucre.utilities
 
-import mu.KotlinLogging
-import java.io.*
+import java.io.* // ktlint-disable no-wildcard-imports
 import java.lang.Exception
 import javax.json.Json
 import javax.json.JsonObject
-
-val logger = KotlinLogging.logger {}
 
 /**
  * Method for writing JSON string
@@ -19,7 +16,7 @@ fun write(filename: String, data: String) {
         outputStreamWriter.write(data)
         outputStreamWriter.close()
     } catch (e: Exception) {
-        logger.error { "Error writing to file: $e" }
+        error { "Error writing to file: $e" }
     }
 }
 
@@ -38,9 +35,9 @@ fun read(filename: String): JsonObject? {
         reader.close()
         return jsonObject
     } catch (e: FileNotFoundException) {
-        logger.error { "Cannot Find file: $e" }
+        error { "Cannot Find file: $e" }
     } catch (e: IOException) {
-        logger.error { "Cannot Read file: $e" }
+        error { "Cannot Read file: $e" }
     }
     return null
 }

@@ -1,7 +1,8 @@
-package com.aquatic.lucre
+package com.aquatic.lucre.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.aquatic.lucre.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info

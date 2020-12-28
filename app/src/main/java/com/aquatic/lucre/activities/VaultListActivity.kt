@@ -13,7 +13,7 @@ import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.activity_vault_list.*
 import kotlinx.android.synthetic.main.card_vault.view.*
 
-class VaultListActivity: AppCompatActivity() {
+class VaultListActivity : AppCompatActivity() {
     lateinit var app: App
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class VaultListActivity: AppCompatActivity() {
     }
 }
 
-class VaultAdapter constructor(private var vaults: List<Vault>): RecyclerView.Adapter<VaultAdapter.MainHolder>() {
+class VaultAdapter constructor(private var vaults: List<Vault>) : RecyclerView.Adapter<VaultAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VaultAdapter.MainHolder {
         return MainHolder(
@@ -46,12 +46,11 @@ class VaultAdapter constructor(private var vaults: List<Vault>): RecyclerView.Ad
 
     override fun getItemCount(): Int = vaults.size
 
-    class MainHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(vault: Vault) {
             itemView.title.text = vault.name
             itemView.description.text = vault.description
         }
     }
-
 }

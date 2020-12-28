@@ -1,14 +1,12 @@
 package com.aquatic.lucre.main
 
 import android.app.Application
-import com.aqautic.lucre.repositories.CategoryStore
 import com.aquatic.lucre.models.Vault
-import com.aquatic.lucre.repositories.EntryStore
 import com.aquatic.lucre.repositories.VaultStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class App: Application(), AnkoLogger {
+class App : Application(), AnkoLogger {
 
     val vaultStore = VaultStore()
 

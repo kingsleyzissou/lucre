@@ -9,7 +9,7 @@ import javax.json.JsonObjectBuilder
  * A vault comprises of a name, description and a
  * currency
  */
-class Vault(
+data class Vault(
     var name: String? = null,
     var description: String? = null,
     var currency: String? = null,

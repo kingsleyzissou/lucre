@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aquatic.lucre.activities.MainActivity">
+    tools:context="com.aquatic.lucre.activities.VaultActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:label="Add Vault"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

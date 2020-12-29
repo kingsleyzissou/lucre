@@ -1,9 +1,7 @@
 package com.aquatic.lucre.activities
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +10,7 @@ import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.activity_vault_list.*
 import kotlinx.android.synthetic.main.card_vault.view.*
+import org.jetbrains.anko.startActivityForResult
 
 class VaultListActivity : AppCompatActivity() {
     lateinit var app: App
@@ -21,9 +20,24 @@ class VaultListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_vault_list)
         app = application as App
 
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = VaultAdapter(app.vaultStore.all())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_vault, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_add -> startActivityForResult<VaultActivity>(0)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

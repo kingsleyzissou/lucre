@@ -30,6 +30,11 @@ class VaultListActivity : AppCompatActivity(), VaultListener {
         recyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        recyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
+    }
+
     override fun onVaultClick(vault: Vault) {
         startActivityForResult(
             intentFor<VaultActivity>().putExtra("vault_edit", vault),

@@ -37,6 +37,14 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
 
+        if (intent.hasExtra("vault_edit")) {
+            vault = intent.extras?.getParcelable<Vault>("vault_edit")!!
+            vaultName.setText(vault.name)
+            vaultDescription.setText(vault.description)
+            val index = options.indexOf(vault.currency)
+            vaultSpinner.setSelection(index)
+        }
+
         // https://www.tutorialkart.com/kotlin-android/android-spinner-kotlin-example/
         vaultSpinner.setOnItemSelectedListener(this)
         val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)

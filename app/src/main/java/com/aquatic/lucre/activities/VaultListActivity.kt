@@ -25,15 +25,16 @@ class VaultListActivity : AppCompatActivity(), VaultListener {
         toolbar.title = title
         setSupportActionBar(toolbar)
 
-        toast("Store size: ${app.vaultStore.list.size}")
-
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
     }
 
-    override fun onVaultClick(Vault: Vault) {
-        startActivityForResult(intentFor<VaultActivity>(), 0)
+    override fun onVaultClick(vault: Vault) {
+        startActivityForResult(
+            intentFor<VaultActivity>().putExtra("vault_edit", vault),
+            0
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

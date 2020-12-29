@@ -2,4 +2,5 @@
     <string name="app_name">Lucre</string>
     <string name="some_button">This is a button.</string>
     <string name="hint">Enter a name</string>
+    <string name="add_vault">Add</string>
 </resources>

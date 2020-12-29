@@ -1,6 +1,8 @@
 package com.aquatic.lucre.models
 
+import android.os.Parcelable
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
+import kotlinx.android.parcel.Parcelize
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
 
@@ -9,12 +11,13 @@ import javax.json.JsonObjectBuilder
  * A vault comprises of a name, description and a
  * currency
  */
-class Vault(
+@Parcelize
+data class Vault(
     var name: String? = null,
     var description: String? = null,
     var currency: String? = null,
     override var id: String = NanoIdUtils.randomNanoId()
-) : Model() {
+) : Model(), Parcelable {
 
     /**
      * JsonModel class for deserializing JSON fields

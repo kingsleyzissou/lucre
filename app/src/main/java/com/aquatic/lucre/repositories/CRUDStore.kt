@@ -2,6 +2,8 @@ package com.aquatic.lucre.repositories
 
 import com.aquatic.lucre.models.Model
 import com.aquatic.lucre.utilities.fileExists
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import javax.json.Json
 
 /**
@@ -9,7 +11,7 @@ import javax.json.Json
  * contains all the shared methods of the
  * various CRUDStores to avoid code duplication
  */
-abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T> {
+abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T>, AnkoLogger {
 
     /**
      * CRUDStore items are stored in a id/value
@@ -17,15 +19,6 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      * by the id
      */
     var list: HashMap<String, T> = HashMap()
-
-    /**
-     * Deserialize JSON file on startup
-     */
-    init {
-        if (fileExists(filename)) {
-            deserialize()
-        }
-    }
 
     /**
      * List all the items for a given model
@@ -46,7 +39,7 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      */
     override fun create(value: T) {
         list[value.id] = value
-        serialize()
+        logAll()
     }
 
     /**
@@ -57,7 +50,6 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
         val model = find(value.id)
         if (model != null) {
             list[value.id] = value
-            serialize()
         }
     }
 
@@ -66,7 +58,6 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      */
     override fun delete(id: String) {
         list.remove(id)
-        serialize()
     }
 
     /**
@@ -76,18 +67,11 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
         values.forEach { v -> this.create(v) }
     }
 
-    /**
-     * Serialize the store item to a JSON
-     * object that will then be written
-     * to a file
-     */
-    fun serialize() {
-        var jsonObject = Json.createObjectBuilder()
-        var jsonArray = Json.createArrayBuilder()
-//        all().map { jsonArray.add(it.toJSON()) }
-        jsonObject.add("list", jsonArray)
-//        write(filename, jsonObject.build().toString())
+
+    fun logAll() {
+        list.forEach{ info("Lucre-vault: $it") }
     }
+
 
     /**
      * Deserialize method to be

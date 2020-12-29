@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_vault.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
-
 class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelectedListener {
 
     var vault = Vault()
@@ -51,7 +50,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
         array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         vaultSpinner!!.setAdapter(array_adapter)
 
-        btnAdd.setOnClickListener{ submit() }
+        btnAdd.setOnClickListener { submit() }
     }
 
     private fun validate(): Boolean {
@@ -91,6 +90,4 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
     override fun onNothingSelected(arg0: AdapterView<*>) {
         TODO("Not implemented yet")
     }
-
 }
-

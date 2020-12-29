@@ -36,7 +36,7 @@ class VaultAdapter constructor(
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(vault: Vault, listener: VaultListener ) {
+        fun bind(vault: Vault, listener: VaultListener) {
             itemView.title.text = vault.name
             itemView.description.text = vault.description
 //            itemView.currency.text = vault.currency

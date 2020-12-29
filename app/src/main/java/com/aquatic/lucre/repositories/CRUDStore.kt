@@ -1,10 +1,8 @@
 package com.aquatic.lucre.repositories
 
 import com.aquatic.lucre.models.Model
-import com.aquatic.lucre.utilities.fileExists
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import javax.json.Json
 
 /**
  * Genereic CRUDStore class. This class
@@ -67,11 +65,9 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
         values.forEach { v -> this.create(v) }
     }
 
-
     fun logAll() {
-        list.forEach{ info("Lucre-vault: $it") }
+        list.forEach { info("Lucre-vault: $it") }
     }
-
 
     /**
      * Deserialize method to be

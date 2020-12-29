@@ -14,7 +14,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vault)
 
-
         btnAdd.setOnClickListener() {
             val placemarkTitle = placemarkTitle.text.toString()
             if (placemarkTitle.isNotEmpty()) {

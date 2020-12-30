@@ -12,6 +12,7 @@ import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Entry
 import kotlinx.android.synthetic.main.activity_entry_list.*
 import kotlinx.android.synthetic.main.activity_vault_list.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 
 class EntryListActivity : AppCompatActivity(), AdapterListener<Entry> {
@@ -36,8 +37,11 @@ class EntryListActivity : AppCompatActivity(), AdapterListener<Entry> {
         entryRecyclerView.adapter = EntryAdapter(app.entryStore.all(), this)
     }
 
-    override fun onCardClick(t: Entry) {
-        TODO("Not yet implemented")
+    override fun onCardClick(entry: Entry) {
+        startActivityForResult(
+            intentFor<EntryActivity>().putExtra("entry_edit", entry),
+            0
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

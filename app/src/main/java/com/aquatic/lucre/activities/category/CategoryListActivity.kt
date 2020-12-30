@@ -11,6 +11,7 @@ import com.aquatic.lucre.adapters.CategoryAdapter
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category
 import kotlinx.android.synthetic.main.activity_category_list.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 
 class CategoryListActivity : AppCompatActivity(), AdapterListener<Category> {
@@ -36,8 +37,11 @@ class CategoryListActivity : AppCompatActivity(), AdapterListener<Category> {
         categoryRecyclerView.adapter = CategoryAdapter(app.categoryStore.all(), this)
     }
 
-    override fun onCardClick(t: Category) {
-        TODO("Not yet implemented")
+    override fun onCardClick(category: Category) {
+        startActivityForResult(
+            intentFor<CategoryActivity>().putExtra("category_edit", category),
+            0
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

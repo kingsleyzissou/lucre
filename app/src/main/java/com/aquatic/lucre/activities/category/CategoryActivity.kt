@@ -1,6 +1,9 @@
 package com.aquatic.lucre.activities.category
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
@@ -14,7 +17,7 @@ import org.jetbrains.anko.toast
 
 class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
-    val category = Category()
+    var category = Category()
     lateinit var app: App
     var color: String? = null
 
@@ -35,6 +38,16 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             }
         )
 
+        if (intent.hasExtra("category_edit")) {
+            category = intent.extras?.getParcelable<Category>("category_edit")!!
+            categoryName.setText(category.name)
+            categoryDescription.setText(category.description)
+            color = category.color
+            var intColor = Color.parseColor(category.color)
+            info("$intColor")
+            colorPickerView.setInitialColor(intColor)
+        }
+
         categoryAdd.setOnClickListener { submit() }
     }
 
@@ -52,5 +65,19 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
     private fun validate(): Boolean {
         return categoryName.validate("Field is required") { it.isNotEmpty() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_category_add, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.category_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

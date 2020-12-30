@@ -3,6 +3,8 @@
     <string name="app_name">Lucre</string>
     <string name="menu_addButton">Add</string>
     <string name="menu_cancelButton">Cancel</string>
+    <string name="item_add">Create</string>
+    <string name="item_edit">Update</string>
 
     <!--  Vault  -->
     <string name="vault_name">Enter a name</string>

@@ -13,7 +13,6 @@ import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_category.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 
 class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
@@ -35,7 +34,6 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
                 // https://stackoverflow.com/a/6540378
                 color = String.format("#%06X", 0xFFFFFF and i)
                 categoryColor.text = color
-                info("New color: $color")
             }
         )
 
@@ -46,9 +44,10 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             color = category.color
             var intColor = Color.parseColor(category.color)
             colorPickerView.setInitialColor(intColor)
+            categorySubmit.setText(R.string.item_edit)
         }
 
-        categoryAdd.setOnClickListener { submit() }
+        categorySubmit.setOnClickListener { submit() }
     }
 
     private fun submit() {
@@ -63,7 +62,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun validate(): Boolean {
-        return categoryName.validate("Field is required") { it.isNotEmpty() }
+        return categoryName.validate(R.string.required.toString()) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

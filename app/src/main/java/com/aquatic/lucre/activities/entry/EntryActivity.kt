@@ -44,12 +44,13 @@ class EntryActivity : AppCompatActivity() {
             type.setSelectedItem(entry.type.toString().toLowerCase())
             entryDescription.setText(entry.description)
             category.setSelectedItem(entry.category!!)
+            entrySubmit.setText(R.string.item_edit)
         }
 
         entryAddToolbar.title = title
         setSupportActionBar(entryAddToolbar)
 
-        entryAdd.setOnClickListener { submit() }
+        entrySubmit.setOnClickListener { submit() }
     }
 
     private fun submit() {
@@ -60,15 +61,14 @@ class EntryActivity : AppCompatActivity() {
             entry.description = entryDescription.text.toString()
             entry.category = category.selection
             app.entryStore.create(entry.copy())
-            toast("Entry created: $entry")
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
     }
 
     private fun validate(): Boolean {
-        return entryAmount.validate("This field is required") { it.isNotEmpty() } &&
-            entryVendor.validate("This field is required") { it.isNotEmpty() }
+        return entryAmount.validate(R.string.required.toString()) { it.isNotEmpty() } &&
+            entryVendor.validate(R.string.required.toString()) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -50,6 +50,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'org.jetbrains.anko:anko-commons:0.10.8'
     implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.github.skydoves:colorpickerview:2.2.2'
 //    implementation 'javax.json:javax.json-api:1.0'
     implementation 'org.glassfish:javax.json:1.0'
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'

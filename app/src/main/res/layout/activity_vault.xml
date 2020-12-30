@@ -68,7 +68,7 @@
                     android:textSize="14sp" />
 
                 <Spinner
-                    android:id="@+id/vaultSpinner"
+                    android:id="@+id/vaultCurrency"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="8dp"

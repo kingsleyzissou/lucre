@@ -1,5 +1,7 @@
 package com.aquatic.lucre.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
 
@@ -10,8 +12,9 @@ import javax.json.JsonObjectBuilder
  * This is to facilitate a more generic CRUDStore,
  * by ensuring that each store has an id element.
  */
-abstract class Model {
-    abstract var id: String
-    abstract fun updateModel(jsonObject: JsonObject)
-    abstract fun toJSON(json: JsonObjectBuilder)
+@Parcelize
+interface Model : Parcelable {
+    var id: String
+    fun updateModel(jsonObject: JsonObject)
+    fun toJSON(json: JsonObjectBuilder)
 }

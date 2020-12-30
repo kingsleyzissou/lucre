@@ -17,7 +17,7 @@ data class Vault(
     var description: String? = null,
     var currency: String? = null,
     override var id: String = NanoIdUtils.randomNanoId()
-) : Model(), Parcelable {
+) : Model, Parcelable {
 
     /**
      * JsonModel class for deserializing JSON fields

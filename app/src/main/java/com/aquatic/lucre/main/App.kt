@@ -57,13 +57,15 @@ class App : Application(), AnkoLogger {
         super.onCreate()
         vaultStore.addAll(listOf(vault1, vault2, vault3))
         categoryStore.addAll(listOf(c1, c2, c3))
-        entryStore.create(Entry(
-            20f,
-            EntryType.EXPENSE,
-            "Vodafone",
-            "Phone bill",
-            c1
-        ))
+        entryStore.create(
+            Entry(
+                20f,
+                EntryType.EXPENSE,
+                "Vodafone",
+                "Phone bill",
+                c1
+            )
+        )
         info { "Lucre App started" }
     }
 }

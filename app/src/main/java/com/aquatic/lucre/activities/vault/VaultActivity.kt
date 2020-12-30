@@ -3,11 +3,9 @@ package com.aquatic.lucre.activities.vault
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
@@ -15,14 +13,14 @@ import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wild
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
-class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelectedListener {
+class VaultActivity : AppCompatActivity(), AnkoLogger {
 
     var vault = Vault()
-    var currency: String? = null
     var options = listOf<String>(
         "$", "£", "€", "AED", "R", "R$", "¥"
     )
 
+    lateinit var currency: SpinnerActivity<String>
     lateinit var app: App
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,14 +37,10 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
             vaultName.setText(vault.name)
             vaultDescription.setText(vault.description)
             val index = options.indexOf(vault.currency)
-            vaultSpinner.setSelection(index)
+            vaultCurrency.setSelection(index)
         }
 
-        // https://www.tutorialkart.com/kotlin-android/android-spinner-kotlin-example/
-        vaultSpinner.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        vaultSpinner!!.setAdapter(array_adapter)
+        currency = SpinnerActivity(this, vaultCurrency, options)
 
         btnAdd.setOnClickListener { submit() }
     }
@@ -59,7 +53,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
         if (this.validate()) {
             vault.name = vaultName.text.toString()
             vault.description = vaultDescription.text.toString()
-            vault.currency = currency
+            vault.currency = currency.selection
             toast("Vault created: $vault")
             app.vaultStore.create(vault.copy())
             setResult(AppCompatActivity.RESULT_OK)
@@ -81,11 +75,4 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
-        currency = options[position]
-    }
-
-    override fun onNothingSelected(arg0: AdapterView<*>) {
-        TODO("Not implemented yet")
-    }
 }

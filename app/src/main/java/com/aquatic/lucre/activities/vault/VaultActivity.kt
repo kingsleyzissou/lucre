@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.vault
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,15 +11,13 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
-import kotlinx.android.synthetic.main.activity_vault.*
+import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
 class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelectedListener {
 
     var vault = Vault()
-    var name: String? = null
-    var description: String? = null
     var currency: String? = null
     var options = listOf<String>(
         "$", "£", "€", "AED", "R", "R$", "¥"
@@ -76,7 +74,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger, AdapterView.OnItemSelecte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
+            R.id.vault_cancel -> {
                 finish()
             }
         }

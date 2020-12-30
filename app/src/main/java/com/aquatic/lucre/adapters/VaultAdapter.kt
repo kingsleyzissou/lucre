@@ -8,13 +8,9 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.card_vault.view.*
 
-interface VaultListener {
-    fun onVaultClick(Vault: Vault)
-}
-
 class VaultAdapter constructor(
     private var vaults: List<Vault>,
-    private val listener: VaultListener
+    private val listener: AdapterListener<Vault>
 ) : RecyclerView.Adapter<VaultAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VaultAdapter.MainHolder {
@@ -36,11 +32,11 @@ class VaultAdapter constructor(
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(vault: Vault, listener: VaultListener) {
+        fun bind(vault: Vault, listener: AdapterListener<Vault>) {
             itemView.title.text = vault.name
             itemView.description.text = vault.description
 //            itemView.currency.text = vault.currency
-            itemView.setOnClickListener { listener.onVaultClick(vault) }
+            itemView.setOnClickListener { listener.onCardClick(vault) }
         }
     }
 }

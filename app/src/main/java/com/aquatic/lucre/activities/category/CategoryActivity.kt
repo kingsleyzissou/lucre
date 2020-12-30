@@ -12,7 +12,6 @@ import com.aquatic.lucre.models.Category
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_category.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class CategoryActivity : AppCompatActivity(), AnkoLogger {
 

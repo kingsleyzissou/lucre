@@ -1,7 +1,5 @@
 package com.aquatic.lucre.models
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
 

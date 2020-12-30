@@ -12,7 +12,6 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import kotlinx.android.synthetic.main.activity_entry.*
-import org.jetbrains.anko.toast
 
 class EntryActivity : AppCompatActivity() {
 

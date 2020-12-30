@@ -11,7 +11,6 @@ import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.toast
 
 class VaultActivity : AppCompatActivity(), AnkoLogger {
 

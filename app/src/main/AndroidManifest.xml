@@ -3,19 +3,28 @@
     package="com.aquatic.lucre">
 
     <application
-        android:name="com.aquatic.lucre.main.App"
+        android:name=".main.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lucre">
-        <activity android:name=".activities.VaultActivity" android:label="Add vault"></activity>
-        <activity android:name=".activities.VaultListActivity" android:label="Vault List">
+        <activity android:name=".activities.entry.EntryListActivity" android:label="Entry List">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.entry.EntryActivity" android:label="Add Entry" />
+        <activity
+            android:name=".activities.vault.VaultActivity"
+            android:label="Add vault" />
+        <activity
+            android:name=".activities.vault.VaultListActivity"
+            android:label="Vault List">
+
         </activity>
     </application>
 

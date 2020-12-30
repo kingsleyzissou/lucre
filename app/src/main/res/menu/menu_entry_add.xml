@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/vault_cancel"
+        android:id="@+id/entry_cancel"
         android:title="@string/menu_cancelVault"
         app:showAsAction="always" />
 </menu>

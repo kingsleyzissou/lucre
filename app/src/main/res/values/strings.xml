@@ -6,4 +6,10 @@
     <string name="vault_currency">Enter a currency</string>
     <string name="menu_addVault">Add</string>
     <string name="menu_cancelVault">Cancel</string>
+    <string name="entry_amount">Enter an amount</string>
+    <string name="entry_type">Enter an entry type</string>
+    <string name="entry_vendor">Enter seller name</string>
+    <string name="entry_description">Enter a description</string>
+    <string name="entry_category">Enter a category name</string>
+    <string name="entry_date">Enter a date</string>
 </resources>

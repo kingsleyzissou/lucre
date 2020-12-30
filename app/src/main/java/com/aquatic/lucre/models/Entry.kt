@@ -12,7 +12,7 @@ import javax.json.JsonObjectBuilder
  * expense type, description, category, vault
  * and date
  */
-class Entry(
+data class Entry(
     var amount: Float? = null,
     var type: Enum<EntryType>? = null,
     var vendor: String? = null,

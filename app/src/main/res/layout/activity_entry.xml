@@ -122,7 +122,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/menu_addVault"
+                    android:text="@string/menu_addButton"
                     android:textColor="@color/snow"
                     android:textSize="16sp" />
 

@@ -47,7 +47,8 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun validate(): Boolean {
-        return vaultName.validate(R.string.required.toString()) { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return vaultName.validate(message) { it.isNotEmpty() }
     }
 
     private fun submit() {

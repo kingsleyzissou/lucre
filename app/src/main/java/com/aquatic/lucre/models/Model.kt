@@ -12,8 +12,7 @@ import javax.json.JsonObjectBuilder
  * This is to facilitate a more generic CRUDStore,
  * by ensuring that each store has an id element.
  */
-@Parcelize
-interface Model : Parcelable {
+interface Model {
     var id: String
     fun updateModel(jsonObject: JsonObject)
     fun toJSON(json: JsonObjectBuilder)

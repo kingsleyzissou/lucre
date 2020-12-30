@@ -67,8 +67,9 @@ class EntryActivity : AppCompatActivity() {
     }
 
     private fun validate(): Boolean {
-        return entryAmount.validate(R.string.required.toString()) { it.isNotEmpty() } &&
-            entryVendor.validate(R.string.required.toString()) { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return entryAmount.validate(message) { it.isNotEmpty() } &&
+            entryVendor.validate(message) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

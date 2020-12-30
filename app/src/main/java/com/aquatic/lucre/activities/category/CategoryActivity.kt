@@ -62,7 +62,8 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun validate(): Boolean {
-        return categoryName.validate(R.string.required.toString()) { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return categoryName.validate(message) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

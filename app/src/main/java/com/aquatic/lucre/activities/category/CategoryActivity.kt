@@ -32,6 +32,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
         colorPickerView.setColorListener(
             ColorListener() { i: Int, b: Boolean ->
+                // https://stackoverflow.com/a/6540378
                 color = String.format("#%06X", 0xFFFFFF and i)
                 categoryColor.text = color
                 info("New color: $color")
@@ -44,7 +45,6 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             categoryDescription.setText(category.description)
             color = category.color
             var intColor = Color.parseColor(category.color)
-            info("$intColor")
             colorPickerView.setInitialColor(intColor)
         }
 
@@ -57,7 +57,6 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             category.description = categoryDescription.text.toString()
             category.color = color
             app.categoryStore.create(category.copy())
-            toast("Category created: $category")
             setResult(RESULT_OK)
             finish()
         }

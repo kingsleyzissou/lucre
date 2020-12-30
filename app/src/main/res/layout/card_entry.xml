@@ -24,5 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/entryTitle" />
 
+        <TextView
+            android:id="@+id/entryAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/entryDescription" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

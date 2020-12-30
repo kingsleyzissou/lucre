@@ -34,8 +34,7 @@ class VaultAdapter constructor(
 
         fun bind(vault: Vault, listener: AdapterListener<Vault>) {
             itemView.title.text = vault.name
-            itemView.description.text = vault.description
-//            itemView.currency.text = vault.currency
+            itemView.description.text = "${ vault.description } (${ vault.currency })"
             itemView.setOnClickListener { listener.onCardClick(vault) }
         }
     }

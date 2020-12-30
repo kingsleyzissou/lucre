@@ -1,15 +1,28 @@
 <resources>
+    <!--  App   -->
     <string name="app_name">Lucre</string>
-    <string name="some_button">This is a button.</string>
+    <string name="menu_addButton">Add</string>
+    <string name="menu_cancelButton">Cancel</string>
+    <string name="item_add">Create</string>
+    <string name="item_edit">Update</string>
+
+    <!--  Vault  -->
     <string name="vault_name">Enter a name</string>
     <string name="vault_description">Enter a description</string>
     <string name="vault_currency">Enter a currency</string>
-    <string name="menu_addVault">Add</string>
-    <string name="menu_cancelVault">Cancel</string>
+
+    <!-- Entry   -->
     <string name="entry_amount">Enter an amount</string>
     <string name="entry_type">Enter an entry type</string>
     <string name="entry_vendor">Enter seller name</string>
     <string name="entry_description">Enter a description</string>
     <string name="entry_category">Enter a category name</string>
     <string name="entry_date">Enter a date</string>
+
+    <!--  Category  -->
+    <string name="category_name">Enter an name</string>
+    <string name="categroy_description">Enter a description type</string>
+
+    <!--  Validation  -->
+    <string name="required">This field is required</string>
 </resources>

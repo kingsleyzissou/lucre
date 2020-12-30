@@ -24,7 +24,7 @@ data class Entry(
     var vault: String? = null,
     override var id: String = NanoIdUtils.randomNanoId(),
     var date: LocalDate = LocalDate.now()
-) : Model(), Parcelable {
+) : Model, Parcelable {
 
     /**
      * Computed method to get the amount with

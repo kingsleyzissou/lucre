@@ -11,7 +11,6 @@ import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.toast
 
 class VaultActivity : AppCompatActivity(), AnkoLogger {
 
@@ -38,15 +37,17 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vaultDescription.setText(vault.description)
             val index = options.indexOf(vault.currency)
             vaultCurrency.setSelection(index)
+            vaultSubmit.setText(R.string.item_edit)
         }
 
         currency = SpinnerActivity(this, vaultCurrency, options)
 
-        btnAdd.setOnClickListener { submit() }
+        vaultSubmit.setOnClickListener { submit() }
     }
 
     private fun validate(): Boolean {
-        return vaultName.validate("Name is required") { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return vaultName.validate(message) { it.isNotEmpty() }
     }
 
     private fun submit() {
@@ -54,7 +55,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vault.name = vaultName.text.toString()
             vault.description = vaultDescription.text.toString()
             vault.currency = currency.selection
-            toast("Vault created: $vault")
             app.vaultStore.create(vault.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()

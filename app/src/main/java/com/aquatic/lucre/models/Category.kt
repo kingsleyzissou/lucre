@@ -18,7 +18,7 @@ data class Category(
     var description: String? = null,
     var color: String? = null,
     override var id: String = NanoIdUtils.randomNanoId()
-) : Model(), Parcelable {
+) : Model, Parcelable {
 
     /**
      * JsonModel class for deserializing JSON fields

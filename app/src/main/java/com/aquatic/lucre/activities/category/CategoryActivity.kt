@@ -12,8 +12,6 @@ import com.aquatic.lucre.models.Category
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_category.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 
 class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
@@ -32,9 +30,9 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
         colorPickerView.setColorListener(
             ColorListener() { i: Int, b: Boolean ->
+                // https://stackoverflow.com/a/6540378
                 color = String.format("#%06X", 0xFFFFFF and i)
                 categoryColor.text = color
-                info("New color: $color")
             }
         )
 
@@ -44,11 +42,11 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             categoryDescription.setText(category.description)
             color = category.color
             var intColor = Color.parseColor(category.color)
-            info("$intColor")
             colorPickerView.setInitialColor(intColor)
+            categorySubmit.setText(R.string.item_edit)
         }
 
-        categoryAdd.setOnClickListener { submit() }
+        categorySubmit.setOnClickListener { submit() }
     }
 
     private fun submit() {
@@ -57,14 +55,14 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             category.description = categoryDescription.text.toString()
             category.color = color
             app.categoryStore.create(category.copy())
-            toast("Category created: $category")
             setResult(RESULT_OK)
             finish()
         }
     }
 
     private fun validate(): Boolean {
-        return categoryName.validate("Field is required") { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return categoryName.validate(message) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

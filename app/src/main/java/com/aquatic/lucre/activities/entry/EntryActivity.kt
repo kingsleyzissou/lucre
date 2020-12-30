@@ -12,7 +12,6 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import kotlinx.android.synthetic.main.activity_entry.*
-import org.jetbrains.anko.toast
 
 class EntryActivity : AppCompatActivity() {
 
@@ -44,12 +43,13 @@ class EntryActivity : AppCompatActivity() {
             type.setSelectedItem(entry.type.toString().toLowerCase())
             entryDescription.setText(entry.description)
             category.setSelectedItem(entry.category!!)
+            entrySubmit.setText(R.string.item_edit)
         }
 
         entryAddToolbar.title = title
         setSupportActionBar(entryAddToolbar)
 
-        entryAdd.setOnClickListener { submit() }
+        entrySubmit.setOnClickListener { submit() }
     }
 
     private fun submit() {
@@ -60,15 +60,15 @@ class EntryActivity : AppCompatActivity() {
             entry.description = entryDescription.text.toString()
             entry.category = category.selection
             app.entryStore.create(entry.copy())
-            toast("Entry created: $entry")
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
     }
 
     private fun validate(): Boolean {
-        return entryAmount.validate("This field is required") { it.isNotEmpty() } &&
-            entryVendor.validate("This field is required") { it.isNotEmpty() }
+        val message = getResources().getString(R.string.required)
+        return entryAmount.validate(message) { it.isNotEmpty() } &&
+            entryVendor.validate(message) { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

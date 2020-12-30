@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,10 +12,11 @@ import com.aquatic.lucre.adapters.CategoryAdapter
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category
 import kotlinx.android.synthetic.main.activity_category_list.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 
-class CategoryListActivity : AppCompatActivity(), AdapterListener<Category> {
+class CategoryListActivity : AppCompatActivity(), AdapterListener<Category>, AnkoLogger {
 
     lateinit var app: App
 
@@ -32,9 +34,9 @@ class CategoryListActivity : AppCompatActivity(), AdapterListener<Category> {
         categoryRecyclerView.adapter = CategoryAdapter(app.categoryStore.all(), this)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         categoryRecyclerView.adapter = CategoryAdapter(app.categoryStore.all(), this)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onCardClick(category: Category) {

@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/vault_cancel"
-        android:title="@string/menu_cancelVault"
+        android:title="@string/menu_cancelButton"
         app:showAsAction="always" />
 </menu>

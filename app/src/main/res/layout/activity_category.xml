@@ -83,7 +83,7 @@
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/categoryAdd"
+                    android:id="@+id/categorySubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -91,7 +91,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/menu_addVault"
+                    android:text="@string/item_add"
                     android:textColor="@color/snow"
                     android:textSize="16sp" />
 

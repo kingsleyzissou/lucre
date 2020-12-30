@@ -2,6 +2,7 @@ package com.aquatic.lucre.main
 
 import android.app.Application
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.repositories.EntryStore
 import com.aquatic.lucre.repositories.VaultStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -9,6 +10,7 @@ import org.jetbrains.anko.info
 class App : Application(), AnkoLogger {
 
     val vaultStore = VaultStore()
+    val entryStore = EntryStore()
 
     private val vault1 = Vault(
         "AIB",

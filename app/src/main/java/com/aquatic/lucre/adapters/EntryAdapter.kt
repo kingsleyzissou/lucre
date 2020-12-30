@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aquatic.lucre.R
 import com.aquatic.lucre.models.Entry
-import kotlinx.android.synthetic.main.card_vault.view.*
+import kotlinx.android.synthetic.main.card_entry.view.*
 
 class EntryAdapter constructor(
     private var entries: List<Entry>,
@@ -33,9 +33,9 @@ class EntryAdapter constructor(
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(entry: Entry, listener: AdapterListener<Entry>) {
-            itemView.title.text = entry.vendor
-            itemView.description.text = entry.description
-//            itemView.currency.text = vault.currency
+            itemView.entryTitle.text = entry.vendor
+            itemView.entryDescription.text = entry.description
+            itemView.entryAmount.text = entry.amount.toString()
             itemView.setOnClickListener { listener.onCardClick(entry) }
         }
     }

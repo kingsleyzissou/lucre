@@ -1,7 +1,9 @@
 package com.aquatic.lucre.models
 
+import android.os.Parcelable
 import com.aqautic.lucre.repositories.CategoryStore
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
+import kotlinx.android.parcel.Parcelize
 import java.time.LocalDate
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
@@ -12,6 +14,7 @@ import javax.json.JsonObjectBuilder
  * expense type, description, category, vault
  * and date
  */
+@Parcelize
 data class Entry(
     var amount: Float? = null,
     var type: Enum<EntryType>? = null,
@@ -21,7 +24,7 @@ data class Entry(
     var vault: String? = null,
     override var id: String = NanoIdUtils.randomNanoId(),
     var date: LocalDate = LocalDate.now()
-) : Model() {
+) : Model(), Parcelable {
 
     /**
      * Computed method to get the amount with

@@ -9,14 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 
 class SpinnerActivity<T> : AnkoLogger, AdapterView.OnItemSelectedListener {
-    var selection: String? = null
+    var selection: T? = null
     var options: List<T>? = null
+    var spinner: Spinner? = null
 
     constructor(
         parent: AppCompatActivity,
         spinner: Spinner,
         options: List<T>
     ) {
+        this.spinner = spinner
         this.options = options
         // https://www.tutorialkart.com/kotlin-android/android-spinner-kotlin-example/
         spinner.setOnItemSelectedListener(this)
@@ -25,8 +27,14 @@ class SpinnerActivity<T> : AnkoLogger, AdapterView.OnItemSelectedListener {
         spinner!!.setAdapter(array_adapter)
     }
 
+    fun setSelectedItem(selection: T) {
+        this.selection = selection
+        var index = options!!.indexOf(selection)
+        spinner!!.setSelection(index)
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        selection = options!![position].toString()
+        selection = options!![position]
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -12,6 +12,7 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import kotlinx.android.synthetic.main.activity_entry.*
+import org.jetbrains.anko.toast
 
 class EntryActivity : AppCompatActivity() {
 
@@ -19,7 +20,9 @@ class EntryActivity : AppCompatActivity() {
     var vault: String? = null
 
     // spinners
-    lateinit var category: SpinnerActivity<String>
+    var types = listOf("Income", "Expense")
+    lateinit var categories: List<Category>
+    lateinit var category: SpinnerActivity<Category>
     lateinit var type: SpinnerActivity<String>
 
     lateinit var app: App
@@ -29,8 +32,19 @@ class EntryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_entry)
 
         app = application as App
-        category = SpinnerActivity(this, entryCategory, listOf("Bills", "Rent", "Salary"))
-        type = SpinnerActivity(this, entryType, listOf("Income", "Expense"))
+
+        categories = app.categoryStore.all().toList()
+        category = SpinnerActivity(this, entryCategory, categories)
+        type = SpinnerActivity(this, entryType, types)
+
+        if (intent.hasExtra("entry_edit")) {
+            entry = intent.extras?.getParcelable<Entry>("entry_edit")!!
+            entryAmount.setText(entry.amount.toString())
+            entryVendor.setText(entry.vendor)
+            type.setSelectedItem(entry.type.toString().toLowerCase())
+            entryDescription.setText(entry.description)
+            category.setSelectedItem(entry.category!!)
+        }
 
         entryAddToolbar.title = title
         setSupportActionBar(entryAddToolbar)
@@ -44,12 +58,17 @@ class EntryActivity : AppCompatActivity() {
             entry.type = EntryType.valueOf(type.selection!!.toUpperCase())
             entry.vendor = entryVendor.text.toString()
             entry.description = entryDescription.text.toString()
-            entry.category = Category(category.selection)
+            entry.category = category.selection
+            app.entryStore.create(entry.copy())
+            toast("Entry created: $entry")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
         }
     }
 
     private fun validate(): Boolean {
-        return entryVendor.validate("This field is required") { it.isNotEmpty() }
+        return entryAmount.validate("This field is required") { it.isNotEmpty() } &&
+            entryVendor.validate("This field is required") { it.isNotEmpty() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

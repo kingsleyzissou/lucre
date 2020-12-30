@@ -1,6 +1,8 @@
 package com.aquatic.lucre.models
 
+import android.os.Parcelable
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
+import kotlinx.android.parcel.Parcelize
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
 
@@ -10,12 +12,13 @@ import javax.json.JsonObjectBuilder
  * comprises of a name, description and a
  * display color
  */
-class Category(
+@Parcelize
+data class Category(
     var name: String? = null,
     var description: String? = null,
     var color: String? = null,
     override var id: String = NanoIdUtils.randomNanoId()
-) : Model() {
+) : Model(), Parcelable {
 
     /**
      * JsonModel class for deserializing JSON fields

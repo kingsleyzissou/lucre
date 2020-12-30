@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities.entry
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import com.aquatic.lucre.adapters.AdapterListener
 import com.aquatic.lucre.adapters.EntryAdapter
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Entry
+import kotlinx.android.synthetic.main.activity_category_list.*
 import kotlinx.android.synthetic.main.activity_entry_list.*
 import kotlinx.android.synthetic.main.activity_vault_list.*
 import org.jetbrains.anko.intentFor
@@ -32,9 +34,9 @@ class EntryListActivity : AppCompatActivity(), AdapterListener<Entry> {
         entryRecyclerView.adapter = EntryAdapter(app.entryStore.all(), this)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         entryRecyclerView.adapter = EntryAdapter(app.entryStore.all(), this)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onCardClick(entry: Entry) {

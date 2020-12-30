@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities.vault
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.* // ktlint-disable no-wildcard-imports
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.aquatic.lucre.adapters.AdapterListener
 import com.aquatic.lucre.adapters.VaultAdapter
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
+import kotlinx.android.synthetic.main.activity_entry_list.*
 import kotlinx.android.synthetic.main.activity_vault_list.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
@@ -29,9 +31,9 @@ class VaultListActivity : AppCompatActivity(), AdapterListener<Vault> {
         vaultRecyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         vaultRecyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onCardClick(vault: Vault) {

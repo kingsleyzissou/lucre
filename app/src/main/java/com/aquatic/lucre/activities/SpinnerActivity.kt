@@ -8,7 +8,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 
-class SpinnerActivity<T>: AnkoLogger, AdapterView.OnItemSelectedListener {
+class SpinnerActivity<T> : AnkoLogger, AdapterView.OnItemSelectedListener {
     var selection: String? = null
     var options: List<T>? = null
 

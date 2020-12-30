@@ -74,5 +74,4 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

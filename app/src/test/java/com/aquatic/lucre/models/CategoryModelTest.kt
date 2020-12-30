@@ -1,8 +1,8 @@
 package com.aquatic.lucre.models
 
 import org.junit.Assert.* // ktlint-disable no-wildcard-imports
-import org.junit.Test
 import org.junit.Before
+import org.junit.Test
 
 internal class CategoryModelTest {
 

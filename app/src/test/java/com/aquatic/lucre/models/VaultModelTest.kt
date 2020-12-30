@@ -1,7 +1,7 @@
 package com.aquatic.lucre.models
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
-import org.junit.Assert.*
+import org.junit.Assert.* // ktlint-disable no-wildcard-imports
 import org.junit.Before
 import org.junit.Test
 

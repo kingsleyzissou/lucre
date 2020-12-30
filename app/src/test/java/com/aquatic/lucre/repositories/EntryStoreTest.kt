@@ -1,14 +1,14 @@
 package com.aquatic.lucre.repositories
 
+import com.aquatic.lucre.models.Entry
+import com.aquatic.lucre.models.EntryType
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
-import org.junit.Assert.*
+import org.junit.Assert.* // ktlint-disable no-wildcard-imports
 import org.junit.Before
 import org.junit.Test
-import com.aquatic.lucre.models.Entry
-import com.aquatic.lucre.models.EntryType
 
 internal class EntryStoreTest {
 

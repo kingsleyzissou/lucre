@@ -3,8 +3,6 @@ package com.aquatic.lucre.main
 import android.app.Application
 import com.aqautic.lucre.repositories.CategoryStore
 import com.aquatic.lucre.models.Category
-import com.aquatic.lucre.models.Entry
-import com.aquatic.lucre.models.EntryType
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.repositories.EntryStore
 import com.aquatic.lucre.repositories.VaultStore
@@ -13,9 +11,9 @@ import org.jetbrains.anko.info
 
 class App : Application(), AnkoLogger {
 
-    val vaultStore = VaultStore()
-    val categoryStore = CategoryStore()
-    val entryStore = EntryStore()
+    lateinit var vaultStore: VaultStore
+    lateinit var categoryStore: CategoryStore
+    lateinit var entryStore: EntryStore
 
     private val vault1 = Vault(
         "AIB",
@@ -55,17 +53,21 @@ class App : Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
-        vaultStore.addAll(listOf(vault1, vault2, vault3))
-        categoryStore.addAll(listOf(c1, c2, c3))
-        entryStore.create(
-            Entry(
-                20f,
-                EntryType.EXPENSE,
-                "Vodafone",
-                "Phone bill",
-                c1
-            )
-        )
+        vaultStore = VaultStore(applicationContext)
+        categoryStore = CategoryStore(applicationContext)
+        entryStore = EntryStore(applicationContext)
+//        vaultStore.addAll(listOf(vault1, vault2, vault3))
+//        categoryStore.addAll(listOf(c1, c2, c3))
+//        entryStore.create(
+//            Entry(
+//                20f,
+//                EntryType.EXPENSE,
+//                "Vodafone",
+//                "Phone bill",
+//                c1,
+//                vault2.id
+//            )
+//        )
         info { "Lucre App started" }
     }
 }

@@ -21,6 +21,7 @@
     <string name="entry_add_image"> Add Image </string>
     <string name="entry_edit_image"> Change Image </string>
     <string name="select_entry_image">Select receipt</string>
+    <string name="set_entry_location">Set Location</string>
 
     <!--  Category  -->
     <string name="category_name">Enter an name</string>
@@ -28,4 +29,5 @@
 
     <!--  Validation  -->
     <string name="required">This field is required</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

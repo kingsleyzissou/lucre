@@ -6,19 +6,24 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.MapsActivity
 import com.aquatic.lucre.activities.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
+import com.aquatic.lucre.models.Location
 import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 
 val IMAGE_REQUEST = 1
+val LOCATION_REQUEST = 2
+var location = Location(52.245696, -7.139102, 15f)
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {
 
@@ -63,7 +68,13 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(entryAddToolbar)
 
         entryImageButton.setOnClickListener { selectImage() }
+        entryLocation.setOnClickListener { setLocation() }
         entrySubmit.setOnClickListener { submit() }
+    }
+
+    private fun setLocation() {
+        val location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
+        startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
 
     private fun selectImage() {
@@ -77,6 +88,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entry.vendor = entryVendor.text.toString()
             entry.description = entryDescription.text.toString()
             entry.category = category.selection
+            entry.location = location
             app.entryStore.create(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()
@@ -102,6 +114,11 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
                     contentResolver.takePersistableUriPermission(data.getData()!!, takeFlags)
                     entry.image = data.getData().toString()
                     entryImage.setImageURI(data.getData())
+                }
+            }
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    location = data.extras?.getParcelable<Location>("location")!!
                 }
             }
         }

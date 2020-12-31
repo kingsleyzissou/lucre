@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities.category
+package com.aquatic.lucre.activities
 
 import android.graphics.Color
 import android.os.Bundle
@@ -33,6 +33,12 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             }
         )
 
+        handleIntent()
+
+        categorySubmit.setOnClickListener { submit() }
+    }
+
+    private fun handleIntent() {
         if (intent.hasExtra("category_edit")) {
             category = intent.extras?.getParcelable<Category>("category_edit")!!
             categoryName.setText(category.name)
@@ -42,8 +48,6 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             colorPickerView.setInitialColor(intColor)
             categorySubmit.setText(R.string.item_edit)
         }
-
-        categorySubmit.setOnClickListener { submit() }
     }
 
     private fun submit() {

@@ -5,7 +5,6 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 import javax.json.Json
 import javax.json.JsonObject
-import javax.json.JsonObjectBuilder
 
 /**
  * Category model class for the various

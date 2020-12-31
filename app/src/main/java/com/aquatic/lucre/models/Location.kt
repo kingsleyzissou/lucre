@@ -29,5 +29,4 @@ data class Location(
             .add("title", title)
             .build()
     }
-
 }

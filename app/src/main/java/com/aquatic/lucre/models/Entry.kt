@@ -1,15 +1,12 @@
 package com.aquatic.lucre.models
 
 import android.os.Parcelable
-import com.aqautic.lucre.repositories.CategoryStore
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import java.time.LocalDate
 import javax.json.Json
 import javax.json.JsonObject
-import javax.json.JsonObjectBuilder
 
 /**
  * Entry model class for the apps income and expense

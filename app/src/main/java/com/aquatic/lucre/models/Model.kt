@@ -1,7 +1,6 @@
 package com.aquatic.lucre.models
 
 import javax.json.JsonObject
-import javax.json.JsonObjectBuilder
 
 /**
  * Abstract class that is used
@@ -13,5 +12,5 @@ import javax.json.JsonObjectBuilder
 interface Model {
     var id: String
     fun updateModel(jsonObject: JsonObject)
-    fun toJSON() : JsonObject
+    fun toJSON(): JsonObject
 }

@@ -3,7 +3,6 @@ package com.aquatic.lucre.repositories
 import android.content.Context
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.utilities.read
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.function.Predicate
 import javax.json.JsonObject

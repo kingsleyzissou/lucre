@@ -7,7 +7,6 @@ import com.aquatic.lucre.utilities.write
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import javax.json.Json
-import javax.json.JsonObject
 
 /**
  * Genereic CRUDStore class. This class
@@ -24,7 +23,7 @@ abstract class CRUDStore<T : Model>(var context: Context, var filename: String) 
     var list: HashMap<String, T> = HashMap()
 
     init {
-        if(fileExists(context, filename)) {
+        if (fileExists(context, filename)) {
             deserialize()
         }
     }

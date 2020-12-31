@@ -13,6 +13,7 @@ import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
+import com.aquatic.lucre.models.Location
 import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
 import kotlinx.android.synthetic.main.activity_entry.*
@@ -70,7 +71,8 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun setLocation() {
-        startActivity(intentFor<MapsActivity>())
+        val location = Location(entry.vendor!!, 52.245696, -7.139102, 15f)
+        startActivity(intentFor<MapsActivity>().putExtra("location", location))
     }
 
     private fun selectImage() {

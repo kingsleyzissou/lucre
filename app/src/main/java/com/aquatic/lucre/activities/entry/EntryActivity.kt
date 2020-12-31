@@ -64,9 +64,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entrySubmit.setText(R.string.item_edit)
         }
 
-        entryAddToolbar.title = title
-        setSupportActionBar(entryAddToolbar)
-
         entryImageButton.setOnClickListener { selectImage() }
         entryLocation.setOnClickListener { setLocation() }
         entrySubmit.setOnClickListener { submit() }

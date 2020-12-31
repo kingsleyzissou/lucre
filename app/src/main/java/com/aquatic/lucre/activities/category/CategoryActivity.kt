@@ -25,9 +25,6 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
         app = application as App
 
-        categoryAddToolbar.title = title
-        setSupportActionBar(categoryAddToolbar)
-
         colorPickerView.setColorListener(
             ColorListener() { i: Int, b: Boolean ->
                 // https://stackoverflow.com/a/6540378

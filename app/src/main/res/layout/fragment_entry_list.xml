@@ -5,22 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.aquatic.lucre.activities.entry.EntryListActivity">
-
-<com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/polar"
-    android:fitsSystemWindows="true"
-    app:elevation="0dip"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/entryListToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@color/white" />
-</com.google.android.material.appbar.AppBarLayout>
+tools:context="com.aquatic.lucre.activities.entry.EntryListFragment">
 
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/entryRecyclerView"

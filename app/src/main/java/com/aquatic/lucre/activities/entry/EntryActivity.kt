@@ -87,7 +87,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entry.type = EntryType.valueOf(type.selection!!.toUpperCase())
             entry.vendor = entryVendor.text.toString()
             entry.description = entryDescription.text.toString()
-            entry.category = category.selection
+            entry.category = category.selection!!
             entry.location = location
             app.entryStore.create(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)

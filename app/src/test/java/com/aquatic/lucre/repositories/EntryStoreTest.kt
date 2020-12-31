@@ -1,5 +1,6 @@
 package com.aquatic.lucre.repositories
 
+import android.content.Context
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
@@ -35,7 +36,10 @@ internal class EntryStoreTest {
         every { entry1.id } returns id1
         every { entry2.id } returns id2
 
-        store = spyk(EntryStore("test.json"))
+        val context = mockk<Context>(relaxed = true)
+        store = spyk(EntryStore(context, "test.json"))
+        every { store["serialize"]() } returns "serialize"
+        every { store["deserialize"]() } returns "deserialize"
         every { store["logAll"]() } returns "logging"
         store.addAll(listOf(entry1, entry2, entry3))
     }

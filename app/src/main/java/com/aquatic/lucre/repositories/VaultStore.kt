@@ -1,5 +1,6 @@
 package com.aquatic.lucre.repositories
 
+import android.content.Context
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.utilities.read
 import javax.json.JsonObject
@@ -9,7 +10,7 @@ import javax.json.JsonObject
  * vault items. The store is saved to a
  * json file.
  */
-class VaultStore(file: String = "vaults.json") : CRUDStore<Vault>(file) {
+class VaultStore(context: Context, file: String = "vaults.json") : CRUDStore<Vault>(context, file) {
 
     /**
      * Custom deserialize method for the
@@ -18,7 +19,7 @@ class VaultStore(file: String = "vaults.json") : CRUDStore<Vault>(file) {
      */
     override fun deserialize() {
         // get the file contents
-        val contents: JsonObject = read(filename)!!
+        val contents: JsonObject = read(context, filename)!!
         // convert the file contents to a model using `TornadoFX.toModel` helper
         val arr = contents.getJsonArray("list")
         // push the item to the CRUDStore list

@@ -1,5 +1,6 @@
 package com.aqautic.lucre.repositories
 
+import android.content.Context
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.repositories.CRUDStore
 import com.aquatic.lucre.utilities.read
@@ -10,7 +11,7 @@ import javax.json.JsonObject
  * category items. The store is saved to a
  * json file.
  */
-class CategoryStore(file: String = "categories.json") : CRUDStore<Category>(file) {
+class CategoryStore(context: Context, file: String = "categories.json") : CRUDStore<Category>(context, file) {
 
     /**
      * Since it is possible for a category to
@@ -33,7 +34,7 @@ class CategoryStore(file: String = "categories.json") : CRUDStore<Category>(file
      */
     override fun deserialize() {
         // get the file contents
-        val contents: JsonObject = read(filename)!!
+        val contents: JsonObject = read(context, filename)!!
         // convert the file contents to a model using `TornadoFX.toModel` helper
         val arr = contents.getJsonArray("list")
         // push the item to the CRUDStore list

@@ -1,5 +1,6 @@
 package com.aquatic.lucre.repositories
 
+import android.content.Context
 import com.aquatic.lucre.models.Vault
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import io.mockk.every
@@ -31,7 +32,10 @@ internal class VaultStoreTest {
         every { vault1.id } returns id1
         every { vault2.id } returns id2
 
-        store = spyk(VaultStore("test.json"))
+        val context = mockk<Context>(relaxed = true)
+        store = spyk(VaultStore(context, "test.json"))
+        every { store["serialize"]() } returns "serialize"
+        every { store["deserialize"]() } returns "deserialize"
         every { store["logAll"]() } returns "logging"
         store.addAll(listOf(vault1, vault2, vault3))
     }

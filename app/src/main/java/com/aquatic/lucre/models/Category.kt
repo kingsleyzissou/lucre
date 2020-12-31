@@ -3,8 +3,8 @@ package com.aquatic.lucre.models
 import android.os.Parcelable
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
+import javax.json.Json
 import javax.json.JsonObject
-import javax.json.JsonObjectBuilder
 
 /**
  * Category model class for the various
@@ -38,13 +38,13 @@ data class Category(
      * down to JSON strings. This method overrides
      * the JSONModel TornadoFX `toJSON` function
      */
-    override fun toJSON(json: JsonObjectBuilder) {
-        with(json) {
-            add("name", name)
-            add("description", description)
-            add("color", color)
-            add("id", id)
-        }
+    override fun toJSON(): JsonObject {
+        return Json.createObjectBuilder()
+            .add("name", name)
+            .add("description", description)
+            .add("color", color)
+            .add("id", id)
+            .build()
     }
 
     /**

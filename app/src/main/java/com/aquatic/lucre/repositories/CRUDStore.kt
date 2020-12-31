@@ -1,15 +1,19 @@
 package com.aquatic.lucre.repositories
 
+import android.content.Context
 import com.aquatic.lucre.models.Model
+import com.aquatic.lucre.utilities.fileExists
+import com.aquatic.lucre.utilities.write
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import javax.json.Json
 
 /**
  * Genereic CRUDStore class. This class
  * contains all the shared methods of the
  * various CRUDStores to avoid code duplication
  */
-abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T>, AnkoLogger {
+abstract class CRUDStore<T : Model>(var context: Context, var filename: String) : CRUDStoreInterface<T>, AnkoLogger {
 
     /**
      * CRUDStore items are stored in a id/value
@@ -17,6 +21,12 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      * by the id
      */
     var list: HashMap<String, T> = HashMap()
+
+    init {
+        if (fileExists(context, filename)) {
+            deserialize()
+        }
+    }
 
     /**
      * List all the items for a given model
@@ -37,7 +47,7 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      */
     override fun create(value: T) {
         list[value.id] = value
-        logAll()
+        serialize()
     }
 
     /**
@@ -48,6 +58,7 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
         val model = find(value.id)
         if (model != null) {
             list[value.id] = value
+            serialize()
         }
     }
 
@@ -56,6 +67,7 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      */
     override fun delete(id: String) {
         list.remove(id)
+        serialize()
     }
 
     /**
@@ -63,10 +75,19 @@ abstract class CRUDStore<T : Model>(var filename: String) : CRUDStoreInterface<T
      */
     override fun addAll(values: List<T>) {
         values.forEach { v -> this.create(v) }
+        serialize()
     }
 
     fun logAll() {
         list.forEach { info("Lucre-vault: $it") }
+    }
+
+    fun serialize() {
+        val jsonObject = Json.createObjectBuilder()
+        val jsonArray = Json.createArrayBuilder()
+        all().map { jsonArray.add(it.toJSON()) }
+        jsonObject.add("list", jsonArray)
+        write(context, filename, jsonObject.build().toString())
     }
 
     /**

@@ -54,6 +54,7 @@ dependencies {
 //    implementation 'javax.json:javax.json-api:1.0'
     implementation 'org.glassfish:javax.json:1.0'
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.+'
     testImplementation 'io.mockk:mockk:1.10.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

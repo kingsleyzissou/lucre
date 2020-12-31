@@ -28,9 +28,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
 
         app = application as App
 
-        toolbarAdd.title = title
-        setSupportActionBar(toolbarAdd)
-
         if (intent.hasExtra("vault_edit")) {
             vault = intent.extras?.getParcelable<Vault>("vault_edit")!!
             vaultName.setText(vault.name)

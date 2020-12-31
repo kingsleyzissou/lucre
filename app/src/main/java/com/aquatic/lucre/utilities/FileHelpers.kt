@@ -1,5 +1,6 @@
 package com.aquatic.lucre.utilities
 
+import android.content.Context
 import java.io.* // ktlint-disable no-wildcard-imports
 import java.lang.Exception
 import javax.json.Json
@@ -9,10 +10,9 @@ import javax.json.JsonObject
  * Method for writing JSON string
  * contents to file
  */
-fun write(filename: String, data: String) {
-    val file = File(filename)
+fun write(context: Context, filename: String, data: String) {
     try {
-        val outputStreamWriter = OutputStreamWriter(FileOutputStream(file))
+        val outputStreamWriter = OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE))
         outputStreamWriter.write(data)
         outputStreamWriter.close()
     } catch (e: Exception) {
@@ -27,9 +27,9 @@ fun write(filename: String, data: String) {
  *
  * https://stackoverflow.com/a/39786725
  */
-fun read(filename: String): JsonObject? {
+fun read(context: Context, filename: String): JsonObject? {
     try {
-        val inputStream = FileInputStream(filename)
+        val inputStream = context.openFileInput(filename)
         val reader = Json.createReader(inputStream)
         var jsonObject = reader.readObject()
         reader.close()
@@ -46,7 +46,7 @@ fun read(filename: String): JsonObject? {
  * Helper method for checking if a file
  * exists
  */
-fun fileExists(filename: String): Boolean {
-    val file = File(filename)
+fun fileExists(context: Context, filename: String): Boolean {
+    val file = context.getFileStreamPath(filename)
     return file.exists()
 }

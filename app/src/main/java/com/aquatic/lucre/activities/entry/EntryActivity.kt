@@ -73,7 +73,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun setLocation() {
-        val location = Location( 52.245696, -7.139102, 15f, entry.vendor!!)
+        val location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
         startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
 

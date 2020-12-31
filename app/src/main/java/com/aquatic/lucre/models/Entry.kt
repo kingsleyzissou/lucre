@@ -4,7 +4,10 @@ import android.os.Parcelable
 import com.aqautic.lucre.repositories.CategoryStore
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.time.LocalDate
+import javax.json.Json
 import javax.json.JsonObject
 import javax.json.JsonObjectBuilder
 
@@ -20,13 +23,13 @@ data class Entry(
     var type: Enum<EntryType>? = null,
     var vendor: String? = null,
     var description: String? = null,
-    var category: Category? = null,
+    var category: Category = Category(),
     var vault: String? = null,
     override var id: String = NanoIdUtils.randomNanoId(),
     var date: LocalDate = LocalDate.now(),
-    var image: String = "",
+    var image: String = " ",
     var location: Location = Location()
-) : Model, Parcelable {
+) : Model, Parcelable, AnkoLogger {
 
     /**
      * Computed method to get the amount with
@@ -39,17 +42,6 @@ data class Entry(
             return amount!!
         }
         return amount!! * -1
-    }
-
-    /**
-     * The entry object requires the entire category,
-     * but for serialization purposes, only the category
-     * id is saved. This method returns the correct category
-     * for the given id
-     */
-    private fun categoryFromId(id: String): Category {
-        val store = CategoryStore()
-        return store.find(id)!!
     }
 
     /**
@@ -66,7 +58,8 @@ data class Entry(
         vault = json.getString("vault")
         date = LocalDate.parse(json.getString("date"))!!
         id = json.getString("id")
-        category = categoryFromId(json.getString("category"))
+        category.updateModel(json.getJsonObject("category"))
+        location.updateModel(json.getJsonObject("location"))
     }
 
     /**
@@ -74,16 +67,17 @@ data class Entry(
      * down to JSON strings. This method overrides
      * the JSONModel TornadoFX `toJSON` function
      */
-    override fun toJSON(json: JsonObjectBuilder) {
-        with(json) {
-            add("amount", amount.toString())
-            add("type", type.toString())
-            add("vendor", vendor)
-            add("description", description)
-            add("category", category!!.id)
-            add("vault", vault)
-            add("date", date.toString())
-            add("id", id)
-        }
+    override fun toJSON(): JsonObject {
+        return Json.createObjectBuilder()
+            .add("amount", amount.toString())
+            .add("type", type.toString())
+            .add("vendor", vendor)
+            .add("description", description)
+            .add("category", category.toJSON())
+            .add("vault", vault)
+            .add("date", date.toString())
+            .add("id", id)
+            .add("location", location.toJSON())
+            .build()
     }
 }

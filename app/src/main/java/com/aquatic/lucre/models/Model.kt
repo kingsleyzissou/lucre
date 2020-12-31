@@ -13,5 +13,5 @@ import javax.json.JsonObjectBuilder
 interface Model {
     var id: String
     fun updateModel(jsonObject: JsonObject)
-    fun toJSON(json: JsonObjectBuilder)
+    fun toJSON() : JsonObject
 }

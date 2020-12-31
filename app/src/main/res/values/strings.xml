@@ -18,6 +18,9 @@
     <string name="entry_description">Enter a description</string>
     <string name="entry_category">Enter a category name</string>
     <string name="entry_date">Enter a date</string>
+    <string name="entry_add_image"> Add Image </string>
+    <string name="entry_edit_image"> Change Image </string>
+    <string name="select_entry_image">Select receipt</string>
 
     <!--  Category  -->
     <string name="category_name">Enter an name</string>

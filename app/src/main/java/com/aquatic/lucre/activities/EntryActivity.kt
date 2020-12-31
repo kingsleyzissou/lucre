@@ -46,6 +46,14 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         category = SpinnerActivity(this, entryCategory, categories)
         type = SpinnerActivity(this, entryType, types)
 
+        handleIntent()
+
+        entryImageButton.setOnClickListener { selectImage() }
+        entryLocation.setOnClickListener { setLocation() }
+        entrySubmit.setOnClickListener { submit() }
+    }
+
+    private fun handleIntent() {
         if (intent.hasExtra("entry_edit")) {
             entry = intent.extras?.getParcelable<Entry>("entry_edit")!!
             entryAmount.setText(entry.amount.toString())
@@ -61,10 +69,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             }
             entrySubmit.setText(R.string.item_edit)
         }
-
-        entryImageButton.setOnClickListener { selectImage() }
-        entryLocation.setOnClickListener { setLocation() }
-        entrySubmit.setOnClickListener { submit() }
     }
 
     private fun setLocation() {

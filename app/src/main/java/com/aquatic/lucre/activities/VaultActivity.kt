@@ -27,6 +27,14 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
 
         app = application as App
 
+        handleIntent()
+
+        currency = SpinnerActivity(this, vaultCurrency, options)
+
+        vaultSubmit.setOnClickListener { submit() }
+    }
+
+    private fun handleIntent() {
         if (intent.hasExtra("vault_edit")) {
             vault = intent.extras?.getParcelable<Vault>("vault_edit")!!
             vaultName.setText(vault.name)
@@ -35,10 +43,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vaultCurrency.setSelection(index)
             vaultSubmit.setText(R.string.item_edit)
         }
-
-        currency = SpinnerActivity(this, vaultCurrency, options)
-
-        vaultSubmit.setOnClickListener { submit() }
     }
 
     private fun validate(): Boolean {

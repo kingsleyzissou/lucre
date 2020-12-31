@@ -24,7 +24,7 @@ class SpinnerActivity<T> : AnkoLogger, AdapterView.OnItemSelectedListener {
         spinner.setOnItemSelectedListener(this)
         val array_adapter = ArrayAdapter(parent, R.layout.simple_spinner_item, options)
         array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner!!.setAdapter(array_adapter)
+        spinner.setAdapter(array_adapter)
     }
 
     fun setSelectedItem(selection: T) {

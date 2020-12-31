@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.MapsActivity
 import com.aquatic.lucre.activities.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
@@ -17,6 +18,7 @@ import com.aquatic.lucre.utilities.showImagePicker
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 
 val IMAGE_REQUEST = 1
 
@@ -63,7 +65,12 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(entryAddToolbar)
 
         entryImageButton.setOnClickListener { selectImage() }
+        entryLocation.setOnClickListener { setLocation() }
         entrySubmit.setOnClickListener { submit() }
+    }
+
+    private fun setLocation() {
+        startActivity(intentFor<MapsActivity>())
     }
 
     private fun selectImage() {

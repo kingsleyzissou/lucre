@@ -23,7 +23,8 @@ data class Entry(
     var category: Category? = null,
     var vault: String? = null,
     override var id: String = NanoIdUtils.randomNanoId(),
-    var date: LocalDate = LocalDate.now()
+    var date: LocalDate = LocalDate.now(),
+    var image: String = ""
 ) : Model, Parcelable {
 
     /**

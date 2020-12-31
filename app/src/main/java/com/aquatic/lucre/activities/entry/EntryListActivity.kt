@@ -11,9 +11,7 @@ import com.aquatic.lucre.adapters.AdapterListener
 import com.aquatic.lucre.adapters.EntryAdapter
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Entry
-import kotlinx.android.synthetic.main.activity_category_list.*
 import kotlinx.android.synthetic.main.activity_entry_list.*
-import kotlinx.android.synthetic.main.activity_vault_list.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 

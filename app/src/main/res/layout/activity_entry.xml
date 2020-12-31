@@ -113,6 +113,24 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.498" />
 
+                <ImageView
+                    android:id="@+id/entryImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/ic_launcher"/>
+
+                <Button
+                    android:id="@+id/entryImageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/aqua_dark"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/entry_add_image"
+                    android:textColor="@color/snow"
+                    android:textSize="16sp"/>
+
                 <Button
                     android:id="@+id/entrySubmit"
                     android:layout_width="match_parent"

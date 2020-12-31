@@ -31,12 +31,12 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.category.CategoryActivity" />
+        <activity android:name=".activities.CategoryActivity" />
         <activity
-            android:name=".activities.entry.EntryActivity"
+            android:name=".activities.EntryActivity"
             android:label="Add Entry" />
         <activity
-            android:name=".activities.vault.VaultActivity"
+            android:name=".activities.VaultActivity"
             android:label="Add vault" />
 
     </application>

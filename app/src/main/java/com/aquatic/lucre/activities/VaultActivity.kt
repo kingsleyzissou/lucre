@@ -1,11 +1,10 @@
-package com.aquatic.lucre.activities.vault
+package com.aquatic.lucre.activities
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
-import com.aquatic.lucre.activities.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault

@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities.entry
+package com.aquatic.lucre.activities.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,59 +6,56 @@ import android.view.* // ktlint-disable no-wildcard-imports
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.VaultActivity
 import com.aquatic.lucre.adapters.AdapterListener
-import com.aquatic.lucre.adapters.EntryAdapter
+import com.aquatic.lucre.adapters.VaultAdapter
 import com.aquatic.lucre.main.App
-import com.aquatic.lucre.models.Entry
-import kotlinx.android.synthetic.main.fragment_entry_list.*
-import kotlinx.android.synthetic.main.fragment_entry_list.view.*
+import com.aquatic.lucre.models.Vault
+import kotlinx.android.synthetic.main.fragment_vault_list.*
+import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 import org.jetbrains.anko.intentFor
 
-class EntryListFragment : Fragment(), AdapterListener<Entry> {
+class VaultListFragment : Fragment(), AdapterListener<Vault> {
 
     lateinit var app: App
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_entry_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_vault_list, container, false)
         setHasOptionsMenu(true)
 
         app = context?.applicationContext as App
 
-        view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
-        view.entryRecyclerView.adapter = EntryAdapter(app.entryStore.all(), this)
+        view.vaultRecyclerView.layoutManager = LinearLayoutManager(context)
+        view.vaultRecyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
 
         return view
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        entryRecyclerView.adapter = EntryAdapter(app.entryStore.all(), this)
+        vaultRecyclerView.adapter = VaultAdapter(app.vaultStore.all(), this)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onCardClick(entry: Entry) {
+    override fun onCardClick(vault: Vault) {
         startActivityForResult(
-            context?.intentFor<EntryActivity>()?.putExtra("entry_edit", entry),
+            context?.intentFor<VaultActivity>()?.putExtra("vault_edit", vault),
             0
         )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_entry_list, menu)
+        inflater.inflate(R.menu.menu_vault_list, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.entry_add -> startActivityForResult(
-                context?.intentFor<EntryActivity>(),
+            R.id.vault_add -> startActivityForResult(
+                context?.intentFor<VaultActivity>(),
                 0
             )
         }

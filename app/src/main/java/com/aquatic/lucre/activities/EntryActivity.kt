@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities.entry
+package com.aquatic.lucre.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
-import com.aquatic.lucre.activities.MapsActivity
-import com.aquatic.lucre.activities.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category

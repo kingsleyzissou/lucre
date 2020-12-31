@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities.category
+package com.aquatic.lucre.activities
 
 import android.graphics.Color
 import android.os.Bundle

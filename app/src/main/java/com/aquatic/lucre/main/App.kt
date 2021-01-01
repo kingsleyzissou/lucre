@@ -3,14 +3,18 @@ package com.aquatic.lucre.main
 import android.app.Application
 import com.aqautic.lucre.repositories.CategoryStore
 import com.aquatic.lucre.models.Category
+import com.aquatic.lucre.models.User
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.repositories.EntryStore
 import com.aquatic.lucre.repositories.VaultStore
+import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 class App : Application(), AnkoLogger {
 
+    var user: User? = null
+    lateinit var firestore: FirebaseFirestore
     lateinit var vaultStore: VaultStore
     lateinit var categoryStore: CategoryStore
     lateinit var entryStore: EntryStore
@@ -53,9 +57,10 @@ class App : Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
-        vaultStore = VaultStore(applicationContext)
-        categoryStore = CategoryStore(applicationContext)
-        entryStore = EntryStore(applicationContext)
+        firestore = FirebaseFirestore.getInstance()
+        vaultStore = VaultStore(firestore.collection("vaults"))
+        categoryStore = CategoryStore(firestore.collection("categories"))
+        entryStore = EntryStore(firestore.collection("entries"))
 //        vaultStore.addAll(listOf(vault1, vault2, vault3))
 //        categoryStore.addAll(listOf(c1, c2, c3))
 //        entryStore.create(
@@ -70,4 +75,5 @@ class App : Application(), AnkoLogger {
 //        )
         info { "Lucre App started" }
     }
+
 }

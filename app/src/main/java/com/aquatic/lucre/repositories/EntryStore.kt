@@ -1,47 +1,46 @@
 package com.aquatic.lucre.repositories
 
-import android.content.Context
 import com.aquatic.lucre.models.Entry
-import com.aquatic.lucre.utilities.read
-import org.jetbrains.anko.info
-import java.util.function.Predicate
-import javax.json.JsonObject
+import com.google.firebase.firestore.CollectionReference
+import org.jetbrains.anko.AnkoLogger
 
 /**
  * EntryStore for storing and retrieving
  * entry items. The store is saved to a
  * json file.
  */
-class EntryStore(context: Context, file: String = "entries.json") : CRUDStore<Entry>(context, file) {
+class EntryStore(store: CollectionReference) : CRUDStore<Entry>(store), AnkoLogger {
+
+    /**
+     * List all the items for a given model
+     */
+    override fun all(): List<Entry> {
+        var list: List<Entry> = ArrayList()
+        store.get().addOnSuccessListener {
+            list = it.map { it.toObject(Entry::class.java) }
+        }
+        return list
+    }
 
     /**
      * Specific function for filtering the EntryStore items
      * by a custom predicate. In the app, this is generally
      * by a date and a vault id
      */
-    fun where(predicate: Predicate<Entry>): List<Entry> {
-        return list
-            .filter { predicate.test(it.value) }
-            .values
-            .toList()
+    fun where(key: String, value: Any): List<Entry> {
+        var list: List<Entry> = ArrayList()
+        store.whereEqualTo(key, value).get().addOnSuccessListener {
+            list = it.map { it.toObject(Entry::class.java) }
+        }
+        return ArrayList<Entry>()
     }
 
-    /**
-     * Custom deserialize method for the
-     * category store to convert JSONObject
-     * read from file into a list of category items
-     */
-    override fun deserialize() {
-        // get the file contents
-        val contents: JsonObject = read(context, filename)!!
-        // convert the file contents to a model using `TornadoFX.toModel` helper
-        val arr = contents.getJsonArray("list")
-        // push the item to the CRUDStore list
-        info("Deserialize: $list")
-        arr?.forEach {
-            var model = Entry()
-            model.updateModel(it as JsonObject)
-            list[model.id] = model
-        }
+    override fun find(id: String): Entry? {
+        var result: Entry? = null
+        store.document(id).get()
+            .addOnSuccessListener {
+                result = it.toObject(Entry::class.java)
+            }
+        return result
     }
 }

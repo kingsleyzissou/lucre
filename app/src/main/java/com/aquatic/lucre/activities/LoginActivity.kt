@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
+import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -14,19 +15,21 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.password
 import kotlinx.android.synthetic.main.activity_login.progressBar
 import kotlinx.android.synthetic.main.activity_login.username
-import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity(), AnkoLogger {
 
-    private var auth: FirebaseAuth? = null
+    lateinit var app: App
+    lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        app = application as App
         auth = FirebaseAuth.getInstance()
 
         loginButton.setOnClickListener { submit() }
@@ -46,14 +49,14 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
     private fun submit() {
         if (validate()) {
             progressBar.visibility = View.VISIBLE
-            auth?.signInWithEmailAndPassword(username.text.toString(), password.text.toString())!!
+            auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
                 .addOnCompleteListener { loginComplete(it) }
         }
     }
 
     private fun loginComplete(task: Task<AuthResult>) {
         if (task.isSuccessful()) {
-            val uid = auth?.getCurrentUser()?.uid!!
+            val uid = auth.getCurrentUser()?.uid!!
             FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(uid)
@@ -61,12 +64,13 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
                 .addOnSuccessListener { document ->
                     val user = document.toObject(User::class.java)
                     progressBar.visibility = View.GONE
-                    startActivity(intentFor<MainActivity>()?.putExtra("user", user))
+                    app.user = user
+                    startActivity(intentFor<MainActivity>().putExtra("user", user))
                 }
                 .addOnFailureListener {
                     progressBar.visibility = View.GONE
-                    error("Login exception: ${it.message}")
                     toast("Login error. Please try again")
+                    error("Login exception: ${it.message}")
                 }
             return
         }

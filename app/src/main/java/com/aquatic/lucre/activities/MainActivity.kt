@@ -9,11 +9,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aquatic.lucre.R
 import com.aquatic.lucre.main.App
+import com.aquatic.lucre.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var app: App
+    var user = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,5 +39,11 @@ class MainActivity : AppCompatActivity() {
         )
 
         nav.setupWithNavController(controller)
+    }
+
+    private fun handleIntent() {
+        if (intent.hasExtra("user")) {
+            user = intent.extras?.getParcelable<User>("user")!!
+        }
     }
 }

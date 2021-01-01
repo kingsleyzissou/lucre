@@ -6,6 +6,20 @@
     <string name="item_add">Create</string>
     <string name="item_edit">Update</string>
 
+    <!--  Login  -->
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login">Login</string>
+    <string name="login_forgot">Forgot Password?</string>
+    <string name="login_signup">Sign up</string>
+
+    <!--  Register  -->
+    <string name="register_username">Username</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm">Confirm Password</string>
+    <string name="register">Register</string>
+
     <!--  Vault  -->
     <string name="vault_name">Enter a name</string>
     <string name="vault_description">Enter a description</string>
@@ -29,5 +43,10 @@
 
     <!--  Validation  -->
     <string name="required">This field is required</string>
+    <string name="email">Please enter a valid email</string>
+    <string name="length">Password should be atleast 6 characters</string>
+    <string name="match">Passwords must match</string>
+
+    <!--  Other  -->
     <string name="title_activity_maps">Map</string>
 </resources>

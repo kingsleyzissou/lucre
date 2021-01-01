@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -19,6 +20,10 @@ android {
     }
 
     buildTypes {
+        dev {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -41,6 +46,24 @@ androidExtensions {
     experimental = true
 }
 
+def build_param = "${build}"
+
+if (build_param != "dev") {
+    //exclude production build
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('dev')) {
+            variant.setIgnore(true);
+        }
+    }
+} else {
+    //exclude all except production build
+    android.variantFilter { variant ->
+        if (!variant.buildType.name.equals('dev')) {
+            variant.setIgnore(true);
+        }
+    }
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -51,7 +74,6 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-commons:0.10.8'
     implementation 'com.google.android.material:material:1.2.0'
     implementation 'com.github.skydoves:colorpickerview:2.2.2'
-//    implementation 'javax.json:javax.json-api:1.0'
     implementation 'org.glassfish:javax.json:1.0'
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -59,6 +81,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
     testImplementation 'junit:junit:4.+'
     testImplementation 'io.mockk:mockk:1.10.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

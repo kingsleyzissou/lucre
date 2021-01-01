@@ -1,8 +1,8 @@
 package com.aquatic.lucre.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.isValidEmail
 import com.aquatic.lucre.extensions.validate
@@ -10,10 +10,10 @@ import com.aquatic.lucre.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity(), AnkoLogger {
@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
 
         auth = FirebaseAuth.getInstance()
 
-        registerButton.setOnClickListener{ submit() }
+        registerButton.setOnClickListener { submit() }
     }
 
     private fun submit() {
@@ -36,8 +36,8 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                 username.text.toString(),
                 email.text.toString()
             )
-            auth?.createUserWithEmailAndPassword(user.email, password.text.toString())!!
-                .addOnCompleteListener{ signupComplete(it, user) }
+            auth?.createUserWithEmailAndPassword(user.email!!, password.text.toString())!!
+                .addOnCompleteListener { signupComplete(it, user) }
         }
     }
 
@@ -46,16 +46,17 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
             user.id = auth?.getCurrentUser()?.uid!!
             FirebaseFirestore.getInstance()
                 .collection("users")
-                .add(user)
-                .addOnCompleteListener{
+                .document(user.id!!)
+                .set(user)
+                .addOnCompleteListener {
                     if (it.isSuccessful()) {
                         toast("Registration successful")
                         progressBar.visibility = View.GONE
-                        TODO("Switch activity")
+                        startActivity(intentFor<MainActivity>().putExtra("user", user))
                     } else {
                         toast("Something went wrong")
                         progressBar.visibility = View.GONE
-                        TODO("Better error handling")
+                        error("Signup error: ${it.exception?.message }")
                     }
                 }
             return
@@ -66,12 +67,12 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
 
     private fun validate(): Boolean {
         val required = getString(R.string.required)
-        return username.validate(required) { it.isNotEmpty() }
-            && email.validate(required) { it.isNotEmpty() }
-            && email.validate(getString(R.string.email)) { it.isValidEmail() }
-            && password.validate(required) { it.isNotEmpty() }
-            && password.validate(getString(R.string.length)) { it.length >= 6 }
-            && confirm.validate(required) { it.isNotEmpty() }
-            && confirm.validate(getString(R.string.match)) { password.text.toString().equals(it) }
+        return username.validate(required) { it.isNotEmpty() } &&
+            email.validate(required) { it.isNotEmpty() } &&
+            email.validate(getString(R.string.email)) { it.isValidEmail() } &&
+            password.validate(required) { it.isNotEmpty() } &&
+            password.validate(getString(R.string.length)) { it.length >= 6 } &&
+            confirm.validate(required) { it.isNotEmpty() } &&
+            confirm.validate(getString(R.string.match)) { password.text.toString().equals(it) }
     }
 }

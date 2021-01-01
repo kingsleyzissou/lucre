@@ -1,7 +1,5 @@
 package com.aquatic.lucre.models
 
-import javax.json.JsonObject
-
 /**
  * Abstract class that is used
  * as the base class for all the models.
@@ -10,7 +8,6 @@ import javax.json.JsonObject
  * by ensuring that each store has an id element.
  */
 interface Model {
-    var id: String
-    fun updateModel(jsonObject: JsonObject)
-    fun toJSON(): JsonObject
+    var id: String?
+    var userId: String?
 }

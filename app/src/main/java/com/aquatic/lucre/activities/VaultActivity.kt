@@ -55,7 +55,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vault.name = vaultName.text.toString()
             vault.description = vaultDescription.text.toString()
             vault.currency = currency.selection
-            app.vaultStore.create(vault.copy())
+            app.vaultStore.save(vault.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }

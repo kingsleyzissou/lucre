@@ -88,7 +88,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entry.description = entryDescription.text.toString()
             entry.category = category.selection!!
             entry.location = location
-            app.entryStore.create(entry.copy())
+            app.entryStore.save(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }

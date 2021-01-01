@@ -55,7 +55,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             category.name = categoryName.text.toString()
             category.description = categoryDescription.text.toString()
             category.color = color
-            app.categoryStore.create(category.copy())
+            app.categoryStore.save(category.copy())
             setResult(RESULT_OK)
             finish()
         }

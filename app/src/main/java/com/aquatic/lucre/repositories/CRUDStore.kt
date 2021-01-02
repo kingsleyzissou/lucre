@@ -4,7 +4,6 @@ import com.aquatic.lucre.models.Model
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * Genereic CRUDStore class. This class
@@ -29,7 +28,7 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
     override suspend fun save(value: T) {
         try {
             store.document(value.id!!).set(value).await()
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             error("Unable to save: ${e.message}")
         }
     }

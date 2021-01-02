@@ -20,10 +20,9 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
             var vaults = store.all()
             list.postValue(vaults)
             // TODO create an observable in repository
-            collection.addSnapshotListener{ snapshot, _ ->
+            collection.addSnapshotListener { snapshot, _ ->
                 val vault = snapshot?.toObjects(Vault::class.java)
                 list.postValue(vault)
-
             }
         }
     }

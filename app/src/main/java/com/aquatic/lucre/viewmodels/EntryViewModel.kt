@@ -19,7 +19,7 @@ class EntryViewModel : BaseViewModel<Entry>() {
         viewModelScope.launch {
             val entries = store.all()
             list.postValue(entries)
-            collection.addSnapshotListener{ snapshot, _ ->
+            collection.addSnapshotListener { snapshot, _ ->
                 var entry = snapshot?.toObjects(Entry::class.java)
                 list.postValue(entry)
             }
@@ -32,5 +32,4 @@ class EntryViewModel : BaseViewModel<Entry>() {
             store.save(entry)
         }
     }
-
 }

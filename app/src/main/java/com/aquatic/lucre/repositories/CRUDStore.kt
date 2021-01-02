@@ -27,13 +27,11 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
      * Create or update a model
      */
     override suspend fun save(value: T) {
-            info("Saving item: $value")
+        info("Saving item: $value")
 
-            store.document(value.id!!).set(value)
-                .addOnSuccessListener { info("Item added: $value") }
-                .addOnFailureListener { error("Unable to save: ${it.message}") }
-
-
+        store.document(value.id!!).set(value)
+            .addOnSuccessListener { info("Item added: $value") }
+            .addOnFailureListener { error("Unable to save: ${it.message}") }
     }
 
     /**
@@ -42,7 +40,7 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
     override suspend fun delete(id: String) {
         try {
             store.document(id).delete().await()
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             info("Unable to delete: ${e.message}")
         }
     }

@@ -18,7 +18,7 @@ class CategoryViewModel : BaseViewModel<Category>() {
         viewModelScope.launch {
             val categories = store.all()
             list.postValue(categories)
-            collection.addSnapshotListener{ snapshot, _ ->
+            collection.addSnapshotListener { snapshot, _ ->
                 var category = snapshot?.toObjects(Category::class.java)
                 list.postValue(category)
             }

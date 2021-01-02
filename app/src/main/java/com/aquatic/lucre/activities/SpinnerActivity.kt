@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class SpinnerActivity<T>(
     parent: AppCompatActivity,

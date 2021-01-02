@@ -56,16 +56,18 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
 
         handleIntent()
         getCategories()
-
     }
 
     private fun getCategories() {
-        categoryModel.list.observe(this, Observer { categories ->
-            category = SpinnerActivity(this, entryCategory, categories)
-            if (intent.hasExtra("entry_edit")) {
-                category.setSelectedItem(categories.find{ it.id.equals(entry.category) }!!)
+        categoryModel.list.observe(
+            this,
+            Observer { categories ->
+                category = SpinnerActivity(this, entryCategory, categories)
+                if (intent.hasExtra("entry_edit")) {
+                    category.setSelectedItem(categories.find { it.id.equals(entry.category) }!!)
+                }
             }
-        })
+        )
     }
 
     private fun handleIntent() {

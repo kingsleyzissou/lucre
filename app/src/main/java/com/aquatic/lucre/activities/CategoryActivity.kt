@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App

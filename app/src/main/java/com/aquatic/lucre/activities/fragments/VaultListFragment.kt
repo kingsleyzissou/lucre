@@ -1,6 +1,5 @@
 package com.aquatic.lucre.activities.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.* // ktlint-disable no-wildcard-imports
 import androidx.fragment.app.activityViewModels
@@ -18,8 +17,6 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 
 class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, AnkoLogger {
-
-//    lateinit var app: App
 
     override var list: MutableList<Vault> = ArrayList<Vault>()
     override var adapter = VaultAdapter(list, this) as BaseAdapter<Vault>

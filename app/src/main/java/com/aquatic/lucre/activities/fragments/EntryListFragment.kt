@@ -1,6 +1,5 @@
 package com.aquatic.lucre.activities.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.* // ktlint-disable no-wildcard-imports
 import androidx.fragment.app.activityViewModels
@@ -13,9 +12,7 @@ import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.EntryAdapter
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.viewmodels.EntryViewModel
-import kotlinx.android.synthetic.main.fragment_entry_list.*
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
-import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 import org.jetbrains.anko.intentFor
 
 class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {

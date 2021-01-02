@@ -1,5 +1,8 @@
 package com.aquatic.lucre.repositories
 
+import androidx.core.util.Predicate
+import io.reactivex.rxjava3.core.Observable
+
 /**
  * CRUDStore interface for
  * ensuring that all the required
@@ -11,4 +14,5 @@ interface CRUDStoreInterface<T> {
     suspend fun save(value: T)
     suspend fun delete(id: String)
     suspend fun addAll(values: List<T>)
+    fun subscribe(predicate: Predicate<T>? = null): Observable<List<T>>
 }

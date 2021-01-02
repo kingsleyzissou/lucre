@@ -1,5 +1,6 @@
 package com.aquatic.lucre.viewmodels
 
+import androidx.core.util.Predicate
 import androidx.lifecycle.viewModelScope
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.repositories.VaultStore
@@ -17,12 +18,11 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
 
     private fun getVaults() {
         viewModelScope.launch {
-            var vaults = store.all()
+            val vaults = store.where("userId", auth.currentUser?.uid!!)
             list.postValue(vaults)
-            // TODO create an observable in repository
-            collection.addSnapshotListener { snapshot, _ ->
-                val vault = snapshot?.toObjects(Vault::class.java)
-                list.postValue(vault)
+            val predicate = Predicate<Vault> { it.userId == auth.currentUser?.uid!! }
+            store.subscribe(predicate).subscribe {
+                list.postValue(it)
             }
         }
     }

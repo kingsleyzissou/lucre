@@ -1,7 +1,9 @@
 package com.aquatic.lucre.repositories
 
+import androidx.core.util.Predicate
 import com.aquatic.lucre.models.Model
 import com.google.firebase.firestore.CollectionReference
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
 
@@ -50,4 +52,6 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
     override suspend fun addAll(values: List<T>) {
         values.forEach { v -> this.save(v) }
     }
+
+    abstract override fun subscribe(predicate: Predicate<T>?): Observable<List<T>>
 }

@@ -32,9 +32,9 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         view.categoryRecyclerView.layoutManager = LinearLayoutManager(context)
         view.categoryRecyclerView.adapter = adapter
+        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 
@@ -49,16 +49,11 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
         )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        var ctx = this
-//        runBlocking {
-//            var list = app.categoryStore.all()
-//            view?.categoryRecyclerView?.adapter = CategoryAdapter(
-//                list,
-//                ctx
-//            )
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
+    fun switchActivity() {
+        startActivityForResult(
+            context?.intentFor<CategoryActivity>(),
+            0
+        )
     }
 
     override fun onCardClick(item: Category) {
@@ -66,20 +61,5 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
             context?.intentFor<CategoryActivity>()?.putExtra("category_edit", item),
             0
         )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_category_list, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.category_add -> startActivityForResult(
-                context?.intentFor<CategoryActivity>(),
-                0
-            )
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

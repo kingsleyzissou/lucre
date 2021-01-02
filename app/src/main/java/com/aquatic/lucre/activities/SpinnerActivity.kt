@@ -17,11 +17,10 @@ class SpinnerActivity<T>(
     var selection: T? = null
 
     init {
-        // https://www.tutorialkart.com/kotlin-android/android-spinner-kotlin-example/
         spinner.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(parent, R.layout.simple_spinner_item, options)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.setAdapter(array_adapter)
+        val adapter = ArrayAdapter(parent, R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.setAdapter(adapter)
     }
 
     fun setSelectedItem(selection: T) {

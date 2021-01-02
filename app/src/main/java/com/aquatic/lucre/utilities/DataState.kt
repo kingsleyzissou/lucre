@@ -14,17 +14,16 @@ data class DataState<T>(
 
         fun <T> loading(
             loading: Boolean = true
-        ) : DataState<T> = DataState(loading)
+        ): DataState<T> = DataState(loading)
 
-        fun <T> error (
+        fun <T> error(
             e: Exception? = null,
             message: String? = null
         ): DataState<T> = DataState(false, e, null, message)
 
-        fun <T> data (
+        fun <T> data(
             data: T? = null,
             message: String? = null
-        ): DataState<T> = DataState(false,null, data, message)
-
+        ): DataState<T> = DataState(false, null, data, message)
     }
 }

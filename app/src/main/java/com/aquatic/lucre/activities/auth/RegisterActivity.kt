@@ -29,19 +29,22 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
         supportActionBar?.hide()
 
         registerButton.setOnClickListener { submit() }
-        login.setOnClickListener{ login() }
+        login.setOnClickListener { login() }
 
         observeLoginFlow()
     }
 
     private fun observeLoginFlow() {
-        model.datastate.observe(this, Observer {
-            displayProgressBar(it.loading)
-            if (!it.message.isNullOrEmpty()) toast("${it.message}")
-            if (it.data != null) {
-                startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+        model.datastate.observe(
+            this,
+            Observer {
+                displayProgressBar(it.loading)
+                if (!it.message.isNullOrEmpty()) toast("${it.message}")
+                if (it.data != null) {
+                    startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+                }
             }
-        })
+        )
     }
 
     private fun login() {

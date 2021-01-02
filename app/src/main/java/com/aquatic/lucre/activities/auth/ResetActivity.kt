@@ -1,9 +1,9 @@
 package com.aquatic.lucre.activities.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.isValidEmail
@@ -41,17 +41,20 @@ class ResetActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun observeLoginFlow() {
-        model.datastate.observe(this, Observer {
-            displayProgressBar(it.loading)
-            if (!it.message.isNullOrEmpty()) toast("${it.message}")
-            if (it.data != null) goBack()
-        })
+        model.datastate.observe(
+            this,
+            Observer {
+                displayProgressBar(it.loading)
+                if (!it.message.isNullOrEmpty()) toast("${it.message}")
+                if (it.data != null) goBack()
+            }
+        )
     }
 
     private fun validate(): Boolean {
         val required = getString(R.string.required)
         return email.validate(required) { it.isNotEmpty() } &&
-                email.validate(getString(R.string.email)) { it.isValidEmail() }
+            email.validate(getString(R.string.email)) { it.isValidEmail() }
     }
 
     private fun displayProgressBar(visibility: Boolean) {

@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        supportActionBar?.hide();
+        supportActionBar?.hide()
 
         loginButton.setOnClickListener { submit() }
 
@@ -48,13 +48,16 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun observeLoginFlow() {
-        model.datastate.observe(this, Observer {
-            displayProgressBar(it.loading)
-            if (!it.message.isNullOrEmpty()) toast("${it.message}")
-            if (it.data != null) {
-                startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+        model.datastate.observe(
+            this,
+            Observer {
+                displayProgressBar(it.loading)
+                if (!it.message.isNullOrEmpty()) toast("${it.message}")
+                if (it.data != null) {
+                    startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+                }
             }
-        })
+        )
     }
 
     private fun validate(): Boolean {

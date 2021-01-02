@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
 
-class UserViewModel: ViewModel(), AnkoLogger {
+class UserViewModel : ViewModel(), AnkoLogger {
 
     val store = FirebaseFirestore.getInstance().collection("users")
     val auth = FirebaseAuth.getInstance()
@@ -36,22 +36,22 @@ class UserViewModel: ViewModel(), AnkoLogger {
                 auth.createUserWithEmailAndPassword(user.email!!, password).await()
                 store.document(user.id!!).set(user).await()
                 datastate.postValue(DataState.data(user, "Registration complete"))
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 datastate.postValue(DataState.error(e, e.message))
             }
         }
     }
 
     fun reset(email: String) {
-         viewModelScope.launch {
-             datastate.postValue(DataState.loading(true))
-             try {
+        viewModelScope.launch {
+            datastate.postValue(DataState.loading(true))
+            try {
                 auth.sendPasswordResetEmail(email)
                 datastate.postValue(DataState.data(User(), "Password email sent"))
-             } catch(e: Exception) {
+            } catch (e: Exception) {
                 datastate.postValue(DataState.error(e, e.message))
-             }
-         }
+            }
+        }
     }
 
     fun getUser(id: String) {
@@ -59,8 +59,8 @@ class UserViewModel: ViewModel(), AnkoLogger {
             try {
                 val result = store.document(id).get().await()
                 var user = result.toObject(User::class.java)
-                datastate.postValue(DataState(false,null, user, "Sign in complete"))
-            } catch(e: Exception) {
+                datastate.postValue(DataState(false, null, user, "Sign in complete"))
+            } catch (e: Exception) {
                 datastate.postValue(DataState(false, e, null, e.message))
             }
         }

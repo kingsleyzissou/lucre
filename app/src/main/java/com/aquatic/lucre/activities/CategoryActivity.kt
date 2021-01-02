@@ -4,11 +4,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category
+import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.skydoves.colorpickerview.listeners.ColorListener
 import kotlinx.android.synthetic.main.activity_category.*
 import org.jetbrains.anko.AnkoLogger
@@ -18,6 +21,8 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
     var category = Category()
     lateinit var app: App
     var color: String? = null
+
+    val model: CategoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,8 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             category.name = categoryName.text.toString()
             category.description = categoryDescription.text.toString()
             category.color = color
-            app.categoryStore.save(category.copy())
+            category.userId = app.user?.id
+            model.saveCategory(category.copy())
             setResult(RESULT_OK)
             finish()
         }

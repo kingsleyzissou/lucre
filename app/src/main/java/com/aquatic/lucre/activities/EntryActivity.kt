@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
@@ -14,6 +16,8 @@ import com.aquatic.lucre.models.EntryType
 import com.aquatic.lucre.models.Location
 import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
+import com.aquatic.lucre.viewmodels.CategoryViewModel
+import com.aquatic.lucre.viewmodels.EntryViewModel
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -29,12 +33,14 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     var vault: String? = null
 
     // spinners
-    var types = listOf("Income", "Expense")
-    lateinit var categories: List<Category>
+    var types = mutableListOf("Income", "Expense")
     lateinit var category: SpinnerActivity<Category>
     lateinit var type: SpinnerActivity<String>
 
     lateinit var app: App
+
+    val categoryModel: CategoryViewModel by viewModels()
+    val model: EntryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,15 +48,24 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
 
         app = application as App
 
-        categories = app.categoryStore.all().toList()
-        category = SpinnerActivity(this, entryCategory, categories)
         type = SpinnerActivity(this, entryType, types)
-
-        handleIntent()
 
         entryImageButton.setOnClickListener { selectImage() }
         entryLocation.setOnClickListener { setLocation() }
         entrySubmit.setOnClickListener { submit() }
+
+        handleIntent()
+        getCategories()
+
+    }
+
+    private fun getCategories() {
+        categoryModel.list.observe(this, Observer { categories ->
+            category = SpinnerActivity(this, entryCategory, categories)
+            if (intent.hasExtra("entry_edit")) {
+                category.setSelectedItem(categories.find{ it.id.equals(entry.category) }!!)
+            }
+        })
     }
 
     private fun handleIntent() {
@@ -60,10 +75,8 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entryVendor.setText(entry.vendor)
             type.setSelectedItem(entry.type.toString().toLowerCase())
             entryDescription.setText(entry.description)
-            category.setSelectedItem(entry.category!!)
             if (entry.image.isNotEmpty()) {
                 val bitmap = readImage(this, entry.image)
-                info("$bitmap")
                 entryImage.setImageBitmap(bitmap)
                 entryImageButton.setText(R.string.entry_edit_image)
             }
@@ -83,18 +96,20 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     private fun submit() {
         if (validate()) {
             entry.amount = entryAmount.text.toString().toFloat()
-            entry.type = EntryType.valueOf(type.selection!!.toUpperCase())
+            entry.type = EntryType.valueOf(type.selection!!.toUpperCase()).toString()
             entry.vendor = entryVendor.text.toString()
             entry.description = entryDescription.text.toString()
-            entry.category = category.selection!!
+            entry.category = category.selection?.id!!
             entry.location = location
-            app.entryStore.save(entry.copy())
+            entry.userId = app.user?.id
+            model.saveEntry(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
     }
 
     private fun validate(): Boolean {
+        info("Validating")
         val message = getResources().getString(R.string.required)
         return entryAmount.validate(message) { it.isNotEmpty() } &&
             entryVendor.validate(message) { it.isNotEmpty() }

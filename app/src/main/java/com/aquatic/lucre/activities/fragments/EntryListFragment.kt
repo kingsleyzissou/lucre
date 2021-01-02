@@ -12,6 +12,7 @@ import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.EntryAdapter
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.viewmodels.EntryViewModel
+import kotlinx.android.synthetic.main.fragment_category_list.*
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
 import org.jetbrains.anko.intentFor
 
@@ -29,9 +30,9 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
         view.entryRecyclerView.adapter = adapter
+        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 
@@ -46,25 +47,17 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
         )
     }
 
+    fun switchActivity() {
+        startActivityForResult(
+            context?.intentFor<EntryActivity>(),
+            0
+        )
+    }
+
     override fun onCardClick(item: Entry) {
         startActivityForResult(
             context?.intentFor<EntryActivity>()?.putExtra("entry_edit", item),
             0
         )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_entry_list, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.entry_add -> startActivityForResult(
-                context?.intentFor<EntryActivity>(),
-                0
-            )
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

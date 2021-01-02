@@ -12,6 +12,8 @@ import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.VaultAdapter
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.VaultViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_vault_list.*
 import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
@@ -30,9 +32,9 @@ class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, Ank
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         view.vaultRecyclerView.layoutManager = LinearLayoutManager(context)
         view.vaultRecyclerView.adapter = adapter
+        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 
@@ -47,25 +49,17 @@ class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, Ank
         )
     }
 
+    fun switchActivity() {
+        startActivityForResult(
+            context?.intentFor<VaultActivity>(),
+            0
+        )
+    }
+
     override fun onCardClick(item: Vault) {
         startActivityForResult(
             context?.intentFor<VaultActivity>()?.putExtra("vault_edit", item),
             0
         )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_vault_list, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.vault_add -> startActivityForResult(
-                context?.intentFor<VaultActivity>(),
-                0
-            )
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

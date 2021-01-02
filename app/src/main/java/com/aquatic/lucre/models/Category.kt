@@ -23,7 +23,7 @@ data class Category(
      * Override to display category name
      * for combobox selection
      */
-    override fun toString(): String {
-        return name!!
-    }
+//    override fun toString(): String {
+//        return name!!
+//    }
 }

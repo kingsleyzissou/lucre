@@ -15,14 +15,14 @@ import java.time.LocalDate
 @Parcelize
 data class Entry(
     var amount: Float? = null,
-    var type: Enum<EntryType>? = null,
+    var type: String? = null,
     var vendor: String? = null,
     var description: String? = null,
-    var category: Category = Category(),
+    var category: String? = null,
     var vault: String? = null,
     override var id: String? = NanoIdUtils.randomNanoId(),
     override var userId: String? = null,
-    var date: LocalDate = LocalDate.now(),
+    var date: String = LocalDate.now().toString(),
     var image: String = "",
     var location: Location = Location()
 ) : Model, Parcelable, AnkoLogger {
@@ -34,7 +34,7 @@ data class Entry(
      * the amount will be positive.
      */
     val signedAmount: Float get() {
-        if (type == EntryType.INCOME) {
+        if (type == EntryType.INCOME.toString()) {
             return amount!!
         }
         return amount!! * -1

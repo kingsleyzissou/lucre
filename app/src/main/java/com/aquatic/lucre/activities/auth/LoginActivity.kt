@@ -2,11 +2,14 @@ package com.aquatic.lucre.activities
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.User
+import com.aquatic.lucre.viewmodels.UserViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -16,25 +19,25 @@ import kotlinx.android.synthetic.main.activity_login.password
 import kotlinx.android.synthetic.main.activity_login.progressBar
 import kotlinx.android.synthetic.main.activity_login.username
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity(), AnkoLogger {
 
-    lateinit var app: App
-    lateinit var auth: FirebaseAuth
+    val model: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        app = application as App
-        auth = FirebaseAuth.getInstance()
+        supportActionBar?.hide();
 
         loginButton.setOnClickListener { submit() }
 
         reset.setOnClickListener { forgot() }
         register.setOnClickListener { register() }
+        observeLoginFlow()
     }
 
     private fun register() {
@@ -42,44 +45,31 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun forgot() {
-        TODO("Not yet implemented")
+        startActivity(intentFor<ResetActivity>())
     }
 
     private fun submit() {
-        if (validate()) {
-            progressBar.visibility = View.VISIBLE
-            auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
-                .addOnCompleteListener { loginComplete(it) }
-        }
+        if (!validate()) return
+        model.login(username.text.toString(), password.text.toString())
     }
 
-    private fun loginComplete(task: Task<AuthResult>) {
-        if (task.isSuccessful()) {
-            val uid = auth.getCurrentUser()?.uid!!
-            FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(uid)
-                .get()
-                .addOnSuccessListener { document ->
-                    val user = document.toObject(User::class.java)
-                    progressBar.visibility = View.GONE
-                    app.user = user
-                    startActivity(intentFor<MainActivity>().putExtra("user", user))
-                }
-                .addOnFailureListener {
-                    progressBar.visibility = View.GONE
-                    toast("Login error. Please try again")
-                    error("Login exception: ${it.message}")
-                }
-            return
-        }
-        toast("Login error. Please try again")
-        error("Login exception: ${task.exception?.message}")
+    private fun observeLoginFlow() {
+        model.datastate.observe(this, Observer {
+            displayProgressBar(it.loading)
+            if (!it.message.isNullOrEmpty()) toast("${it.message}")
+            if (it.data != null) {
+                startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+            }
+        })
     }
 
     private fun validate(): Boolean {
         val required = getString(R.string.required)
         return username.validate(required) { it.isNotEmpty() } &&
             password.validate(required) { it.isNotEmpty() }
+    }
+
+    private fun displayProgressBar(visibility: Boolean) {
+        progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 }

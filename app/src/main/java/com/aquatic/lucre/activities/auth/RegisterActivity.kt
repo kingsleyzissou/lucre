@@ -2,71 +2,64 @@ package com.aquatic.lucre.activities
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.isValidEmail
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.User
+import com.aquatic.lucre.viewmodels.UserViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.password
+import kotlinx.android.synthetic.main.activity_register.progressBar
+import kotlinx.android.synthetic.main.activity_register.username
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity(), AnkoLogger {
 
-    lateinit var app: App
-    lateinit var auth: FirebaseAuth
+    val model: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        app = application as App
-        auth = FirebaseAuth.getInstance()
+        supportActionBar?.hide()
 
         registerButton.setOnClickListener { submit() }
+        login.setOnClickListener{ login() }
+
+        observeLoginFlow()
+    }
+
+    private fun observeLoginFlow() {
+        model.datastate.observe(this, Observer {
+            displayProgressBar(it.loading)
+            if (!it.message.isNullOrEmpty()) toast("${it.message}")
+            if (it.data != null) {
+                startActivity(intentFor<MainActivity>().putExtra("user", it.data))
+            }
+        })
+    }
+
+    private fun login() {
+        startActivity(intentFor<LoginActivity>())
     }
 
     private fun submit() {
-        if (validate()) {
-            progressBar.visibility = View.VISIBLE
-            val user = User(
-                username.text.toString(),
-                email.text.toString()
-            )
-            auth?.createUserWithEmailAndPassword(user.email!!, password.text.toString())!!
-                .addOnCompleteListener { signupComplete(it, user) }
-        }
-    }
-
-    private fun signupComplete(task: Task<AuthResult>, user: User) {
-        if (task.isSuccessful()) {
-            user.id = auth?.getCurrentUser()?.uid!!
-            FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(user.id!!)
-                .set(user)
-                .addOnCompleteListener {
-                    if (it.isSuccessful()) {
-                        toast("Registration successful")
-                        progressBar.visibility = View.GONE
-                        app.user = user
-                        startActivity(intentFor<MainActivity>().putExtra("user", user))
-                    } else {
-                        toast("Something went wrong")
-                        progressBar.visibility = View.GONE
-                        error("Signup error: ${it.exception?.message }")
-                    }
-                }
-            return
-        }
-        toast("Registration failed. Please try again")
-        progressBar.visibility = View.GONE
+        if (!validate()) return
+        val user = User(
+            username.text.toString(),
+            email.text.toString()
+        )
+        model.register(user, password.text.toString())
     }
 
     private fun validate(): Boolean {
@@ -78,5 +71,9 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
             password.validate(getString(R.string.length)) { it.length >= 6 } &&
             confirm.validate(required) { it.isNotEmpty() } &&
             confirm.validate(getString(R.string.match)) { password.text.toString().equals(it) }
+    }
+
+    private fun displayProgressBar(visibility: Boolean) {
+        progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 }

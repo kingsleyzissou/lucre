@@ -3,15 +3,14 @@ package com.aquatic.lucre.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.aquatic.lucre.R
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.card_vault.view.*
 
 class VaultAdapter constructor(
-    private var vaults: List<Vault>,
-    private val listener: AdapterListener<Vault>
-) : RecyclerView.Adapter<VaultAdapter.MainHolder>() {
+    var vaults: MutableList<Vault>,
+    listener: AdapterListener<Vault>
+) : BaseAdapter<Vault>(vaults, listener) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VaultAdapter.MainHolder {
         return MainHolder(
@@ -23,19 +22,11 @@ class VaultAdapter constructor(
         )
     }
 
-    override fun onBindViewHolder(holder: VaultAdapter.MainHolder, position: Int) {
-        val vault = vaults[holder.adapterPosition]
-        holder.bind(vault, listener)
-    }
-
-    override fun getItemCount(): Int = vaults.size
-
-    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(vault: Vault, listener: AdapterListener<Vault>) {
-            itemView.title.text = vault.name
-            itemView.description.text = "${ vault.description } (${ vault.currency })"
-            itemView.setOnClickListener { listener.onCardClick(vault) }
+    class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Vault>(itemView) {
+        override fun bind(value: Vault, listener: AdapterListener<Vault>) {
+            itemView.title.text = value.name
+            itemView.description.text = "${ value.description } (${ value.currency })"
+            itemView.setOnClickListener { listener.onCardClick(value) }
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.isValidEmail
 import com.aquatic.lucre.extensions.validate
+import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -18,12 +19,14 @@ import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity(), AnkoLogger {
 
-    var auth: FirebaseAuth? = null
+    lateinit var app: App
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        app = application as App
         auth = FirebaseAuth.getInstance()
 
         registerButton.setOnClickListener { submit() }
@@ -52,6 +55,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                     if (it.isSuccessful()) {
                         toast("Registration successful")
                         progressBar.visibility = View.GONE
+                        app.user = user
                         startActivity(intentFor<MainActivity>().putExtra("user", user))
                     } else {
                         toast("Something went wrong")

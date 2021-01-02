@@ -1,32 +1,21 @@
 package com.aquatic.lucre.repositories
 
-import android.content.Context
 import com.aquatic.lucre.models.Vault
-import com.aquatic.lucre.utilities.read
-import javax.json.JsonObject
+import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.tasks.await
 
 /**
  * VaultStore for storing and retrieving
  * vault items. The store is saved to a
  * json file.
  */
-class VaultStore(context: Context, file: String = "vaults.json") : CRUDStore<Vault>(context, file) {
+class VaultStore(store: CollectionReference) : CRUDStore<Vault>(store) {
 
-    /**
-     * Custom deserialize method for the
-     * category store to convert JSONObject
-     * read from file into a list of category items
-     */
-    override fun deserialize() {
-        // get the file contents
-        val contents: JsonObject = read(context, filename)!!
-        // convert the file contents to a model using `TornadoFX.toModel` helper
-        val arr = contents.getJsonArray("list")
-        // push the item to the CRUDStore list
-        arr?.forEach {
-            var model = Vault()
-            model.updateModel(it as JsonObject)
-            list[model.id] = model
-        }
+    override suspend fun all(): List<Vault> {
+        return store.get().await().map { it.toObject(Vault::class.java) }
+    }
+
+    override suspend fun find(id: String): Vault? {
+        return store.document(id).get().await().toObject(Vault::class.java)
     }
 }

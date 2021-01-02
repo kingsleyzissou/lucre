@@ -3,15 +3,14 @@ package com.aquatic.lucre.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.aquatic.lucre.R
 import com.aquatic.lucre.models.Entry
 import kotlinx.android.synthetic.main.card_entry.view.*
 
 class EntryAdapter constructor(
-    private var entries: List<Entry>,
-    private val listener: AdapterListener<Entry>
-) : RecyclerView.Adapter<EntryAdapter.MainHolder>() {
+    entries: MutableList<Entry>,
+    listener: AdapterListener<Entry>
+) : BaseAdapter<Entry>(entries, listener) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryAdapter.MainHolder {
         return MainHolder(
@@ -23,20 +22,12 @@ class EntryAdapter constructor(
         )
     }
 
-    override fun onBindViewHolder(holder: EntryAdapter.MainHolder, position: Int) {
-        val entry = entries[holder.adapterPosition]
-        holder.bind(entry, listener)
-    }
-
-    override fun getItemCount(): Int = entries.size
-
-    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(entry: Entry, listener: AdapterListener<Entry>) {
-            itemView.entryTitle.text = entry.vendor
-            itemView.entryDescription.text = entry.description
-            itemView.entryAmount.text = entry.amount.toString()
-            itemView.setOnClickListener { listener.onCardClick(entry) }
+    class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Entry>(itemView) {
+        override fun bind(value: Entry, listener: AdapterListener<Entry>) {
+            itemView.entryTitle.text = value.vendor
+            itemView.entryDescription.text = value.description
+            itemView.entryAmount.text = value.amount.toString()
+            itemView.setOnClickListener { listener.onCardClick(value) }
         }
     }
 }

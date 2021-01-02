@@ -5,8 +5,6 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 import org.jetbrains.anko.AnkoLogger
 import java.time.LocalDate
-import javax.json.Json
-import javax.json.JsonObject
 
 /**
  * Entry model class for the apps income and expense
@@ -17,13 +15,14 @@ import javax.json.JsonObject
 @Parcelize
 data class Entry(
     var amount: Float? = null,
-    var type: Enum<EntryType>? = null,
+    var type: String? = null,
     var vendor: String? = null,
     var description: String? = null,
-    var category: Category = Category(),
+    var category: String? = null,
     var vault: String? = null,
-    override var id: String = NanoIdUtils.randomNanoId(),
-    var date: LocalDate = LocalDate.now(),
+    override var id: String? = NanoIdUtils.randomNanoId(),
+    override var userId: String? = null,
+    var date: String = LocalDate.now().toString(),
     var image: String = "",
     var location: Location = Location()
 ) : Model, Parcelable, AnkoLogger {
@@ -35,46 +34,9 @@ data class Entry(
      * the amount will be positive.
      */
     val signedAmount: Float get() {
-        if (type == EntryType.INCOME) {
+        if (type == EntryType.INCOME.toString()) {
             return amount!!
         }
         return amount!! * -1
-    }
-
-    /**
-     * JsonModel class for deserializing JSON fields
-     * back to the Category model. Each field has a custom action to convert the
-     * JSON object field back to the desired type. This method overrides
-     * the JSONModel TornadoFX `updateModel` function
-     */
-    override fun updateModel(json: JsonObject) {
-        amount = json.getString("amount").toString().toFloat()
-        type = EntryType.valueOf(json.getString("type"))
-        vendor = json.getString("vendor")
-        description = json.getString("description")
-        vault = json.getString("vault")
-        date = LocalDate.parse(json.getString("date"))!!
-        id = json.getString("id")
-        category.updateModel(json.getJsonObject("category"))
-        location.updateModel(json.getJsonObject("location"))
-    }
-
-    /**
-     * Method for serializing category fields
-     * down to JSON strings. This method overrides
-     * the JSONModel TornadoFX `toJSON` function
-     */
-    override fun toJSON(): JsonObject {
-        return Json.createObjectBuilder()
-            .add("amount", amount.toString())
-            .add("type", type.toString())
-            .add("vendor", vendor)
-            .add("description", description)
-            .add("category", category.toJSON())
-            .add("vault", vault)
-            .add("date", date.toString())
-            .add("id", id)
-            .add("location", location.toJSON())
-            .build()
     }
 }

@@ -3,20 +3,24 @@ package com.aquatic.lucre.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
 
 class VaultActivity : AppCompatActivity(), AnkoLogger {
 
     var vault = Vault()
-    var options = listOf<String>(
+    var options = mutableListOf<String>(
         "$", "£", "€", "AED", "R", "R$", "¥"
     )
+
+    val model: VaultViewModel by viewModels()
 
     lateinit var currency: SpinnerActivity<String>
     lateinit var app: App
@@ -55,7 +59,9 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vault.name = vaultName.text.toString()
             vault.description = vaultDescription.text.toString()
             vault.currency = currency.selection
-            app.vaultStore.create(vault.copy())
+            vault.userId = app.user?.id
+//            app.vaultStore.save(vault.copy())
+            model.saveVault(vault.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }

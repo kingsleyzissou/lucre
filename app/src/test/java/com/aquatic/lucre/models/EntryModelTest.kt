@@ -27,22 +27,22 @@ internal class EntryModelTest {
     private final val EXPECTED_VENDOR: String = "Tesco"
     private final val EXPECTED_DESCRIPTION: String = "Dinner"
     private final val EXPECTED_AMOUNT: Float = 10F
-    private final val EXPECTED_TYPE: Enum<EntryType> = EntryType.EXPENSE
-    private final val EXPECTED_DATE: LocalDate = date
-    private final val EXPECTED_CATEGORY: Category = category
-    private final val EXPECTED_VAULT: String = vault.id
+    private final val EXPECTED_TYPE: String = EntryType.EXPENSE.toString()
+    private final val EXPECTED_DATE: String = date.toString()
+    private final val EXPECTED_CATEGORY: String? = category.id
+    private final val EXPECTED_VAULT: String? = vault.id
 
     @Before
     internal fun setup() {
         expense = Entry(
             10F,
-            EntryType.EXPENSE,
+            EntryType.EXPENSE.toString(),
             "Tesco",
             "Dinner",
-            category,
+            category.id,
             vault.id,
             id,
-            date
+            date.toString()
         )
     }
 
@@ -78,8 +78,8 @@ internal class EntryModelTest {
     @Test
     fun setType() {
         val newType = EntryType.INCOME
-        expense.type = newType
-        assertEquals(newType, expense.type)
+        expense.type = newType.toString()
+        assertEquals(newType.toString(), expense.type)
     }
 
     @Test
@@ -118,8 +118,8 @@ internal class EntryModelTest {
             "Household bills",
             "#ffffff"
         )
-        expense.category = newCategory
-        assertEquals(newCategory, expense.category)
+        expense.category = newCategory.id
+        assertEquals(newCategory.id, expense.category)
     }
 
     @Test
@@ -146,7 +146,7 @@ internal class EntryModelTest {
     @Test
     fun setDate() {
         val newDate: LocalDate = LocalDate.now()
-        expense.date = newDate
-        assertEquals(newDate, expense.date)
+        expense.date = newDate.toString()
+        assertEquals(newDate.toString(), expense.date)
     }
 }

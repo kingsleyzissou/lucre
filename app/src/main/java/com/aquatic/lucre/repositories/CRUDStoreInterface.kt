@@ -6,10 +6,9 @@ package com.aquatic.lucre.repositories
  * methods are implemented
  */
 interface CRUDStoreInterface<T> {
-    fun all(): List<T>
-    fun find(id: String): T?
-    fun create(value: T)
-    fun update(value: T)
-    fun delete(id: String)
-    fun addAll(values: List<T>)
+    suspend fun all(): List<T>
+    suspend fun find(id: String): T?
+    suspend fun save(value: T)
+    suspend fun delete(id: String)
+    suspend fun addAll(values: List<T>)
 }

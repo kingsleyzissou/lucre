@@ -12,6 +12,9 @@
     <string name="login">Login</string>
     <string name="login_forgot">Forgot Password?</string>
     <string name="login_signup">Sign up</string>
+    <string name="login_login">Already have an account? Sign in</string>
+    <string name="login_reset">Reset Password</string>
+    <string name="login_cancel">Cancel</string>
 
     <!--  Register  -->
     <string name="register_username">Username</string>
@@ -49,4 +52,5 @@
 
     <!--  Other  -->
     <string name="title_activity_maps">Map</string>
+
 </resources>

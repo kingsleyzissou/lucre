@@ -1,8 +1,10 @@
 package com.aqautic.lucre.repositories
 
+import androidx.core.util.Predicate
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.repositories.CRUDStore
 import com.google.firebase.firestore.CollectionReference
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -33,5 +35,16 @@ class CategoryStore(store: CollectionReference) : CRUDStore<Category>(store) {
                 "No category",
                 "#FFFFFF"
             )
+    }
+
+    override fun subscribe(predicate: Predicate<Category>?): Observable<List<Category>> {
+        return Observable.create {
+            store.addSnapshotListener { snapshot, _ ->
+                var categories = snapshot?.toObjects(Category::class.java)?.filter {
+                    if (predicate == null) true else predicate.test(it)
+                }
+                it.onNext(categories)
+            }
+        }
     }
 }

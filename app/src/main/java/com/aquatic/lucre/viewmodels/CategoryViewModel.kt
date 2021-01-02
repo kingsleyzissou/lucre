@@ -1,5 +1,6 @@
 package com.aquatic.lucre.viewmodels
 
+import androidx.core.util.Predicate
 import androidx.lifecycle.viewModelScope
 import com.aqautic.lucre.repositories.CategoryStore
 import com.aquatic.lucre.models.Category
@@ -18,9 +19,9 @@ class CategoryViewModel : BaseViewModel<Category>() {
         viewModelScope.launch {
             val categories = store.all()
             list.postValue(categories)
-            collection.addSnapshotListener { snapshot, _ ->
-                var category = snapshot?.toObjects(Category::class.java)
-                list.postValue(category)
+            val predicate = Predicate<Category> { it.userId == auth.currentUser?.uid!! }
+            store.subscribe(predicate).subscribe {
+                list.postValue(it)
             }
         }
     }

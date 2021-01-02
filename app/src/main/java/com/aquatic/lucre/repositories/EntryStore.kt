@@ -1,7 +1,9 @@
 package com.aquatic.lucre.repositories
 
+import androidx.core.util.Predicate
 import com.aquatic.lucre.models.Entry
 import com.google.firebase.firestore.CollectionReference
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
 
@@ -30,5 +32,16 @@ class EntryStore(store: CollectionReference) : CRUDStore<Entry>(store), AnkoLogg
 
     override suspend fun find(id: String): Entry? {
         return store.document(id).get().await().toObject(Entry::class.java)
+    }
+
+    override fun subscribe(predicate: Predicate<Entry>?): Observable<List<Entry>> {
+        return Observable.create {
+            store.addSnapshotListener { snapshot, _ ->
+                var entries = snapshot?.toObjects(Entry::class.java)?.filter {
+                    if (predicate == null) true else predicate.test(it)
+                }
+                it.onNext(entries)
+            }
+        }
     }
 }

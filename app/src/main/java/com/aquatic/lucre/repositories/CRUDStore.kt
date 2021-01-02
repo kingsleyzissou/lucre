@@ -2,6 +2,7 @@ package com.aquatic.lucre.repositories
 
 import com.aquatic.lucre.models.Model
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -15,33 +16,41 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
     /**
      * List all the items for a given model
      */
-    abstract override fun all(): List<T>
+    abstract override suspend fun all(): List<T>
 
     /**
      * Find the given model by id
      */
-    abstract override fun find(id: String): T?
+    abstract override suspend fun find(id: String): T?
 
     /**
      * Create or update a model
      */
-    override fun save(value: T) {
-        store.document(value.id!!).set(value)
-            .addOnCompleteListener { info("Document added successfully") }
+    override suspend fun save(value: T) {
+            info("Saving item: $value")
+
+            store.document(value.id!!).set(value)
+                .addOnSuccessListener { info("Item added: $value") }
+                .addOnFailureListener { error("Unable to save: ${it.message}") }
+
+
     }
 
     /**
      * Delete an item and save the
      */
-    override fun delete(id: String) {
-        store.document(id).delete()
-            .addOnCompleteListener { info("Document deleted successfully") }
+    override suspend fun delete(id: String) {
+        try {
+            store.document(id).delete().await()
+        } catch(e: Exception) {
+            info("Unable to delete: ${e.message}")
+        }
     }
 
     /**
      * Add multiple items to the store list
      */
-    override fun addAll(values: List<T>) {
+    override suspend fun addAll(values: List<T>) {
         values.forEach { v -> this.save(v) }
     }
 }

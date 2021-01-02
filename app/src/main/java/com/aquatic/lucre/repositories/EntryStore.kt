@@ -2,6 +2,7 @@ package com.aquatic.lucre.repositories
 
 import com.aquatic.lucre.models.Entry
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.tasks.await
 import org.jetbrains.anko.AnkoLogger
 
 /**
@@ -14,12 +15,8 @@ class EntryStore(store: CollectionReference) : CRUDStore<Entry>(store), AnkoLogg
     /**
      * List all the items for a given model
      */
-    override fun all(): List<Entry> {
-        var list: List<Entry> = ArrayList()
-        store.get().addOnSuccessListener {
-            list = it.map { it.toObject(Entry::class.java) }
-        }
-        return list
+    override suspend fun all(): List<Entry> {
+        return store.get().await().map { it.toObject(Entry::class.java) }
     }
 
     /**
@@ -27,20 +24,11 @@ class EntryStore(store: CollectionReference) : CRUDStore<Entry>(store), AnkoLogg
      * by a custom predicate. In the app, this is generally
      * by a date and a vault id
      */
-    fun where(key: String, value: Any): List<Entry> {
-        var list: List<Entry> = ArrayList()
-        store.whereEqualTo(key, value).get().addOnSuccessListener {
-            list = it.map { it.toObject(Entry::class.java) }
-        }
-        return ArrayList<Entry>()
+    suspend fun where(key: String, value: Any): List<Entry> {
+        return store.whereEqualTo(key, value).get().await().map { it.toObject(Entry::class.java) }
     }
 
-    override fun find(id: String): Entry? {
-        var result: Entry? = null
-        store.document(id).get()
-            .addOnSuccessListener {
-                result = it.toObject(Entry::class.java)
-            }
-        return result
+    override suspend fun find(id: String): Entry? {
+        return store.document(id).get().await().toObject(Entry::class.java)
     }
 }

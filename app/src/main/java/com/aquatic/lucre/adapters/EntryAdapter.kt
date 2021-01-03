@@ -27,7 +27,7 @@ class EntryAdapter constructor(
             itemView.entryTitle.text = value.vendor
             itemView.entryDescription.text = value.description
             itemView.entryAmount.text = value.amount.toString()
-            itemView.setOnClickListener { listener.onCardClick(value) }
+            itemView.setOnClickListener { listener.onItemClick(value) }
         }
     }
 }

@@ -54,7 +54,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
         )
     }
 
-    override fun onCardClick(item: Entry) {
+    override fun onItemClick(item: Entry) {
         startActivityForResult(
             context?.intentFor<EntryActivity>()?.putExtra("entry_edit", item),
             0

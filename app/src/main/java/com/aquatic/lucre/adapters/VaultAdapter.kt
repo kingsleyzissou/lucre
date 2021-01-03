@@ -26,7 +26,7 @@ class VaultAdapter constructor(
         override fun bind(value: Vault, listener: AdapterListener<Vault>) {
             itemView.title.text = value.name
             itemView.description.text = "${ value.description } (${ value.currency })"
-            itemView.setOnClickListener { listener.onCardClick(value) }
+            itemView.setOnClickListener { listener.onItemClick(value) }
         }
     }
 }

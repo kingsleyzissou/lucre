@@ -56,7 +56,7 @@ class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, Ank
         )
     }
 
-    override fun onCardClick(item: Vault) {
+    override fun onItemClick(item: Vault) {
         startActivityForResult(
             context?.intentFor<VaultActivity>()?.putExtra("vault_edit", item),
             0

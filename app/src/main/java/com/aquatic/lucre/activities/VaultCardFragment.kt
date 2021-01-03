@@ -16,7 +16,6 @@ import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
 
-
 class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
 
     var vault: Vault = Vault()

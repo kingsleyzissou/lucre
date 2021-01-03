@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lucre_nav"
-    app:startDestination="@id/vaultListFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/vaultListFragment"
@@ -20,4 +20,9 @@
         android:name="com.aquatic.lucre.activities.fragments.EntryListFragment"
         android:label="Entry List"
         tools:layout="@layout/fragment_entry_list" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.aquatic.lucre.activities.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>

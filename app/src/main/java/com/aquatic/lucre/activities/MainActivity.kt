@@ -2,7 +2,6 @@ package com.aquatic.lucre.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -24,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         val nav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val controller = findNavController(R.id.fragment)
+        handleIntent()
 
         // reference
         // youtube.com/watch?v=Chso6xrJ6aU

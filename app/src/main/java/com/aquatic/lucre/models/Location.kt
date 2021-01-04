@@ -10,5 +10,6 @@ data class Location(
     var zoom: Float = 0f,
     var title: String = "Marker",
     override var id: String? = "",
-    override var userId: String? = ""
+    override var userId: String? = "",
+    override var deleted: Boolean? = false
 ) : Model, Parcelable

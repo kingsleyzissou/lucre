@@ -6,11 +6,6 @@
     app:startDestination="@id/dashboardFragment">
 
     <fragment
-        android:id="@+id/vaultListFragment"
-        android:name="com.aquatic.lucre.activities.fragments.VaultListFragment"
-        android:label="Vault List"
-        tools:layout="@layout/fragment_vault_list" />
-    <fragment
         android:id="@+id/categoryListFragment"
         android:name="com.aquatic.lucre.activities.fragments.CategoryListFragment"
         android:label="Category List"

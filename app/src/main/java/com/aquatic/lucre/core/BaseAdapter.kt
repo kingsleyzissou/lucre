@@ -1,4 +1,4 @@
-package com.aquatic.lucre.adapters
+package com.aquatic.lucre.core
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +9,9 @@ abstract class BaseAdapter<T> constructor(
     private val listener: AdapterListener<T>
 ) : RecyclerView.Adapter<BaseAdapter.MainHolder<T>>() {
 
-    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseAdapter.MainHolder<T>
+    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder<T>
 
-    override fun onBindViewHolder(holder: BaseAdapter.MainHolder<T>, position: Int) {
+    override fun onBindViewHolder(holder: MainHolder<T>, position: Int) {
         holder.bind(list[position], listener)
     }
 

@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.dialogs
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.vault.VaultActivity
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_menu_dialog.*
 import org.jetbrains.anko.AnkoLogger
 
-// TODO: Customize parameter argument names
+// TODO: Create constants resource
 const val ARG_VAULT = "vault"
 
 /**

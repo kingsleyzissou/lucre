@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.category
 
 import android.app.AlertDialog
 import android.graphics.Color

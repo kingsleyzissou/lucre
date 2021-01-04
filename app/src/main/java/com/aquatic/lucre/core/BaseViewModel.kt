@@ -1,4 +1,4 @@
-package com.aquatic.lucre.viewmodels
+package com.aquatic.lucre.core
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

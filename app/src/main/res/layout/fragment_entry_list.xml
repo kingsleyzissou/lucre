@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.aquatic.lucre.activities.fragments.EntryListFragment">
+    tools:context="com.aquatic.lucre.activities.entry.EntryListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

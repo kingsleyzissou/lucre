@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.vault
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
-import com.aquatic.lucre.adapters.AdapterListener
+import com.aquatic.lucre.activities.dialogs.MenuDialogFragment
+import com.aquatic.lucre.activities.dialogs.VaultListDialogFragment
+import com.aquatic.lucre.activities.ui.ChartFragment
+import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.EntryViewModel

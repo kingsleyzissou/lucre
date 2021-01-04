@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
 
-internal class EntryModelTest {
+internal class EntryBaseModelTest {
 
     lateinit var expense: Entry
 

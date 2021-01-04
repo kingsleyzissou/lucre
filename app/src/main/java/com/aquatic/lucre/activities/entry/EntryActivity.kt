@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.entry
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.Predicate
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.ui.MapsActivity
+import com.aquatic.lucre.activities.ui.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Category

@@ -1,6 +1,7 @@
 package com.aquatic.lucre.models
 
 import android.os.Parcelable
+import com.aquatic.lucre.core.BaseModel
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 
@@ -18,7 +19,7 @@ data class Category(
     override var id: String? = NanoIdUtils.randomNanoId(),
     override var userId: String? = null,
     override var deleted: Boolean? = false
-) : Model, Parcelable {
+) : BaseModel, Parcelable {
 
     /**
      * Override to display category name

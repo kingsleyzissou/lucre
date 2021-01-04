@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
-import com.aquatic.lucre.activities.MainActivity
+import com.aquatic.lucre.activities.main.MainActivity
 import com.aquatic.lucre.extensions.isValidEmail
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.models.User

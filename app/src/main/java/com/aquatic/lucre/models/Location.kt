@@ -1,6 +1,7 @@
 package com.aquatic.lucre.models
 
 import android.os.Parcelable
+import com.aquatic.lucre.core.BaseModel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -12,4 +13,4 @@ data class Location(
     override var id: String? = "",
     override var userId: String? = "",
     override var deleted: Boolean? = false
-) : Model, Parcelable
+) : BaseModel, Parcelable

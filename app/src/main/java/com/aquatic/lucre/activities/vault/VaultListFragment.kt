@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities.fragments
+package com.aquatic.lucre.activities.vault
 
 import android.os.Bundle
 import android.view.* // ktlint-disable no-wildcard-imports
@@ -6,16 +6,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aquatic.lucre.R
-import com.aquatic.lucre.activities.VaultActivity
-import com.aquatic.lucre.activities.VaultCardFragment
-import com.aquatic.lucre.adapters.AdapterListener
-import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.VaultAdapter
+import com.aquatic.lucre.core.AdapterListener
+import com.aquatic.lucre.core.BaseAdapter
+import com.aquatic.lucre.core.BaseListFragment
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_vault_list.*
 import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info

@@ -3,6 +3,7 @@ package com.aquatic.lucre.viewmodels
 import androidx.core.util.Predicate
 import androidx.lifecycle.viewModelScope
 import com.aqautic.lucre.repositories.CategoryStore
+import com.aquatic.lucre.core.BaseViewModel
 import com.aquatic.lucre.models.Category
 import kotlinx.coroutines.launch
 

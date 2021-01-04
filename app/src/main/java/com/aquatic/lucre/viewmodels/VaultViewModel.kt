@@ -19,8 +19,8 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
     private fun getVaults() {
         viewModelScope.launch {
             val vaults = store.where("userId", auth.currentUser?.uid!!)
-            list.postValue(vaults)
-            val predicate = Predicate<Vault> { it.userId == auth.currentUser?.uid!! }
+            val predicate = Predicate<Vault> { it.userId == auth.currentUser?.uid!! && it.deleted == false }
+            list.postValue(vaults.filter { predicate.test(it) })
             store.subscribe(predicate).subscribe {
                 list.postValue(it)
             }
@@ -32,4 +32,11 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
             store.save(vault)
         }
     }
+
+    fun deleteVault(vault: Vault) {
+        viewModelScope.launch {
+            store.delete(vault)
+        }
+    }
+
 }

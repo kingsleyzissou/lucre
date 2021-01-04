@@ -12,7 +12,7 @@ interface CRUDStoreInterface<T> {
     suspend fun all(): List<T>
     suspend fun find(id: String): T?
     suspend fun save(value: T)
-    suspend fun delete(id: String)
+    suspend fun delete(value: T)
     suspend fun addAll(values: List<T>)
     fun subscribe(predicate: Predicate<T>? = null): Observable<List<T>>
 }

@@ -14,7 +14,8 @@ class CategoryViewModel : BaseViewModel<Category>() {
     val uncategorised = Category(
         "Uncategorised",
         "None",
-        "#FFFFFF"
+        "#FFFFFF",
+        deleted = false
     )
 
     init {
@@ -33,16 +34,23 @@ class CategoryViewModel : BaseViewModel<Category>() {
     }
 
     private fun bufferList(categories: List<Category>) {
-        if (categories.isEmpty()) {
+        var l = categories.filter { it.deleted == false }
+        if (l.isEmpty()) {
             list.postValue(listOf(uncategorised))
             return
         }
-        list.postValue(categories)
+        list.postValue(l)
     }
 
     fun saveCategory(category: Category) {
         viewModelScope.launch {
             store.save(category)
+        }
+    }
+
+    fun deleteCategory(category: Category) {
+        viewModelScope.launch {
+            store.delete(category)
         }
     }
 

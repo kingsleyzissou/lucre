@@ -10,4 +10,5 @@ package com.aquatic.lucre.models
 interface Model {
     var id: String?
     var userId: String?
+    var deleted: Boolean?
 }

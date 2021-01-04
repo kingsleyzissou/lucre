@@ -25,6 +25,8 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // TODO add signout functionality
+
         supportActionBar?.hide()
 
         loginButton.setOnClickListener { submit() }

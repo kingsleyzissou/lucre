@@ -24,7 +24,8 @@ data class Entry(
     override var userId: String? = null,
     var date: String = LocalDate.now().toString(),
     var image: String = "",
-    var location: Location = Location()
+    var location: Location = Location(),
+    override var deleted: Boolean? = false
 ) : Model, Parcelable, AnkoLogger {
 
     /**

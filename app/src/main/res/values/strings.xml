@@ -28,6 +28,11 @@
     <string name="vault_name">Enter a name</string>
     <string name="vault_description">Enter a description</string>
     <string name="vault_currency">Enter a currency</string>
+    <string name="add_vault">Add vault</string>
+    <string name="edit_vault">Edit vault</string>
+    <string name="delete_vault">Delete vault</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_vault">Select vault</string>
 
     <!-- Entry   -->
     <string name="entry_amount">Enter an amount</string>
@@ -40,6 +45,8 @@
     <string name="entry_edit_image"> Change Image </string>
     <string name="select_entry_image">Select receipt</string>
     <string name="set_entry_location">Set Location</string>
+    <string name="entry_receipt">Receipt</string>
+    <string name="entry_list_title">Transactions</string>
 
     <!--  Category  -->
     <string name="category_name">Enter an name</string>
@@ -58,6 +65,5 @@
     <string name="dashboard_hello">Hello,</string>
     <string name="dashboard_world" />
     <string name="dashboard_vault" />
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

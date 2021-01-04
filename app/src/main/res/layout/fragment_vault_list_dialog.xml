@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-    tools:context=".activities.VaultListDialogFragment"
-    tools:listitem="@layout/fragment_vault_list_dialog_list_dialog_item">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:clipToPadding="false"
+    android:orientation="vertical" tools:context=".activities.VaultListDialogFragment"
+    tools:listitem="@layout/recycler_vault_list_dialog_item">
 
     <TextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
-        android:textSize="24dp"
-        android:text="Select vault" />
+        android:textSize="24sp"
+        android:text="@string/select_vault"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/addVault"
@@ -26,22 +23,19 @@
         android:background="@color/aqua"
         android:textColor="@color/snow"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:paddingVertical="2dp"
         android:paddingHorizontal="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_alignParentEnd="true"
-        android:drawableTint="@color/snow"
-        android:text="Add Vault"
-         />
+        android:layout_marginStart="16dp"
+        android:text="@string/add_vault"
+        app:drawableTint="@color/snow" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/label"
         android:clipToPadding="false"
         android:paddingTop="@dimen/list_item_spacing_half"
         android:paddingBottom="@dimen/list_item_spacing_half" />

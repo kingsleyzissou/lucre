@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:paddingTop="@dimen/list_item_spacing_half"
     android:paddingBottom="@dimen/list_item_spacing_half"
-    tools:context=".activities.MenuDialogFragment"
+    tools:context=".activities.dialogs.MenuDialogFragment"
     android:orientation="vertical">
     <TextView
         android:id="@+id/addVault"
@@ -19,7 +19,7 @@
         android:paddingRight="@dimen/list_item_spacing"
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Add vault" />
+        android:text="@string/add_vault" />
     <TextView
         android:id="@+id/editVault"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:paddingRight="@dimen/list_item_spacing"
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Edit vault" />
+        android:text="@string/edit_vault" />
     <TextView
         android:id="@+id/deleteVault"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:paddingRight="@dimen/list_item_spacing"
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Delete vault" />
+        android:text="@string/delete_vault" />
     <TextView
         android:id="@+id/cancelAction"
         android:layout_width="match_parent"
@@ -52,5 +52,5 @@
         android:paddingRight="@dimen/list_item_spacing"
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Cancel" />
+        android:text="@string/cancel" />
 </LinearLayout>

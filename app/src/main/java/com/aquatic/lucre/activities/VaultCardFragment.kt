@@ -15,9 +15,13 @@ import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+private const val ARG_DASHBOARD = "dashboard"
 
 class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
 
+    var dashboard: Boolean? = null
     var vault: Vault = Vault()
     var balance: Float = 0F
     var vaults: MutableList<Vault> = ArrayList()
@@ -28,6 +32,14 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
     private val vaultModel: VaultViewModel by activityViewModels()
     private val entryModel: EntryViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            dashboard = it.getBoolean(ARG_DASHBOARD)
+        }
+        info("Create: $dashboard")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +49,16 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dashboardBalance.setOnClickListener { showModal() }
+
+        if (dashboard!!) {
+            val chart = ChartFragment()
+            val tx = childFragmentManager.beginTransaction()
+            tx.replace(R.id.chartFragmentContainer, chart).commit()
+            dashboardTransactions.visibility = if (dashboard!!) View.VISIBLE else View.GONE
+        }
+
+        info("Dashboard: $dashboard")
+
         observeModels()
     }
 
@@ -80,5 +102,14 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         this.vault = vault
         dashboardVault.setText(vault.name)
         entryModel.getEntries(vault.id)
+    }
+
+    companion object {
+        fun create(dashboard: Boolean): VaultCardFragment =
+            VaultCardFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ARG_DASHBOARD, dashboard)
+                }
+            }
     }
 }

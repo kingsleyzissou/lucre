@@ -47,10 +47,19 @@
         <FrameLayout
             android:id="@+id/childFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/dashboardGreeting">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboardGreeting"
+            />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_below="@id/dashboardGreeting">-->
 
-        </FrameLayout>
+<!--            -->
+
+<!--        </LinearLayout>-->
+
 
     </RelativeLayout>
 

@@ -7,15 +7,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aquatic.lucre.R
 import com.aquatic.lucre.activities.VaultActivity
+import com.aquatic.lucre.activities.VaultCardFragment
 import com.aquatic.lucre.adapters.AdapterListener
 import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.VaultAdapter
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_vault_list.*
 import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 
 class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, AnkoLogger {
@@ -23,6 +26,7 @@ class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, Ank
     override var list: MutableList<Vault> = ArrayList<Vault>()
     override var adapter = VaultAdapter(list, this) as BaseAdapter<Vault>
     override val model: VaultViewModel by activityViewModels()
+    val entryModel: EntryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,19 +36,20 @@ class VaultListFragment : BaseListFragment<Vault>(), AdapterListener<Vault>, Ank
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val child = VaultCardFragment()
+        val tx = childFragmentManager.beginTransaction()
+        tx.replace(R.id.childFragmentContainer, child).commit()
         view.vaultRecyclerView.layoutManager = LinearLayoutManager(context)
         view.vaultRecyclerView.adapter = adapter
-        floatingActionButton.setOnClickListener { switchActivity() }
+//        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 
     override fun observeStore() {
-        model.list.observe(
+        entryModel.list.observe(
             viewLifecycleOwner,
             Observer {
-                adapter.list.clear()
-                adapter.list.addAll(it)
-                adapter.notifyDataSetChanged()
+                info("There was a change, $it")
             }
         )
     }

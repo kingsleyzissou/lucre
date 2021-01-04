@@ -24,12 +24,18 @@
                 android:layout_height="match_parent"
                 android:padding="20dp">
 
+                <FrameLayout
+                    android:id="@+id/chartFragmentContainer"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/dashboardBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/chartFragmentContainer"
                     android:text="@string/dashboard_hello"
                     app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24" />
 
@@ -48,6 +54,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
                     android:text="Show Transactions"
+                    android:visibility="gone"
                     android:layout_below="@+id/dashboardVault"/>
             </RelativeLayout>
 

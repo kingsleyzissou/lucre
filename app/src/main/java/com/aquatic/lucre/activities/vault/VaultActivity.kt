@@ -74,8 +74,8 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             .setTitle("Delete vault")
             .setMessage("Are you sure you want to delete this vault?")
             .setCancelable(true)
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes) { dlg, i ->
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 model.deleteVault(vault)
                 finish()
             }

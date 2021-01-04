@@ -19,30 +19,23 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import com.aquatic.lucre.models.Location
+import com.aquatic.lucre.utilities.IMAGE_REQUEST
+import com.aquatic.lucre.utilities.LOCATION_REQUEST
 import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
-import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
-
-val IMAGE_REQUEST = 1
-val LOCATION_REQUEST = 2
-var location = Location(52.245696, -7.139102, 15f)
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {
 
     var entry = Entry()
     var vault: String? = null
 
-    var noneCategory = Category(
-        "Uncategorised",
-        "None",
-        "#fff"
-    )
+    var location = Location(52.245696, -7.139102, 15f)
 
     // spinners
     var types = mutableListOf("Income", "Expense")
@@ -103,7 +96,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun setLocation() {
-        val location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
+        location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
         startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
 
@@ -138,8 +131,8 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             .setTitle("Delete entry")
             .setMessage("Are you sure you want to delete this entry?")
             .setCancelable(true)
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes) { dlg, i ->
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 model.deleteEntry(entry)
                 finish()
             }

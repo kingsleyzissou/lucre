@@ -11,10 +11,9 @@ import com.aquatic.lucre.activities.vault.VaultActivity
 import com.aquatic.lucre.adapters.BottomSheetAdapter
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.utilities.ARG_VAULTS
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_vault_list_dialog_list_dialog.*
-
-const val ARG_VAULTS = "items"
+import kotlinx.android.synthetic.main.fragment_vault_list_dialog.*
 
 /**
  *
@@ -33,7 +32,7 @@ class VaultListDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_vault_list_dialog_list_dialog, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_vault_list_dialog, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         list.layoutManager = LinearLayoutManager(context)

@@ -78,8 +78,8 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             .setTitle("Delete category")
             .setMessage("Are you sure you want to delete this category?")
             .setCancelable(true)
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes) { dlg, i ->
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 model.deleteCategory(category)
                 finish()
             }

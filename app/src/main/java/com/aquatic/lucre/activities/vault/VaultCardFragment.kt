@@ -14,12 +14,11 @@ import com.aquatic.lucre.activities.ui.ChartFragment
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.utilities.ARG_DASHBOARD
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
-
-private const val ARG_DASHBOARD = "dashboard"
 
 class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
 

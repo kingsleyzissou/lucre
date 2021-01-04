@@ -22,6 +22,8 @@ class UserViewModel : ViewModel(), AnkoLogger {
     /* Datastate wrapper for handling data and exceptions */
     val datastate = MutableLiveData<DataState<User>>()
 
+    var signedInUser = MutableLiveData<User>()
+
     /**
      * Coroutine function to login user with firebase authentication
      * using email and password
@@ -95,6 +97,19 @@ class UserViewModel : ViewModel(), AnkoLogger {
                 val result = store.document(id).get().await()
                 var user = result.toObject(User::class.java)
                 datastate.postValue(DataState(false, null, user, "Sign in complete"))
+            } catch (e: Exception) {
+                datastate.postValue(DataState(false, e, null, e.message))
+            }
+        }
+    }
+
+    fun getSignedInUser() {
+        viewModelScope.launch {
+            try {
+                val id = auth.currentUser?.uid!!
+                val result = store.document(id).get().await()
+                var user = result.toObject(User::class.java)
+                signedInUser.postValue(user)
             } catch (e: Exception) {
                 datastate.postValue(DataState(false, e, null, e.message))
             }

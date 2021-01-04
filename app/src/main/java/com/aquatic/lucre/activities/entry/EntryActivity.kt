@@ -27,6 +27,7 @@ import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {
@@ -104,8 +105,12 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
      * and set the associated data
      */
     private fun handleIntent() {
+        if (intent.hasExtra("vault")) {
+            vault = intent.extras?.getString("vault")
+        }
         if (intent.hasExtra("entry_edit")) {
             entry = intent.extras?.getParcelable<Entry>("entry_edit")!!
+            vault = entry.vault
             entryAmount.setText(entry.amount.toString())
             entryVendor.setText(entry.vendor)
             type.setSelectedItem(entry.type.toString().toLowerCase())
@@ -118,9 +123,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             }
             entryDelete.visibility = View.VISIBLE
             entrySubmit.setText(R.string.item_edit)
-        }
-        if (intent.hasExtra("vault")) {
-            vault = intent.extras?.getString("vault")
         }
     }
 
@@ -150,6 +152,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entry.description = entryDescription.text.toString()
             entry.category = category.selection?.id!!
             entry.location = location
+            entry.vault = vault
             model.saveEntry(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()

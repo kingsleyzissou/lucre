@@ -1,7 +1,7 @@
 # Lucre
 Mobile App Development - Second Assignment
 
-// TODO record and add video
+[Link to demo video](https://youtu.be/eEs2fEheDFc)
 
 Lucre is an Android app for keeping track of your income
 and expenses. The app has the ability to split your spending

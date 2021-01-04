@@ -33,15 +33,23 @@ class EntryViewModel : BaseViewModel<Entry>() {
     fun getEntries(vault: String? = null) {
         viewModelScope.launch {
             val entries = if (vault == null) store.all() else store.where("vault", vault)
-            list.postValue(entries)
-            balance(entries)
             val predicate = if (vault == null) null else Predicate<Entry> { it.vault == vault }
+            bufferList(entries)
             // subscribe to live updates from firestore
             store.subscribe(predicate).subscribe {
-                list.postValue(it)
-                balance(it)
+                bufferList(it)
             }
         }
+    }
+
+    /**
+     * Buffer list and removed soft deleted
+     * items
+     */
+    private fun bufferList(entries: List<Entry>) {
+        val l = entries.filter{ it.deleted == false }
+        list.postValue(l)
+        balance(l)
     }
 
     /**

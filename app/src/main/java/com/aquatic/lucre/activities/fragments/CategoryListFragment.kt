@@ -54,7 +54,7 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
         )
     }
 
-    override fun onCardClick(item: Category) {
+    override fun onItemClick(item: Category) {
         startActivityForResult(
             context?.intentFor<CategoryActivity>()?.putExtra("category_edit", item),
             0

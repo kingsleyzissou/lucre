@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.util.Predicate
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.extensions.validate
@@ -31,6 +33,12 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
 
     var entry = Entry()
     var vault: String? = null
+
+    var noneCategory = Category(
+        "Uncategorised",
+        "None",
+        "#fff"
+    )
 
     // spinners
     var types = mutableListOf("Income", "Expense")
@@ -64,7 +72,9 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             Observer { categories ->
                 category = SpinnerActivity(this, entryCategory, categories)
                 if (intent.hasExtra("entry_edit")) {
-                    category.setSelectedItem(categories.find { it.id.equals(entry.category) }!!)
+                    var predicate = Predicate<Category> { it.id === entry.category }
+                    val needle = categoryModel.find(predicate, categories)
+                    category.setSelectedItem(needle)
                 }
             }
         )
@@ -81,6 +91,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
                 val bitmap = readImage(this, entry.image)
                 entryImage.setImageBitmap(bitmap)
                 entryImageButton.setText(R.string.entry_edit_image)
+                entryImage.visibility = View.VISIBLE
             }
             entrySubmit.setText(R.string.item_edit)
         }
@@ -122,6 +133,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 if (data != null) {
+                    // TODO Use firebase file upload
                     // permissions issues
                     // https://developer.android.com/training/data-storage/shared/documents-files#persist-permissions
                     val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or

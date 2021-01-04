@@ -60,7 +60,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             vault.description = vaultDescription.text.toString()
             vault.currency = currency.selection
             vault.userId = app.user?.id
-//            app.vaultStore.save(vault.copy())
             model.saveVault(vault.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()

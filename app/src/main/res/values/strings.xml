@@ -53,4 +53,10 @@
     <!--  Other  -->
     <string name="title_activity_maps">Map</string>
 
+    <!-- Dashboard -->
+    <string name="dashboard_hello">Hello,</string>
+    <string name="dashboard_world" />
+    <string name="dashboard_vault" />
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

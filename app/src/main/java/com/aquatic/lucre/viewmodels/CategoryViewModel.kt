@@ -11,6 +11,12 @@ class CategoryViewModel : BaseViewModel<Category>() {
     private val collection = firestore.collection("categories")
     private val store = CategoryStore(collection)
 
+    val uncategorised = Category(
+        "Uncategorised",
+        "None",
+        "#FFFFFF"
+    )
+
     init {
         getCategories()
     }
@@ -18,17 +24,29 @@ class CategoryViewModel : BaseViewModel<Category>() {
     private fun getCategories() {
         viewModelScope.launch {
             val categories = store.all()
-            list.postValue(categories)
+            bufferList(categories)
             val predicate = Predicate<Category> { it.userId == auth.currentUser?.uid!! }
             store.subscribe(predicate).subscribe {
-                list.postValue(it)
+                bufferList(it)
             }
         }
+    }
+
+    private fun bufferList(categories: List<Category>) {
+        if (categories.isEmpty()) {
+            list.postValue(listOf(uncategorised))
+            return
+        }
+        list.postValue(categories)
     }
 
     fun saveCategory(category: Category) {
         viewModelScope.launch {
             store.save(category)
         }
+    }
+
+    fun find(predicate: Predicate<Category>, haystack: List<Category>): Category {
+        return haystack.find { predicate.test(it) } ?: uncategorised
     }
 }

@@ -69,7 +69,6 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-
     private fun openDeleteDialog() {
         AlertDialog.Builder(this)
             .setTitle("Delete vault")

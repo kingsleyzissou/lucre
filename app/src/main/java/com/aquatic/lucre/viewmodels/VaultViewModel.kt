@@ -38,5 +38,4 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
             store.delete(vault)
         }
     }
-
 }

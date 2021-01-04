@@ -15,7 +15,6 @@ import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 private const val ARG_DASHBOARD = "dashboard"
 

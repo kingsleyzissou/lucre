@@ -1,23 +1,18 @@
 package com.aquatic.lucre.activities
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.aquatic.lucre.R
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.VaultViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_menu_dialog.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 // TODO: Customize parameter argument names
 const val ARG_VAULT = "vault"
@@ -45,7 +40,8 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_menu_dialog, container, false)
 
@@ -78,7 +74,7 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
             }
             .show()
     }
-    
+
     companion object {
         fun create(vault: Vault): MenuDialogFragment =
             MenuDialogFragment().apply {
@@ -86,6 +82,5 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
                     putParcelable(ARG_VAULT, vault)
                 }
             }
-
     }
 }

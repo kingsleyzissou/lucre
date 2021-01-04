@@ -13,6 +13,9 @@ import kotlinx.coroutines.tasks.await
  */
 class VaultStore(store: CollectionReference) : CRUDStore<Vault>(store) {
 
+    /**
+     * List all the items for a given model
+     */
     override suspend fun all(): List<Vault> {
         return store.get().await().map { it.toObject(Vault::class.java) }
     }
@@ -26,10 +29,16 @@ class VaultStore(store: CollectionReference) : CRUDStore<Vault>(store) {
         return store.whereEqualTo(key, value).get().await().map { it.toObject(Vault::class.java) }
     }
 
+    /**
+     * Find a specific entry by the entry id
+     */
     override suspend fun find(id: String): Vault? {
         return store.document(id).get().await().toObject(Vault::class.java)
     }
 
+    /**
+     * Subscribe to live updates from the vault store
+     */
     override fun subscribe(predicate: Predicate<Vault>?): Observable<List<Vault>> {
         return Observable.create {
             store.addSnapshotListener { snapshot, _ ->

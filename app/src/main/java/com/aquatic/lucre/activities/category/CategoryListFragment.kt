@@ -22,12 +22,18 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
     override var adapter = CategoryAdapter(list, this) as BaseAdapter<Category>
     override val model: CategoryViewModel by activityViewModels()
 
+    /**
+     * Inflate the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_category_list, container, false)
 
+    /**
+     * Setup the view
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.categoryRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -36,6 +42,11 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
         observeStore()
     }
 
+    /**
+     * Observe the category list live data
+     * and update the recycler view if there
+     * are any changes
+     */
     override fun observeStore() {
         model.list.observe(
             viewLifecycleOwner,
@@ -47,13 +58,21 @@ class CategoryListFragment : BaseListFragment<Category>(), AdapterListener<Categ
         )
     }
 
-    fun switchActivity() {
+    /**
+     * Go to the create category activity
+     */
+    private fun switchActivity() {
         startActivityForResult(
             context?.intentFor<CategoryActivity>(),
             0
         )
     }
 
+    /**
+     * Event listener for when a category item is pressed.
+     * This click event takes the user to the category
+     * edit activity
+     */
     override fun onItemClick(item: Category) {
         startActivityForResult(
             context?.intentFor<CategoryActivity>()?.putExtra("category_edit", item),

@@ -14,6 +14,11 @@ class BottomSheetAdapter constructor(
     listener: AdapterListener<Vault>
 ) : BaseAdapter<Vault>(vaults, listener) {
 
+    /**
+     * The implementation for each adapter is
+     * slightly different and this is left to
+     * the concrete classes
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetAdapter.MainHolder {
         return BottomSheetAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -24,8 +29,10 @@ class BottomSheetAdapter constructor(
         )
     }
 
+    /**
+     * View holder for the bottom sheet recycler view
+     */
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Vault>(itemView) {
-
         override fun bind(value: Vault, listener: AdapterListener<Vault>) {
             val text: TextView = itemView.findViewById(R.id.text)
             text.text = "${value.name} (${value.currency})"

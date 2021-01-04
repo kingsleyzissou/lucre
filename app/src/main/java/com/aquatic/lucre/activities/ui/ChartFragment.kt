@@ -26,12 +26,18 @@ class ChartFragment : Fragment(), AnkoLogger {
     val model: EntryViewModel by activityViewModels()
     val categoryModel: CategoryViewModel by activityViewModels()
 
+    /**
+     * Inflate the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_chart, container, false)
 
+    /**
+     * Setup the fragment
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val child = ChartCategoryFragment()
@@ -40,6 +46,11 @@ class ChartFragment : Fragment(), AnkoLogger {
         observeStore()
     }
 
+    /**
+     * Observe the category and entry list live data
+     * and update the pie chart view if there
+     * are any changes
+     */
     fun observeStore() {
         categoryModel.list.observe(
             viewLifecycleOwner,
@@ -48,8 +59,6 @@ class ChartFragment : Fragment(), AnkoLogger {
                 model.list.observe(
                     viewLifecycleOwner,
                     Observer { entries ->
-                        info("We got entries: $entries")
-
                         val s = model.expenseCategories(entries, categories)
                         s.forEach { k, v ->
                             info("${k.color}, $v")

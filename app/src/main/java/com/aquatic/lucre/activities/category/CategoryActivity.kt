@@ -18,32 +18,48 @@ import org.jetbrains.anko.AnkoLogger
 
 class CategoryActivity : AppCompatActivity(), AnkoLogger {
 
+    /* Create an empty category */
     var category = Category()
+
+    /* Android application object */
     lateinit var app: App
+
+    /* Place holder for color hex string */
     var color: String? = null
 
+    /* Category View Model by injection */
     val model: CategoryViewModel by viewModels()
 
+    /**
+     * Setup the activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
-
         app = application as App
-
-        colorPickerView.setColorListener(
-            ColorListener() { i: Int, _ ->
-                // https://stackoverflow.com/a/6540378
-                color = String.format("#%06X", 0xFFFFFF and i)
-                categoryColor.text = color
-            }
-        )
-
-        handleIntent()
-
         categorySubmit.setOnClickListener { submit() }
         categoryDelete.setOnClickListener { openDeleteDialog() }
+        colorPickerView.setColorListener(colorViewListener())
+        handleIntent()
     }
 
+    /**
+     * Update the color text placeholder
+     * with the hexstring
+     */
+    private fun colorViewListener(): ColorListener {
+        return ColorListener() { i: Int, _ ->
+            // convert the color in to a hex string
+            // https://stackoverflow.com/a/6540378
+            color = String.format("#%06X", 0xFFFFFF and i)
+            categoryColor.text = color
+        }
+    }
+
+    /**
+     * If there is an intent, we need to handle this
+     * and set the associated data
+     */
     private fun handleIntent() {
         if (intent.hasExtra("category_edit")) {
             category = intent.extras?.getParcelable<Category>("category_edit")!!
@@ -56,6 +72,10 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Submit the add/edit request
+     * to the firestore
+     */
     private fun submit() {
         if (validate()) {
             category.name = categoryName.text.toString()
@@ -68,11 +88,20 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Validate the EditText fields
+     * to make sure all inputs are
+     * valid
+     */
     private fun validate(): Boolean {
         val message = getResources().getString(R.string.required)
         return categoryName.validate(message) { it.isNotEmpty() }
     }
 
+    /**
+     * Programmatically open the delete category
+     * dialog
+     */
     private fun openDeleteDialog() {
         AlertDialog.Builder(this)
             .setTitle("Delete category")
@@ -86,16 +115,21 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             .show()
     }
 
+    /**
+     * Add the cancel options menu for the activity
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_category_add, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Return to previous activity if activity is
+     * cancelled
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.category_cancel -> {
-                finish()
-            }
+            R.id.category_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }

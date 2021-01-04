@@ -15,6 +15,11 @@ class ChartCategoryAdapter constructor(
     listener: AdapterListener<Category>
 ) : BaseAdapter<Category>(categories, listener) {
 
+    /**
+     * The implementation for each adapter is
+     * slightly different and this is left to
+     * the concrete classes
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartCategoryAdapter.MainHolder {
         return ChartCategoryAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -25,6 +30,9 @@ class ChartCategoryAdapter constructor(
         )
     }
 
+    /**
+     * View holder for the bottom sheet recycler view
+     */
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Category>(itemView) {
         override fun bind(value: Category, listener: AdapterListener<Category>) {
             itemView.chartLabel.text = value.name

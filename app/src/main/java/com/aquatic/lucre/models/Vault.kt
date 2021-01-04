@@ -20,6 +20,10 @@ data class Vault(
     override var deleted: Boolean? = false
 ) : BaseModel, Parcelable {
 
+    /**
+     * Override to display category name
+     * for combobox selection
+     */
     override fun toString(): String {
         return "$name ($currency)"
     }

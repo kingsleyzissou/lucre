@@ -14,6 +14,11 @@ class EntryAdapter constructor(
     listener: AdapterListener<Entry>
 ) : BaseAdapter<Entry>(entries, listener) {
 
+    /**
+     * The implementation for each adapter is
+     * slightly different and this is left to
+     * the concrete classes
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryAdapter.MainHolder {
         return MainHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -24,6 +29,9 @@ class EntryAdapter constructor(
         )
     }
 
+    /**
+     * View holder for the bottom sheet recycler view
+     */
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Entry>(itemView) {
         override fun bind(value: Entry, listener: AdapterListener<Entry>) {
             itemView.entryTitle.text = value.vendor

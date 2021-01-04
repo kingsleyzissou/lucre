@@ -22,18 +22,37 @@ import org.jetbrains.anko.AnkoLogger
 
 class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
 
+    /* Flag for item being displayed in dashboard */
     var dashboard: Boolean? = null
+
+    /* Empty vault object */
     var vault: Vault = Vault()
+
+    /* Default vault balance */
     var balance: Float = 0F
+
+    /* List of vaults */
     var vaults: MutableList<Vault> = ArrayList()
+
+    /* List of entrries */
     var entries: MutableList<Entry> = ArrayList()
 
+    /* Bottom sheet dialog for vault CRUD operations */
     private lateinit var menuDialog: MenuDialogFragment
+
+    /* Bottom sheet for changing vault selection */
     private lateinit var listDialog: VaultListDialogFragment
 
+    /* Category ViewModel by injection */
     private val vaultModel: VaultViewModel by activityViewModels()
+
+    /* Category ViewModel by injection */
     private val entryModel: EntryViewModel by activityViewModels()
 
+    /**
+     * Override function for creating object with
+     * additional parameters (in this case for the dashboard flag)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,12 +60,18 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         }
     }
 
+    /**
+     * Inflate the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_vault_card, container, false)
 
+    /**
+     * Setup the fragment
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dashboardBalance.setOnClickListener { showModal() }
@@ -62,6 +87,11 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         observeModels()
     }
 
+    /**
+     * Observe the category list live data
+     * and update the recycler view if there
+     * are any changes
+     */
     private fun observeModels() {
         vaultModel.list.observe(
             viewLifecycleOwner,
@@ -87,28 +117,47 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         )
     }
 
+    /**
+     * Open the vault CRUD dialog
+     */
     private fun openDialog() {
         menuDialog = MenuDialogFragment.create(vault)
         menuDialog.show(childFragmentManager, "dialog")
     }
 
+    /**
+     * Open the vault selection dialog
+     */
     private fun showModal() {
         listDialog = VaultListDialogFragment.create(vaults)
         listDialog.listener = this
         listDialog.show(childFragmentManager, "dialog")
     }
 
+    /**
+     * Event listener for when a vault item is pressed.
+     * This click event takes the user to the vault
+     * edit activity
+     */
     override fun onItemClick(item: Vault) {
         updateVault(item)
         listDialog.dismiss()
     }
 
+    /**
+     * Update the currently selected vault
+     */
     private fun updateVault(vault: Vault) {
         this.vault = vault
         dashboardVault.setText(vault.name)
         entryModel.getEntries(vault.id)
     }
 
+    /**
+     * Companion object for instantiating the Card Fragment
+     * with a boolean flag for when the widget is being
+     * displayed on the dashboard screen
+     */
     companion object {
         fun create(dashboard: Boolean): VaultCardFragment =
             VaultCardFragment().apply {

@@ -13,10 +13,19 @@ import org.jetbrains.anko.AnkoLogger
 
 class UserViewModel : ViewModel(), AnkoLogger {
 
+    /** Firebase firestore instance */
     val store = FirebaseFirestore.getInstance().collection("users")
+
+    /* Firebase auth instance */
     val auth = FirebaseAuth.getInstance()
+
+    /* Datastate wrapper for handling data and exceptions */
     val datastate = MutableLiveData<DataState<User>>()
 
+    /**
+     * Coroutine function to login user with firebase authentication
+     * using email and password
+     */
     fun login(email: String, password: String) {
         viewModelScope.launch {
             datastate.postValue(DataState.loading())
@@ -29,6 +38,10 @@ class UserViewModel : ViewModel(), AnkoLogger {
         }
     }
 
+    /**
+     * Coroutine function to register user with firebase authentication
+     * using email and password
+     */
     fun register(user: User, password: String) {
         viewModelScope.launch {
             datastate.postValue(DataState.loading(true))
@@ -42,6 +55,10 @@ class UserViewModel : ViewModel(), AnkoLogger {
         }
     }
 
+    /**
+     * Coroutine function to send reset password request with firebase authentication
+     * using email and password
+     */
     fun reset(email: String) {
         viewModelScope.launch {
             datastate.postValue(DataState.loading(true))
@@ -54,7 +71,11 @@ class UserViewModel : ViewModel(), AnkoLogger {
         }
     }
 
-    fun getUser(id: String) {
+    /**
+     * Coroutine function to retrieve user details
+     * from firestore
+     */
+    private fun getUser(id: String) {
         viewModelScope.launch {
             try {
                 val result = store.document(id).get().await()

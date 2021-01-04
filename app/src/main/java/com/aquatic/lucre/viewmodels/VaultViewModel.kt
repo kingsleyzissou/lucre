@@ -28,12 +28,20 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
         }
     }
 
+    /**
+     * Save the vault to firebase using
+     * a coroutine
+     */
     fun saveVault(vault: Vault) {
         viewModelScope.launch {
             store.save(vault)
         }
     }
 
+    /**
+     * Soft delete the vault from firebase using
+     * a coroutine
+     */
     fun deleteVault(vault: Vault) {
         viewModelScope.launch {
             store.delete(vault)

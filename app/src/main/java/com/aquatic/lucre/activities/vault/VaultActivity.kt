@@ -17,16 +17,26 @@ import org.jetbrains.anko.AnkoLogger
 
 class VaultActivity : AppCompatActivity(), AnkoLogger {
 
+    /* Empty vault object */
     var vault = Vault()
+
+    /* Currency options for spinner */
     var options = mutableListOf<String>(
         "$", "£", "€", "AED", "R", "R$", "¥"
     )
 
+    /* Android application object */
     val model: VaultViewModel by viewModels()
 
+    /* Spinner for currency */
     lateinit var currency: SpinnerActivity<String>
+
+    /* Android application object */
     lateinit var app: App
 
+    /**
+     * Setup the activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vault)
@@ -41,6 +51,10 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         vaultDelete.setOnClickListener { openDeleteDialog() }
     }
 
+    /**
+     * If there is an intent, we need to handle this
+     * and set the associated data
+     */
     private fun handleIntent() {
         if (intent.hasExtra("vault_edit")) {
             vault = intent.extras?.getParcelable<Vault>("vault_edit")!!
@@ -52,11 +66,19 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Validate the EditText fields
+     * to make sure all inputs are
+     * valid
+     */
     private fun validate(): Boolean {
         val message = getResources().getString(R.string.required)
         return vaultName.validate(message) { it.isNotEmpty() }
     }
 
+    /**
+     * Submit the vault create/update request
+     */
     private fun submit() {
         if (this.validate()) {
             vault.name = vaultName.text.toString()
@@ -69,6 +91,10 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Programmatically open the delete category
+     * dialog
+     */
     private fun openDeleteDialog() {
         AlertDialog.Builder(this)
             .setTitle("Delete vault")
@@ -82,16 +108,21 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             .show()
     }
 
+    /**
+     * Add the cancel options menu for the activity
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_vault_add, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Return to previous activity if activity is
+     * cancelled
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.vault_cancel -> {
-                finish()
-            }
+            R.id.vault_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }

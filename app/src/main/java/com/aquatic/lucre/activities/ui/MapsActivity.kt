@@ -19,6 +19,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var map: GoogleMap
     var location = Location()
 
+    /**
+     * Create the view
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -28,6 +31,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
     }
 
+    /**
+     * When the map is ready and instantiated
+     * set the options
+     */
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         val loc = LatLng(location.lat, location.lng)
@@ -41,6 +48,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
     }
 
+    /**
+     * Go back to the entry activity
+     */
     override fun onBackPressed() {
         val resultIntent = Intent()
         resultIntent.putExtra("location", location)
@@ -49,10 +59,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         super.onBackPressed()
     }
 
+    /**
+     * Do nothing, required for GoogleMap.OnMarkerDragListener interface
+     */
     override fun onMarkerDragStart(marker: Marker?) {}
 
+    /**
+     * Do nothing, required for GoogleMap.OnMarkerDragListener interface
+     */
     override fun onMarkerDrag(marker: Marker?) {}
 
+    /**
+     * Update the location and set a new marker
+     * when the map is dragged
+     */
     override fun onMarkerDragEnd(marker: Marker?) {
         location.lat = marker!!.position.latitude
         location.lng = marker.position.longitude

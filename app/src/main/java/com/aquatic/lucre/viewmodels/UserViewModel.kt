@@ -39,6 +39,19 @@ class UserViewModel : ViewModel(), AnkoLogger {
     }
 
     /**
+     * Function to logout user with firebase authentication
+     */
+    fun logout() {
+        datastate.postValue(DataState.loading())
+        try {
+            auth.signOut()
+            datastate.postValue(DataState.data(User(), "Logged out successfully"))
+        } catch (e: Exception) {
+            datastate.postValue(DataState.error(e, e.message))
+        }
+    }
+
+    /**
      * Coroutine function to register user with firebase authentication
      * using email and password
      */

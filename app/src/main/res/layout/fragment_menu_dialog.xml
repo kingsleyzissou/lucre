@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingTop="@dimen/list_item_spacing_half"
+    android:paddingBottom="@dimen/list_item_spacing_half"
+    tools:context=".activities.MenuDialogFragment"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/addVault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/list_item_spacing"
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingRight="@dimen/list_item_spacing"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Add vault" />
+    <TextView
+        android:id="@+id/editVault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/list_item_spacing"
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingRight="@dimen/list_item_spacing"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Edit vault" />
+    <TextView
+        android:id="@+id/deleteVault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/list_item_spacing"
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingRight="@dimen/list_item_spacing"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Delete vault" />
+    <TextView
+        android:id="@+id/cancelAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/list_item_spacing"
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingRight="@dimen/list_item_spacing"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Cancel" />
+</LinearLayout>

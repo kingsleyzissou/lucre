@@ -14,7 +14,6 @@ import com.aquatic.lucre.viewmodels.EntryViewModel
 import kotlinx.android.synthetic.main.fragment_chart.*
 import org.eazegraph.lib.models.PieModel
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * A simple [Fragment] subclass.
@@ -61,7 +60,6 @@ class ChartFragment : Fragment(), AnkoLogger {
                     Observer { entries ->
                         val s = model.expenseCategories(entries, categories)
                         s.forEach { k, v ->
-                            info("${k.color}, $v")
                             val pieModel = PieModel(
                                 k.name,
                                 v,

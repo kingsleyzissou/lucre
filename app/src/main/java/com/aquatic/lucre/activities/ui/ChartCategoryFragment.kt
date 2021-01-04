@@ -16,7 +16,6 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_chart_category_list.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Category>, AnkoLogger {
 
@@ -52,7 +51,6 @@ class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Cate
         model.list.observe(
             viewLifecycleOwner,
             Observer {
-                info("We got here: $it")
                 adapter.list.clear()
                 adapter.list.addAll(it)
                 adapter.notifyDataSetChanged()

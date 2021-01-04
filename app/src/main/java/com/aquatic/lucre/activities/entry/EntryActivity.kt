@@ -27,7 +27,6 @@ import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {
@@ -162,7 +161,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
      * valid
      */
     private fun validate(): Boolean {
-        info("Validating")
         val message = getResources().getString(R.string.required)
         return entryAmount.validate(message) { it.isNotEmpty() } &&
             entryVendor.validate(message) { it.isNotEmpty() }

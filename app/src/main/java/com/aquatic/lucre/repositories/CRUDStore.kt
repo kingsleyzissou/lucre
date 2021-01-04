@@ -38,9 +38,10 @@ abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreI
     /**
      * Delete an item and save the
      */
-    override suspend fun delete(id: String) {
+    override suspend fun delete(value: T) {
         try {
-            store.document(id).delete().await()
+            value.deleted = true
+            store.document(value.id!!).set(value).await()
         } catch (e: Exception) {
             error("Unable to delete: ${e.message}")
         }

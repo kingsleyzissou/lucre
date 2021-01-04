@@ -78,8 +78,13 @@ class EntryViewModel : BaseViewModel<Entry>() {
 
     fun saveEntry(entry: Entry) {
         viewModelScope.launch {
-            info("Initialising save")
             store.save(entry)
+        }
+    }
+
+    fun deleteEntry(entry: Entry) {
+        viewModelScope.launch {
+            store.delete(entry)
         }
     }
 }

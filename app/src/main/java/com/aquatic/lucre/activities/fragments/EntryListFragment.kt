@@ -36,7 +36,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
         tx.replace(R.id.childFragmentContainer, child).commit()
         view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
         view.entryRecyclerView.adapter = adapter
-//        floatingActionButton.setOnClickListener { switchActivity() }
+        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 

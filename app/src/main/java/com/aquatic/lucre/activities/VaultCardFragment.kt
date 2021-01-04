@@ -15,7 +15,6 @@ import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 private const val ARG_DASHBOARD = "dashboard"
 
@@ -27,7 +26,8 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
     var vaults: MutableList<Vault> = ArrayList()
     var entries: MutableList<Entry> = ArrayList()
 
-    private lateinit var bottomSheet: VaultListDialogFragment
+    private lateinit var menuDialog: MenuDialogFragment
+    private lateinit var listDialog: VaultListDialogFragment
 
     private val vaultModel: VaultViewModel by activityViewModels()
     private val entryModel: EntryViewModel by activityViewModels()
@@ -37,7 +37,6 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         arguments?.let {
             dashboard = it.getBoolean(ARG_DASHBOARD)
         }
-        info("Create: $dashboard")
     }
 
     override fun onCreateView(
@@ -57,8 +56,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
             dashboardTransactions.visibility = if (dashboard!!) View.VISIBLE else View.GONE
         }
 
-        info("Dashboard: $dashboard")
-
+        menuButton.setOnClickListener { openDialog() }
         observeModels()
     }
 
@@ -87,15 +85,20 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         )
     }
 
+    private fun openDialog() {
+        menuDialog = MenuDialogFragment.create(vault)
+        menuDialog.show(childFragmentManager, "dialog")
+    }
+
     private fun showModal() {
-        bottomSheet = VaultListDialogFragment.create(vaults)
-        bottomSheet.listener = this
-        bottomSheet.show(childFragmentManager, "dialog")
+        listDialog = VaultListDialogFragment.create(vaults)
+        listDialog.listener = this
+        listDialog.show(childFragmentManager, "dialog")
     }
 
     override fun onItemClick(item: Vault) {
         updateVault(item)
-        bottomSheet.dismiss()
+        listDialog.dismiss()
     }
 
     private fun updateVault(vault: Vault) {

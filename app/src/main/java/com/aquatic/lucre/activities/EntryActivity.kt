@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -20,6 +21,7 @@ import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
+import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -61,6 +63,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         entryImageButton.setOnClickListener { selectImage() }
         entryLocation.setOnClickListener { setLocation() }
         entrySubmit.setOnClickListener { submit() }
+        entryDelete.setOnClickListener { openDeleteDialog() }
 
         handleIntent()
         getCategories()
@@ -128,6 +131,19 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entryVendor.validate(message) { it.isNotEmpty() }
     }
 
+    private fun openDeleteDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete entry")
+            .setMessage("Are you sure you want to delete this entry?")
+            .setCancelable(true)
+            .setNegativeButton(android.R.string.no, null)
+            .setPositiveButton(android.R.string.yes) { dlg, i ->
+                model.deleteEntry(entry)
+                finish()
+            }
+            .show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -142,6 +158,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
                     contentResolver.takePersistableUriPermission(data.getData()!!, takeFlags)
                     entry.image = data.getData().toString()
                     entryImage.setImageURI(data.getData())
+                    entryImage.visibility = View.VISIBLE
                 }
             }
             LOCATION_REQUEST -> {

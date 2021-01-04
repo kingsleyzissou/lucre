@@ -15,7 +15,8 @@ data class Vault(
     var description: String? = null,
     var currency: String? = null,
     override var id: String? = NanoIdUtils.randomNanoId(),
-    override var userId: String? = null
+    override var userId: String? = null,
+    override var deleted: Boolean? = false
 ) : Model, Parcelable {
 
     override fun toString(): String {

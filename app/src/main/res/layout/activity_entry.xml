@@ -141,6 +141,19 @@
                     android:textColor="@color/snow"
                     android:textSize="16sp" />
 
+                <Button
+                    android:id="@+id/entryDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="@color/red"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/item_delete"
+                    android:textColor="@color/snow"
+                    android:textSize="16sp" />
+
             </LinearLayout>
         </ScrollView>
 

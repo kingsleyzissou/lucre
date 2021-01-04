@@ -16,7 +16,8 @@ data class Category(
     var description: String? = null,
     var color: String? = null,
     override var id: String? = NanoIdUtils.randomNanoId(),
-    override var userId: String? = null
+    override var userId: String? = null,
+    override var deleted: Boolean? = false
 ) : Model, Parcelable {
 
     /**

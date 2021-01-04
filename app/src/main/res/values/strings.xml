@@ -5,6 +5,7 @@
     <string name="menu_cancelButton">Cancel</string>
     <string name="item_add">Create</string>
     <string name="item_edit">Update</string>
+    <string name="item_delete">Delete</string>
 
     <!--  Login  -->
     <string name="login_username">Username</string>

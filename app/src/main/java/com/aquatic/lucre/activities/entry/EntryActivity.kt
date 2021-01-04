@@ -27,7 +27,6 @@ import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {

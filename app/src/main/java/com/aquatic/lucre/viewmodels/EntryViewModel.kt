@@ -47,7 +47,7 @@ class EntryViewModel : BaseViewModel<Entry>() {
      * items
      */
     private fun bufferList(entries: List<Entry>) {
-        val l = entries.filter{ it.deleted == false }
+        val l = entries.filter { it.deleted == false }
         list.postValue(l)
         balance(l)
     }

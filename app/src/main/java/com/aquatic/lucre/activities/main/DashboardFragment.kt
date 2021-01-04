@@ -9,8 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.aquatic.lucre.R
 import com.aquatic.lucre.activities.vault.VaultCardFragment
-import com.aquatic.lucre.main.App
-import com.aquatic.lucre.models.User
 import com.aquatic.lucre.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.jetbrains.anko.AnkoLogger
@@ -44,9 +42,12 @@ class DashboardFragment : Fragment(), AnkoLogger {
     }
 
     private fun getUser() {
-        model.signedInUser.observe(viewLifecycleOwner, Observer {
-            info(it)
-            dashboardName.setText("${it?.username}!")
-        })
+        model.signedInUser.observe(
+            viewLifecycleOwner,
+            Observer {
+                info(it)
+                dashboardName.setText("${it?.username}!")
+            }
+        )
     }
 }

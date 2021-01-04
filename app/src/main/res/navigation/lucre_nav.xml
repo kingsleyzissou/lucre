@@ -18,6 +18,6 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.aquatic.lucre.activities.DashboardFragment"
-        android:label="fragment_dashboard"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

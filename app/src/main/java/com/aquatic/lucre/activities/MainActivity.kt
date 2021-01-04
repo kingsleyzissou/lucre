@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             controller,
             AppBarConfiguration(
                 setOf(
-                    R.id.vaultListFragment,
+                    R.id.dashboardFragment,
                     R.id.entryListFragment,
                     R.id.categoryListFragment
                 )

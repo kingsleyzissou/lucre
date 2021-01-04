@@ -7,7 +7,7 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Category
-import kotlinx.android.synthetic.main.card_category.view.*
+import kotlinx.android.synthetic.main.recycler_category_list_item.view.*
 
 class CategoryAdapter constructor(
     categories: MutableList<Category>,
@@ -17,7 +17,7 @@ class CategoryAdapter constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.MainHolder {
         return CategoryAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.card_category,
+                R.layout.recycler_category_list_item,
                 parent,
                 false
             )

@@ -7,7 +7,7 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Vault
-import kotlinx.android.synthetic.main.card_vault.view.*
+import kotlinx.android.synthetic.main.recycler_vault_list_item.view.*
 
 class VaultAdapter constructor(
     var vaults: MutableList<Vault>,
@@ -17,7 +17,7 @@ class VaultAdapter constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VaultAdapter.MainHolder {
         return MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.card_vault,
+                R.layout.recycler_vault_list_item,
                 parent,
                 false
             )

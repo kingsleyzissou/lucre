@@ -8,7 +8,7 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Category
-import kotlinx.android.synthetic.main.fragment_chart_category_item.view.*
+import kotlinx.android.synthetic.main.recycler_chart_category_item.view.*
 
 class ChartCategoryAdapter constructor(
     categories: MutableList<Category>,
@@ -18,7 +18,7 @@ class ChartCategoryAdapter constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartCategoryAdapter.MainHolder {
         return ChartCategoryAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.fragment_chart_category_item,
+                R.layout.recycler_chart_category_item,
                 parent,
                 false
             )

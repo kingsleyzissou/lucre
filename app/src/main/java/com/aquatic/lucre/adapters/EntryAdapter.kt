@@ -7,7 +7,7 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Entry
-import kotlinx.android.synthetic.main.card_entry.view.*
+import kotlinx.android.synthetic.main.recycler_entry_list_item.view.*
 
 class EntryAdapter constructor(
     entries: MutableList<Entry>,
@@ -17,7 +17,7 @@ class EntryAdapter constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryAdapter.MainHolder {
         return MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.card_entry,
+                R.layout.recycler_entry_list_item,
                 parent,
                 false
             )

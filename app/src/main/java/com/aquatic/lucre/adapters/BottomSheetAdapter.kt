@@ -17,7 +17,7 @@ class BottomSheetAdapter constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetAdapter.MainHolder {
         return BottomSheetAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.fragment_vault_list_dialog_list_dialog_item,
+                R.layout.recycler_vault_list_dialog_item,
                 parent,
                 false
             )

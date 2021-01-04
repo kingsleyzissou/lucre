@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
@@ -69,6 +70,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             val intColor = Color.parseColor(category.color)
             colorPickerView.setInitialColor(intColor)
             categorySubmit.setText(R.string.item_edit)
+            categoryDelete.visibility = View.VISIBLE
         }
     }
 

@@ -68,6 +68,7 @@ class CategoryViewModel : BaseViewModel<Category>() {
      */
     fun saveCategory(category: Category) {
         viewModelScope.launch {
+            category.userId = auth.currentUser?.uid
             store.save(category)
         }
     }

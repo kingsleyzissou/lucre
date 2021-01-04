@@ -34,6 +34,7 @@ class VaultViewModel : BaseViewModel<Vault>(), AnkoLogger {
      */
     fun saveVault(vault: Vault) {
         viewModelScope.launch {
+            vault.userId = auth.currentUser?.uid
             store.save(vault)
         }
     }

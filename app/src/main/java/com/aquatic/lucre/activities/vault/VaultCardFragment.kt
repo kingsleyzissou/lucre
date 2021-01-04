@@ -26,7 +26,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
     var dashboard: Boolean? = null
 
     /* Empty vault object */
-    var vault: Vault = Vault()
+    var vault: Vault? = null
 
     /* Default vault balance */
     var balance: Float = 0F
@@ -76,7 +76,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
         dashboardBalance.setOnClickListener { showModal() }
 
-        if (dashboard!!) {
+        if (dashboard!! && vaults.isNotEmpty()) {
             val chart = ChartFragment()
             val tx = childFragmentManager.beginTransaction()
             tx.replace(R.id.chartFragmentContainer, chart).commit()
@@ -95,24 +95,27 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
     private fun observeModels() {
         vaultModel.list.observe(
             viewLifecycleOwner,
-            Observer {
+            Observer { vaultList ->
                 vaults.clear()
-                vaults.addAll(it)
-                updateVault(it[0])
-            }
-        )
-        entryModel.list.observe(
-            viewLifecycleOwner,
-            Observer {
-                entries.clear()
-                entries.addAll(it)
-            }
-        )
-        entryModel.balance.observe(
-            viewLifecycleOwner,
-            Observer {
-                balance = it
-                dashboardBalance.setText("${vault.currency} $balance")
+                vaults.addAll(vaultList)
+                if (vaultList.isNotEmpty()) {
+                    val v = vaultList[0]
+                    updateVault(vaultList[0])
+                    entryModel.list.observe(
+                        viewLifecycleOwner,
+                        Observer {
+                            entries.clear()
+                            entries.addAll(it)
+                        }
+                    )
+                    entryModel.balance.observe(
+                        viewLifecycleOwner,
+                        Observer {
+                            balance = it
+                            dashboardBalance.setText("${vault?.currency} $balance")
+                        }
+                    )
+                }
             }
         )
     }
@@ -121,7 +124,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
      * Open the vault CRUD dialog
      */
     private fun openDialog() {
-        menuDialog = MenuDialogFragment.create(vault)
+        menuDialog = if (vault != null) MenuDialogFragment.create(vault!!) else MenuDialogFragment()
         menuDialog.show(childFragmentManager, "dialog")
     }
 

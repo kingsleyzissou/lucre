@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     /* Session user */
     var user: User? = User()
 
+    /* Inject User View Model */
     val model: UserViewModel by viewModels()
 
     /**

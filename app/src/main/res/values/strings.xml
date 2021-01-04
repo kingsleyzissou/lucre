@@ -8,7 +8,7 @@
     <string name="item_delete">Delete</string>
 
     <!--  Login  -->
-    <string name="login_username">Username</string>
+    <string name="login_username">Email</string>
     <string name="login_password">Password</string>
     <string name="login">Login</string>
     <string name="login_forgot">Forgot Password?</string>
@@ -65,5 +65,6 @@
     <string name="dashboard_hello">Hello,</string>
     <string name="dashboard_world" />
     <string name="dashboard_vault" />
+    <string name="show_transactions">Show Transactions</string>
 
 </resources>

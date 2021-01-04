@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
@@ -63,6 +64,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             val index = options.indexOf(vault.currency)
             vaultCurrency.setSelection(index)
             vaultSubmit.setText(R.string.item_edit)
+            vaultDelete.visibility = View.VISIBLE
         }
     }
 

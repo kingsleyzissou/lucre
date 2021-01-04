@@ -102,8 +102,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
     /**
      * If there is an intent, we need to handle this
      * and set the associated data
-     *
-     * TODO pass in vault id
      */
     private fun handleIntent() {
         if (intent.hasExtra("entry_edit")) {
@@ -119,6 +117,9 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
                 entryImage.visibility = View.VISIBLE
             }
             entrySubmit.setText(R.string.item_edit)
+        }
+        if (intent.hasExtra("vault")) {
+            vault = intent.extras?.getString("vault")
         }
     }
 

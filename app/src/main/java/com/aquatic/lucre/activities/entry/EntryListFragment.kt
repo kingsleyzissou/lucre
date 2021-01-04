@@ -12,7 +12,9 @@ import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.core.BaseListFragment
 import com.aquatic.lucre.models.Entry
+import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.EntryViewModel
+import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
 import org.jetbrains.anko.intentFor
@@ -22,7 +24,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
     override var list: MutableList<Entry> = ArrayList()
     override var adapter = EntryAdapter(list, this) as BaseAdapter<Entry>
     override val model: EntryViewModel by activityViewModels()
-
+    lateinit var child: VaultCardFragment
     /**
      * Inflate the view
      */
@@ -37,7 +39,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val child = VaultCardFragment.create(false)
+        child = VaultCardFragment.create(false)
         val tx = childFragmentManager.beginTransaction()
         tx.replace(R.id.childFragmentContainer, child).commit()
         view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -67,7 +69,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
      */
     private fun switchActivity() {
         startActivityForResult(
-            context?.intentFor<EntryActivity>(),
+            context?.intentFor<EntryActivity>()?.putExtra("vault", child.vault.id),
             0
         )
     }

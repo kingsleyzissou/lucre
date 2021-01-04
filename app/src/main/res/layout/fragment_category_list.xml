@@ -26,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:backgroundTint="@color/aqua"
+        android:tint="@color/snow"
         app:srcCompat="@drawable/ic_baseline_add_24"
         tools:layout_editor_absoluteX="335dp"
         tools:layout_editor_absoluteY="592dp"

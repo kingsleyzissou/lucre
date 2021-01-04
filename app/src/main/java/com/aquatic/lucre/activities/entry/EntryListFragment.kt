@@ -12,9 +12,7 @@ import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.core.BaseListFragment
 import com.aquatic.lucre.models.Entry
-import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.EntryViewModel
-import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
 import org.jetbrains.anko.intentFor

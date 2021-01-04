@@ -25,8 +25,8 @@ class CategoryAdapter constructor(
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Category>(itemView) {
         override fun bind(value: Category, listener: AdapterListener<Category>) {
             itemView.categoryTitle.text = value.name
-            itemView.categoryTitle.text = value.name
-            itemView.categoryTitle.text = value.name
+            itemView.categoryDescription.text = value.description
+            itemView.setOnClickListener { listener.onItemClick(value) }
         }
     }
 }

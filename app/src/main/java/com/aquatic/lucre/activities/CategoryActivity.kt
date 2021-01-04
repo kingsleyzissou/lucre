@@ -30,7 +30,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
         app = application as App
 
         colorPickerView.setColorListener(
-            ColorListener() { i: Int, b: Boolean ->
+            ColorListener() { i: Int, _ ->
                 // https://stackoverflow.com/a/6540378
                 color = String.format("#%06X", 0xFFFFFF and i)
                 categoryColor.text = color
@@ -48,7 +48,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
             categoryName.setText(category.name)
             categoryDescription.setText(category.description)
             color = category.color
-            var intColor = Color.parseColor(category.color)
+            val intColor = Color.parseColor(category.color)
             colorPickerView.setInitialColor(intColor)
             categorySubmit.setText(R.string.item_edit)
         }

@@ -19,7 +19,7 @@ class CategoryViewModel : BaseViewModel<Category>() {
     val uncategorised = Category(
         "Uncategorised",
         "None",
-        "#FFFFFF",
+        "#BF616A",
         deleted = false
     )
 

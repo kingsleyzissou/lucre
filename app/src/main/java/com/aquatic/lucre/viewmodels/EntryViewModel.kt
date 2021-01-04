@@ -23,7 +23,7 @@ class EntryViewModel : BaseViewModel<Entry>() {
     val uncategorised = Category(
         "Uncategorised",
         "None",
-        "#FF0000"
+        "#BF616A"
     )
 
     /**

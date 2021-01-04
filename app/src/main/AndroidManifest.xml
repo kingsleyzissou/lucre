@@ -15,13 +15,13 @@
         <activity android:name=".activities.auth.ResetActivity" />
         <activity android:name=".activities.auth.RegisterActivity" />
         <activity android:name=".activities.auth.LoginActivity">
-
-        </activity>
-        <activity android:name=".activities.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.main.MainActivity">
+
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -17,6 +17,7 @@ import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.utilities.ARG_DASHBOARD
 import com.aquatic.lucre.viewmodels.EntryViewModel
 import com.aquatic.lucre.viewmodels.VaultViewModel
+import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.android.synthetic.main.fragment_vault_card.*
 import org.jetbrains.anko.AnkoLogger
 
@@ -76,7 +77,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
         dashboardBalance.setOnClickListener { showModal() }
 
-        if (dashboard!! && vaults.isNotEmpty()) {
+        if (dashboard!!) {
             val chart = ChartFragment()
             val tx = childFragmentManager.beginTransaction()
             tx.replace(R.id.chartFragmentContainer, chart).commit()
@@ -98,6 +99,7 @@ class VaultCardFragment : Fragment(), AdapterListener<Vault>, AnkoLogger {
             Observer { vaultList ->
                 vaults.clear()
                 vaults.addAll(vaultList)
+
                 if (vaultList.isNotEmpty()) {
                     val v = vaultList[0]
                     updateVault(vaultList[0])

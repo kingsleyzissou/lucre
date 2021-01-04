@@ -1,13 +1,9 @@
-package com.aquatic.lucre.activities.fragments
+package com.aquatic.lucre.core
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.aquatic.lucre.adapters.BaseAdapter
-import com.aquatic.lucre.models.Model
-import com.aquatic.lucre.viewmodels.BaseViewModel
-import kotlinx.android.synthetic.main.fragment_vault_list.view.*
 
-abstract class BaseListFragment<T : Model> : Fragment() {
+abstract class BaseListFragment<T : BaseModel> : Fragment() {
     abstract var list: MutableList<T>
     abstract var adapter: BaseAdapter<T>
     abstract val model: BaseViewModel<T>

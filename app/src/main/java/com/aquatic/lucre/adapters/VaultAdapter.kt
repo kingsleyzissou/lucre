@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aquatic.lucre.R
+import com.aquatic.lucre.core.AdapterListener
+import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Vault
 import kotlinx.android.synthetic.main.card_vault.view.*
 

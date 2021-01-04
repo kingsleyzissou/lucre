@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.vault
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.ui.SpinnerActivity
 import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.VaultViewModel
-import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
 

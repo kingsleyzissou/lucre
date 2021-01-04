@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.aquatic.lucre.R
+import com.aquatic.lucre.activities.vault.VaultCardFragment
 import com.aquatic.lucre.models.User
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 

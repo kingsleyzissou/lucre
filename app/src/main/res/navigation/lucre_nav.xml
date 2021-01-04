@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="com.aquatic.lucre.activities.fragments.CategoryListFragment"
+        android:name="com.aquatic.lucre.activities.category.CategoryListFragment"
         android:label="Category List"
         tools:layout="@layout/fragment_category_list" />
     <fragment
         android:id="@+id/entryListFragment"
-        android:name="com.aquatic.lucre.activities.fragments.EntryListFragment"
+        android:name="com.aquatic.lucre.activities.entry.EntryListFragment"
         android:label="Entry List"
         tools:layout="@layout/fragment_entry_list" />
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.aquatic.lucre.activities.DashboardFragment"
+        android:name="com.aquatic.lucre.activities.main.DashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

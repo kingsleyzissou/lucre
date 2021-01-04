@@ -5,7 +5,7 @@ import org.junit.Assert.* // ktlint-disable no-wildcard-imports
 import org.junit.Before
 import org.junit.Test
 
-internal class VaultModelTest {
+internal class VaultBaseModelTest {
 
     private val id: String = NanoIdUtils.randomNanoId()
 

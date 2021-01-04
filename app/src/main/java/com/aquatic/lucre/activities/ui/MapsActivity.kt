@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.ui
 
 import android.app.Activity
 import android.content.Intent

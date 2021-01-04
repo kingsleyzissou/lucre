@@ -4,7 +4,7 @@ import org.junit.Assert.* // ktlint-disable no-wildcard-imports
 import org.junit.Before
 import org.junit.Test
 
-internal class CategoryModelTest {
+internal class CategoryBaseModelTest {
 
     lateinit var category: Category
 

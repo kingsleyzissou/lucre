@@ -2,6 +2,7 @@ package com.aquatic.lucre.viewmodels
 
 import androidx.core.util.Predicate
 import androidx.lifecycle.viewModelScope
+import com.aquatic.lucre.core.BaseViewModel
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.repositories.VaultStore
 import kotlinx.coroutines.launch

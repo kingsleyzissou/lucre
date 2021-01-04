@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.aquatic.lucre.R
+import com.aquatic.lucre.core.AdapterListener
+import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Vault
 
 class BottomSheetAdapter constructor(

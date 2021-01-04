@@ -1,6 +1,7 @@
 package com.aquatic.lucre.models
 
 import android.os.Parcelable
+import com.aquatic.lucre.core.BaseModel
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 import org.jetbrains.anko.AnkoLogger
@@ -26,7 +27,7 @@ data class Entry(
     var image: String = "",
     var location: Location = Location(),
     override var deleted: Boolean? = false
-) : Model, Parcelable, AnkoLogger {
+) : BaseModel, Parcelable, AnkoLogger {
 
     /**
      * Computed method to get the amount with

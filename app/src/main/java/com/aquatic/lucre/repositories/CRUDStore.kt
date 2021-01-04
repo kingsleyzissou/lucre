@@ -1,7 +1,7 @@
 package com.aquatic.lucre.repositories
 
 import androidx.core.util.Predicate
-import com.aquatic.lucre.models.Model
+import com.aquatic.lucre.core.BaseModel
 import com.google.firebase.firestore.CollectionReference
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.tasks.await
@@ -12,7 +12,7 @@ import org.jetbrains.anko.AnkoLogger
  * contains all the shared methods of the
  * various CRUDStores to avoid code duplication
  */
-abstract class CRUDStore<T : Model>(var store: CollectionReference) : CRUDStoreInterface<T>, AnkoLogger {
+abstract class CRUDStore<T : BaseModel>(var store: CollectionReference) : CRUDStoreInterface<T>, AnkoLogger {
 
     /**
      * List all the items for a given model

@@ -1,4 +1,4 @@
-package com.aquatic.lucre.models
+package com.aquatic.lucre.core
 
 /**
  * Abstract class that is used
@@ -7,7 +7,7 @@ package com.aquatic.lucre.models
  * This is to facilitate a more generic CRUDStore,
  * by ensuring that each store has an id element.
  */
-interface Model {
+interface BaseModel {
     var id: String?
     var userId: String?
     var deleted: Boolean?

@@ -1,4 +1,4 @@
-package com.aquatic.lucre.activities
+package com.aquatic.lucre.activities.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aquatic.lucre.R
-import com.aquatic.lucre.activities.fragments.BaseListFragment
-import com.aquatic.lucre.adapters.AdapterListener
-import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.ChartCategoryAdapter
+import com.aquatic.lucre.core.AdapterListener
+import com.aquatic.lucre.core.BaseAdapter
+import com.aquatic.lucre.core.BaseListFragment
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_chart_category_list.view.*

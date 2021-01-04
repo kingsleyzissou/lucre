@@ -3,6 +3,7 @@ package com.aquatic.lucre.viewmodels
 import androidx.core.util.Predicate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.aquatic.lucre.core.BaseViewModel
 import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.repositories.EntryStore

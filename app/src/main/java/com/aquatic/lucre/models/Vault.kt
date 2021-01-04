@@ -1,6 +1,7 @@
 package com.aquatic.lucre.models
 
 import android.os.Parcelable
+import com.aquatic.lucre.core.BaseModel
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import kotlinx.android.parcel.Parcelize
 
@@ -17,7 +18,7 @@ data class Vault(
     override var id: String? = NanoIdUtils.randomNanoId(),
     override var userId: String? = null,
     override var deleted: Boolean? = false
-) : Model, Parcelable {
+) : BaseModel, Parcelable {
 
     override fun toString(): String {
         return "$name ($currency)"

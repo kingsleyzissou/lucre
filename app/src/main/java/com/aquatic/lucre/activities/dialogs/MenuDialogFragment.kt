@@ -10,13 +10,11 @@ import androidx.fragment.app.activityViewModels
 import com.aquatic.lucre.R
 import com.aquatic.lucre.activities.vault.VaultActivity
 import com.aquatic.lucre.models.Vault
+import com.aquatic.lucre.utilities.ARG_VAULT
 import com.aquatic.lucre.viewmodels.VaultViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_menu_dialog.*
 import org.jetbrains.anko.AnkoLogger
-
-// TODO: Create constants resource
-const val ARG_VAULT = "vault"
 
 /**
  *
@@ -68,8 +66,8 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
             .setTitle("Delete vault")
             .setMessage("Are you sure you want to delete this vault?")
             .setCancelable(true)
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes) { dlg, i ->
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 model.deleteVault(vault)
                 dismiss()
             }

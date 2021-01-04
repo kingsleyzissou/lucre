@@ -9,6 +9,9 @@ import android.net.Uri
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.aquatic.lucre.R
 
+/**
+ * Helper function for showing the Android image picker
+ */
 fun showImagePicker(parent: Activity, id: Int) {
     val intent = Intent()
     intent.type = "image/*"
@@ -18,6 +21,10 @@ fun showImagePicker(parent: Activity, id: Int) {
     parent.startActivityForResult(chooser, id)
 }
 
+/**
+ * Helper function for converting a filepath to a Bitmap
+ * so the image can be displayed in an image view
+ */
 fun readImage(context: Context, path: String?): Bitmap? {
     var bitmap: Bitmap? = null
     val uri = Uri.parse(path)

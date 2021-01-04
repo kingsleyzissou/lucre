@@ -37,6 +37,9 @@ class CategoryStore(store: CollectionReference) : CRUDStore<Category>(store) {
             )
     }
 
+    /**
+     * Subscribe to live updates from the category store
+     */
     override fun subscribe(predicate: Predicate<Category>?): Observable<List<Category>> {
         return Observable.create {
             store.addSnapshotListener { snapshot, _ ->

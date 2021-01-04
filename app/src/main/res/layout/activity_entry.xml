@@ -101,7 +101,8 @@
                     android:id="@+id/entryImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:contentDescription="@string/entry_receipt" />
 
                 <Button
                     android:id="@+id/entryImageButton"

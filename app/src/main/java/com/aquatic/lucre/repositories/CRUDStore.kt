@@ -54,5 +54,8 @@ abstract class CRUDStore<T : BaseModel>(var store: CollectionReference) : CRUDSt
         values.forEach { v -> this.save(v) }
     }
 
+    /**
+     * Subscribe to live updates from the store
+     */
     abstract override fun subscribe(predicate: Predicate<T>?): Observable<List<T>>
 }

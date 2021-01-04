@@ -16,7 +16,6 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_chart_category_list.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Category>, AnkoLogger {
 
@@ -24,12 +23,18 @@ class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Cate
     override var adapter = ChartCategoryAdapter(list, this) as BaseAdapter<Category>
     override val model: CategoryViewModel by activityViewModels()
 
+    /**
+     * Inflate the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_chart_category_list, container, false)
 
+    /**
+     * Setup the fragment
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.chartCategoriees.layoutManager = LinearLayoutManager(context)
@@ -37,11 +42,15 @@ class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Cate
         observeStore()
     }
 
+    /**
+     * Observe the category list live data
+     * and update the recycler view if there
+     * are any changes
+     */
     override fun observeStore() {
         model.list.observe(
             viewLifecycleOwner,
             Observer {
-                info("We got here: $it")
                 adapter.list.clear()
                 adapter.list.addAll(it)
                 adapter.notifyDataSetChanged()
@@ -49,5 +58,9 @@ class ChartCategoryFragment : BaseListFragment<Category>(), AdapterListener<Cate
         )
     }
 
+    /**
+     * Do nothing, this method is still required
+     * because it is requred for the BaseAdapter Class
+     */
     override fun onItemClick(item: Category) {}
 }

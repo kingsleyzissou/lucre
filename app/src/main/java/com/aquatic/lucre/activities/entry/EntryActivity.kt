@@ -19,47 +19,56 @@ import com.aquatic.lucre.models.Category
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.models.EntryType
 import com.aquatic.lucre.models.Location
+import com.aquatic.lucre.utilities.IMAGE_REQUEST
+import com.aquatic.lucre.utilities.LOCATION_REQUEST
 import com.aquatic.lucre.utilities.readImage
 import com.aquatic.lucre.utilities.showImagePicker
 import com.aquatic.lucre.viewmodels.CategoryViewModel
 import com.aquatic.lucre.viewmodels.EntryViewModel
-import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_entry.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
-
-val IMAGE_REQUEST = 1
-val LOCATION_REQUEST = 2
-var location = Location(52.245696, -7.139102, 15f)
 
 class EntryActivity : AppCompatActivity(), AnkoLogger {
 
+    /* Empty entry object */
     var entry = Entry()
+
+    /* Vault id */
     var vault: String? = null
 
-    var noneCategory = Category(
-        "Uncategorised",
-        "None",
-        "#fff"
-    )
+    /* Default location */
+    var location = Location(52.245696, -7.139102, 15f)
 
-    // spinners
+    /* Entry expenses in list format */
     var types = mutableListOf("Income", "Expense")
+
+    /* Spinner for category type */
     lateinit var category: SpinnerActivity<Category>
+
+    /* Spinner for entry type */
     lateinit var type: SpinnerActivity<String>
 
+    /* Android application object */
     lateinit var app: App
 
+    /* Category ViewModel by injection */
     val categoryModel: CategoryViewModel by viewModels()
+
+    /* Entry ViewModel by injection */
     val model: EntryViewModel by viewModels()
 
+    /**
+     * Setup the activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry)
 
+        // instantiate application object
         app = application as App
 
+        // set the options for the type spinner
         type = SpinnerActivity(this, entryType, types)
 
         entryImageButton.setOnClickListener { selectImage() }
@@ -71,11 +80,17 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         getCategories()
     }
 
+    /**
+     * Get a list of categories for the categories
+     * dropdown spinner
+     */
     private fun getCategories() {
         categoryModel.list.observe(
             this,
             Observer { categories ->
+                // once we have the categories, we can populate the spinner
                 category = SpinnerActivity(this, entryCategory, categories)
+                // if there is an intent, we need to set the category
                 if (intent.hasExtra("entry_edit")) {
                     var predicate = Predicate<Category> { it.id === entry.category }
                     val needle = categoryModel.find(predicate, categories)
@@ -84,7 +99,10 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             }
         )
     }
-
+    /**
+     * If there is an intent, we need to handle this
+     * and set the associated data
+     */
     private fun handleIntent() {
         if (intent.hasExtra("entry_edit")) {
             entry = intent.extras?.getParcelable<Entry>("entry_edit")!!
@@ -100,17 +118,29 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             }
             entrySubmit.setText(R.string.item_edit)
         }
+        if (intent.hasExtra("vault")) {
+            vault = intent.extras?.getString("vault")
+        }
     }
 
+    /**
+     * Update the entry location
+     */
     private fun setLocation() {
-        val location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
+        location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
         startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
 
+    /**
+     * Launch the image picker
+     */
     private fun selectImage() {
         showImagePicker(this, IMAGE_REQUEST)
     }
 
+    /**
+     * Submit the entry create/update request
+     */
     private fun submit() {
         if (validate()) {
             entry.amount = entryAmount.text.toString().toFloat()
@@ -126,26 +156,38 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Validate the EditText fields
+     * to make sure all inputs are
+     * valid
+     */
     private fun validate(): Boolean {
-        info("Validating")
         val message = getResources().getString(R.string.required)
         return entryAmount.validate(message) { it.isNotEmpty() } &&
             entryVendor.validate(message) { it.isNotEmpty() }
     }
 
+    /**
+     * Programmatically open the delete category
+     * dialog
+     */
     private fun openDeleteDialog() {
         AlertDialog.Builder(this)
             .setTitle("Delete entry")
             .setMessage("Are you sure you want to delete this entry?")
             .setCancelable(true)
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes) { dlg, i ->
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 model.deleteEntry(entry)
                 finish()
             }
             .show()
     }
 
+    /**
+     * Check if there have been any changes for image or location requests
+     * and, if so, update the entry accordingly
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -171,16 +213,21 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    /**
+     * Add the cancel options menu for the activity
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_entry_add, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Return to previous activity if activity is
+     * cancelled
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.entry_cancel -> {
-                finish()
-            }
+            R.id.entry_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }

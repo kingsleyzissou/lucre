@@ -8,23 +8,31 @@ import com.aquatic.lucre.R
 import com.aquatic.lucre.core.AdapterListener
 import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.models.Category
-import kotlinx.android.synthetic.main.fragment_chart_category_item.view.*
+import kotlinx.android.synthetic.main.recycler_chart_category_item.view.*
 
 class ChartCategoryAdapter constructor(
     categories: MutableList<Category>,
     listener: AdapterListener<Category>
 ) : BaseAdapter<Category>(categories, listener) {
 
+    /**
+     * The implementation for each adapter is
+     * slightly different and this is left to
+     * the concrete classes
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartCategoryAdapter.MainHolder {
         return ChartCategoryAdapter.MainHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.fragment_chart_category_item,
+                R.layout.recycler_chart_category_item,
                 parent,
                 false
             )
         )
     }
 
+    /**
+     * View holder for the bottom sheet recycler view
+     */
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Category>(itemView) {
         override fun bind(value: Category, listener: AdapterListener<Category>) {
             itemView.chartLabel.text = value.name

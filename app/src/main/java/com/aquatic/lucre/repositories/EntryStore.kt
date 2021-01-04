@@ -30,10 +30,16 @@ class EntryStore(store: CollectionReference) : CRUDStore<Entry>(store), AnkoLogg
         return store.whereEqualTo(key, value).get().await().map { it.toObject(Entry::class.java) }
     }
 
+    /**
+     * Find a specific entry by the entry id
+     */
     override suspend fun find(id: String): Entry? {
         return store.document(id).get().await().toObject(Entry::class.java)
     }
 
+    /**
+     * Subscribe to live updates from the entry store
+     */
     override fun subscribe(predicate: Predicate<Entry>?): Observable<List<Entry>> {
         return Observable.create {
             store.addSnapshotListener { snapshot, _ ->

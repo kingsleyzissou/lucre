@@ -4,6 +4,10 @@ import android.os.Parcelable
 import com.aquatic.lucre.core.BaseModel
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Location model class for use with the
+ * Google Maps activity
+ */
 @Parcelize
 data class Location(
     var lat: Double = 0.0,

@@ -22,16 +22,22 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
     override var list: MutableList<Entry> = ArrayList()
     override var adapter = EntryAdapter(list, this) as BaseAdapter<Entry>
     override val model: EntryViewModel by activityViewModels()
-
+    lateinit var child: VaultCardFragment
+    /**
+     * Inflate the view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_entry_list, container, false)
 
+    /**
+     * Setup the view
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val child = VaultCardFragment.create(false)
+        child = VaultCardFragment.create(false)
         val tx = childFragmentManager.beginTransaction()
         tx.replace(R.id.childFragmentContainer, child).commit()
         view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -40,6 +46,11 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
         observeStore()
     }
 
+    /**
+     * Observe the category list live data
+     * and update the recycler view if there
+     * are any changes
+     */
     override fun observeStore() {
         model.list.observe(
             viewLifecycleOwner,
@@ -51,13 +62,21 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
         )
     }
 
-    fun switchActivity() {
+    /**
+     * Go to the create category activity
+     */
+    private fun switchActivity() {
         startActivityForResult(
-            context?.intentFor<EntryActivity>(),
+            context?.intentFor<EntryActivity>()?.putExtra("vault", child.vault.id),
             0
         )
     }
 
+    /**
+     * Event listener for when a enty item is pressed.
+     * This click event takes the user to the entry
+     * edit activity
+     */
     override fun onItemClick(item: Entry) {
         startActivityForResult(
             context?.intentFor<EntryActivity>()?.putExtra("entry_edit", item),

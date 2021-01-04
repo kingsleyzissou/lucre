@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aquatic.lucre.R
 import com.aquatic.lucre.activities.EntryActivity
+import com.aquatic.lucre.activities.VaultCardFragment
 import com.aquatic.lucre.adapters.AdapterListener
 import com.aquatic.lucre.adapters.BaseAdapter
 import com.aquatic.lucre.adapters.EntryAdapter
@@ -30,9 +31,12 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val child = VaultCardFragment.create(false)
+        val tx = childFragmentManager.beginTransaction()
+        tx.replace(R.id.childFragmentContainer, child).commit()
         view.entryRecyclerView.layoutManager = LinearLayoutManager(context)
         view.entryRecyclerView.adapter = adapter
-        floatingActionButton.setOnClickListener { switchActivity() }
+//        floatingActionButton.setOnClickListener { switchActivity() }
         observeStore()
     }
 

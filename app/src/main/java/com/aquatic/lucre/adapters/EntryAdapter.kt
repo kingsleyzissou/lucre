@@ -25,8 +25,9 @@ class EntryAdapter constructor(
     class MainHolder constructor(itemView: View) : BaseAdapter.MainHolder<Entry>(itemView) {
         override fun bind(value: Entry, listener: AdapterListener<Entry>) {
             itemView.entryTitle.text = value.vendor
+            itemView.entryAmount.text = "${value.signedAmount}  "
             itemView.entryDescription.text = value.description
-            itemView.entryAmount.text = value.amount.toString()
+            itemView.entryDate.text = value.date
             itemView.setOnClickListener { listener.onItemClick(value) }
         }
     }

@@ -97,6 +97,7 @@
                     app:layout_constraintVertical_bias="0.498" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/entryImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

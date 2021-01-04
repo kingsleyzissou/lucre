@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import com.aquatic.lucre.extensions.validate
 import com.aquatic.lucre.main.App
 import com.aquatic.lucre.models.Vault
 import com.aquatic.lucre.viewmodels.VaultViewModel
+import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_vault.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.AnkoLogger
 
@@ -36,6 +38,7 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
         currency = SpinnerActivity(this, vaultCurrency, options)
 
         vaultSubmit.setOnClickListener { submit() }
+        vaultDelete.setOnClickListener { openDeleteDialog() }
     }
 
     private fun handleIntent() {
@@ -64,6 +67,20 @@ class VaultActivity : AppCompatActivity(), AnkoLogger {
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
+    }
+
+
+    private fun openDeleteDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete vault")
+            .setMessage("Are you sure you want to delete this vault?")
+            .setCancelable(true)
+            .setNegativeButton(android.R.string.no, null)
+            .setPositiveButton(android.R.string.yes) { dlg, i ->
+                model.deleteVault(vault)
+                finish()
+            }
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

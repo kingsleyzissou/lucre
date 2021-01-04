@@ -1,5 +1,6 @@
 package com.aquatic.lucre.activities
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -40,6 +41,7 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
         handleIntent()
 
         categorySubmit.setOnClickListener { submit() }
+        categoryDelete.setOnClickListener { openDeleteDialog() }
     }
 
     private fun handleIntent() {
@@ -69,6 +71,19 @@ class CategoryActivity : AppCompatActivity(), AnkoLogger {
     private fun validate(): Boolean {
         val message = getResources().getString(R.string.required)
         return categoryName.validate(message) { it.isNotEmpty() }
+    }
+
+    private fun openDeleteDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete category")
+            .setMessage("Are you sure you want to delete this category?")
+            .setCancelable(true)
+            .setNegativeButton(android.R.string.no, null)
+            .setPositiveButton(android.R.string.yes) { dlg, i ->
+                model.deleteCategory(category)
+                finish()
+            }
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

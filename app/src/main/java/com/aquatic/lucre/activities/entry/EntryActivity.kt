@@ -116,6 +116,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
                 entryImageButton.setText(R.string.entry_edit_image)
                 entryImage.visibility = View.VISIBLE
             }
+            entryDelete.visibility = View.VISIBLE
             entrySubmit.setText(R.string.item_edit)
         }
         if (intent.hasExtra("vault")) {
@@ -127,7 +128,7 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
      * Update the entry location
      */
     private fun setLocation() {
-        location = Location(52.245696, -7.139102, 15f, entry.vendor!!)
+        location = Location(52.245696, -7.139102, 15f, entry.vendor ?: entryVendor.text.toString())
         startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
 
@@ -149,7 +150,6 @@ class EntryActivity : AppCompatActivity(), AnkoLogger {
             entry.description = entryDescription.text.toString()
             entry.category = category.selection?.id!!
             entry.location = location
-            entry.userId = app.user?.id
             model.saveEntry(entry.copy())
             setResult(AppCompatActivity.RESULT_OK)
             finish()

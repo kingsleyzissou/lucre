@@ -96,6 +96,7 @@ class EntryViewModel : BaseViewModel<Entry>() {
      */
     fun saveEntry(entry: Entry) {
         viewModelScope.launch {
+            entry.userId = auth.currentUser?.uid
             store.save(entry)
         }
     }

@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:layout_below="@+id/chartFragmentContainer"
-                    android:text="@string/dashboard_hello"
+                    android:text="@string/add_vault"
                     app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24" />
 
                 <TextView
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
-                    android:text="Show Transactions"
+                    android:text="@string/show_transactions"
                     android:visibility="gone"
                     android:layout_below="@+id/dashboardVault"/>
             </RelativeLayout>

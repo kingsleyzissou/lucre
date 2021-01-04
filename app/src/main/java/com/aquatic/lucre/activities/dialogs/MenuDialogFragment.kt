@@ -27,7 +27,7 @@ import org.jetbrains.anko.AnkoLogger
  */
 class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
 
-    var vault: Vault = Vault()
+    var vault: Vault? = null
 
     val model: VaultViewModel by activityViewModels()
 
@@ -47,8 +47,13 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addVault.setOnClickListener { switchActivity("add") }
-        editVault.setOnClickListener { switchActivity("edit") }
-        deleteVault.setOnClickListener { switchActivity("delete") }
+        if (vault != null) {
+            editVault.visibility = View.VISIBLE
+            editVault.setOnClickListener { switchActivity("edit") }
+            deleteVault.visibility = View.VISIBLE
+            deleteVault.setOnClickListener { switchActivity("delete") }
+        }
+
         cancelAction.setOnClickListener { switchActivity("cancel") }
     }
 
@@ -68,7 +73,7 @@ class MenuDialogFragment : BottomSheetDialogFragment(), AnkoLogger {
             .setCancelable(true)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                model.deleteVault(vault)
+                model.deleteVault(vault!!)
                 dismiss()
             }
             .show()

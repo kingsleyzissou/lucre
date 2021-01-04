@@ -60,6 +60,7 @@ class UserViewModel : ViewModel(), AnkoLogger {
             datastate.postValue(DataState.loading(true))
             try {
                 auth.createUserWithEmailAndPassword(user.email!!, password).await()
+                user.id = auth.currentUser?.uid
                 store.document(user.id!!).set(user).await()
                 datastate.postValue(DataState.data(user, "Registration complete"))
             } catch (e: Exception) {

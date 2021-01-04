@@ -13,6 +13,7 @@ import com.aquatic.lucre.core.BaseAdapter
 import com.aquatic.lucre.core.BaseListFragment
 import com.aquatic.lucre.models.Entry
 import com.aquatic.lucre.viewmodels.EntryViewModel
+import com.aquatic.lucre.viewmodels.VaultViewModel
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
 import org.jetbrains.anko.intentFor
@@ -22,6 +23,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
     override var list: MutableList<Entry> = ArrayList()
     override var adapter = EntryAdapter(list, this) as BaseAdapter<Entry>
     override val model: EntryViewModel by activityViewModels()
+    val vaultModel: VaultViewModel by activityViewModels()
     lateinit var child: VaultCardFragment
     /**
      * Inflate the view
@@ -60,6 +62,12 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
                 adapter.notifyDataSetChanged()
             }
         )
+        vaultModel.list.observe(
+            viewLifecycleOwner,
+            Observer {
+                floatingActionButton.visibility = if (it.isEmpty()) View.GONE else View.VISIBLE
+            }
+        )
     }
 
     /**
@@ -67,7 +75,7 @@ class EntryListFragment : BaseListFragment<Entry>(), AdapterListener<Entry> {
      */
     private fun switchActivity() {
         startActivityForResult(
-            context?.intentFor<EntryActivity>()?.putExtra("vault", child.vault.id),
+            context?.intentFor<EntryActivity>()?.putExtra("vault", child.vault?.id),
             0
         )
     }
